@@ -1,5 +1,5 @@
 
-public class Aficionado {
+public class Aficionado implements Menu {
 	// Create aficionado
 	  	private String nombre;
 	    private String correo;
@@ -37,6 +37,44 @@ public class Aficionado {
 	    public void setContrasena(String contrasena) {
 	        this.contrasena = contrasena;
 	    }
+	    
+	    public void mostrarMenu() {
+	        System.out.println("1. Realizar actividad");
+	        System.out.println("2. Salir");
+	    }
+	    
+	    public void subirReceta() {
+	    	return;
+	    }
+	    
+	    public void verReceta() {
+	    	return;
+	    }
+	    
+	    public void eliminarReceta() {
+	    	return;
+	    }
+
+	    @Override
+	    public void seleccionarOpcion(int opcion) {
+	        switch (opcion) {
+	            case 1:
+	                realizarActividad();
+	                break;
+	            case 2:
+	                System.out.println("Saliendo...");
+	                System.exit(0);
+	                break;
+	            default:
+	                System.out.println("Opción no válida");
+	                mostrarMenu();
+	        }
+	    }
+
+	    public void realizarActividad() {
+	        System.out.println(this.nombre + " está realizando una actividad.");
+	    }
+	
 
 	  
 	}

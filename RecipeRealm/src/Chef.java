@@ -18,5 +18,16 @@ public class Chef extends Aficionado {
 	        this.esVerificado = esVerificado;
 	    }
 
-	   
+	    public void subirRecetaVerificada() {
+	    	return;
+	    }
+	    
+	    public void verReceta() {
+	    	return;
+	    }
+	    
+	    public void eliminarReceta() {
+	    	return;
+	    }
+
 }
