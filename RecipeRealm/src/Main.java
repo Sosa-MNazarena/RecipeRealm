@@ -71,6 +71,8 @@ public class Main {
                                 chef.menuFavoritos();
                                 break;
                             case 2:
+                            	ImageIcon iconBusqueda = new ImageIcon(Main.class.getResource("/imagenes/Busqueda.png"));
+                            	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconBusqueda);
                                 chef.menuBusqueda();
                                 break;
                             case 3:

@@ -87,12 +87,12 @@ public class Aficionado implements Menu {
 	    	    }
 
 	    public void menuFavoritos() {
-	    	String[] opcionesRecetas = {
+	    	String[] opcionesFavoritos = {
 		            "Ver recetas favoritas", "Eliminar recetas de favoritas", "Volver"
 		        };
 		        int opcionElegida = 0;
 		        do {
-		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesRecetas, opcionesRecetas[0]);
+		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesFavoritos, opcionesFavoritos[0]);
 		            switch (opcionElegida) {
 		                case 0:
 		                    subirReceta();
@@ -109,9 +109,27 @@ public class Aficionado implements Menu {
 		        } while (opcionElegida != 2);
 		    }
 	    public void menuBusqueda() {
-	    	return;
-	    }
-
+	    	String[] opcionesBusqueda = {
+		            "Buscar un perfil", "Buscar una receta", "Volver"
+		        };
+		        int opcionElegida = 0;
+		        do {
+		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesBusqueda, opcionesBusqueda[0]);
+		            switch (opcionElegida) {
+		                case 0:
+		                    subirReceta();
+		                    JOptionPane.showMessageDialog(null, "Nada de stalckear a tu ex");
+		                    break;
+		                case 1:
+		                    verReceta();
+		                    JOptionPane.showMessageDialog(null, "Esta es tu receta");
+		                    break;
+		                case 2:
+		                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+		                    break;
+		            }
+		        } while (opcionElegida != 2);
+		    }
 
 	    @Override
 	    public void seleccionarOpcion(int opcion) {
