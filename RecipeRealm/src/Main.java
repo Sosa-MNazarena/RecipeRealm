@@ -21,7 +21,7 @@ public class Main {
                     };
                     int opcionElegida = 0;
                     do {
-                        opcionElegida = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Aficionado", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+                        opcionElegida = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Aficionado", opcion, opcion, null, opciones, opciones[0]);
                         switch (opcionElegida) {
                             case 0:
                                 aficionado.subirReceta();
@@ -46,7 +46,7 @@ public class Main {
                     };
                     int opcionElegidaChef = 0;
                     do {
-                        opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesChef, opcionesChef[0]);
+                        opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef",opcion, opcion, null, opcionesChef, opcionesChef[0]);
                         switch (opcionElegidaChef) {
                             case 0:
                                 chef.subirRecetaVerificada();
