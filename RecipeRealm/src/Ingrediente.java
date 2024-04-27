@@ -7,7 +7,7 @@ public class Ingrediente {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}

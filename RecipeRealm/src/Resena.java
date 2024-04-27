@@ -5,7 +5,7 @@ public class Resena {
 	private int estrellas;
 	private Aficionado autor;
 	private Date fecha;
-
+	
 	// Constructor
 	public Resena(String comentario, int estrellas, Aficionado autor, Date fecha) {
 		this.comentario = comentario;
