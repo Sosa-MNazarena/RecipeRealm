@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 public class Main {
 
@@ -10,12 +11,16 @@ public class Main {
         };
         int opcion = 0;
         do {
+        	ImageIcon iconBienvenida = new ImageIcon(Main.class.getResource("/imagenes/Bienvenida.png"));
+        	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconBienvenida);
+             
             opcion = JOptionPane.showOptionDialog(null, "Elija el rol para ingresar", "Selección de Rol", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, Ingreso, Ingreso[0]);
 
             switch (opcion) {
                 case 0: // Aficionado
-                    Aficionado aficionado = new Aficionado("Juan", "juan@aficionado.com", "contrasena");
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre());
+                	ImageIcon iconAficionado = new ImageIcon(Main.class.getResource("/imagenes/aficionado.png"));
+                	Aficionado aficionado = new Aficionado("Juan", "juan@aficionado.com", "contrasena");
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre(), "Aficionado", JOptionPane.PLAIN_MESSAGE, iconAficionado);
                     String[] opciones = {
                         "Subir receta", "Ver receta", "Eliminar receta", "Salir"
                     };
@@ -40,13 +45,16 @@ public class Main {
                     break;
 
                 case 1: // Chef
+                	ImageIcon iconChef = new ImageIcon(Main.class.getResource("/imagenes/chef.png"));
                     Chef chef = new Chef("Maria", "maria@chef.com", "contrasena", true);
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + chef.getNombre(), "Chef", JOptionPane.PLAIN_MESSAGE, iconChef);
                     String[] opcionesChef = {
                         "Subir receta verificada", "Ver receta", "Eliminar receta", "Salir"
                     };
                     int opcionElegidaChef = 0;
                     do {
                         opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesChef, opcionesChef[0]);
+                        
                         switch (opcionElegidaChef) {
                             case 0:
                                 chef.subirRecetaVerificada();
