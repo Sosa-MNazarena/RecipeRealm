@@ -34,6 +34,8 @@ public class Main {
                                 aficionado.menuRecetas();
                                 break;
                             case 1:
+                            	ImageIcon iconFavoritos = new ImageIcon(Main.class.getResource("/imagenes/Favoritos.png"));
+                              	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconFavoritos);
                                 aficionado.menuFavoritos();
                                 break;
                             case 2:
@@ -59,9 +61,13 @@ public class Main {
                         opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef",opcion, opcion, null, opcionesChef, opcionesChef[0]);
                         switch (opcionElegidaChef) {
                             case 0:
+                            	ImageIcon iconRecetas = new ImageIcon(Main.class.getResource("/imagenes/Recetas.png"));
+                              	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconRecetas);
                                 chef.menuRecetas();
                                 break;
                             case 1:
+                            	ImageIcon iconFavoritos = new ImageIcon(Main.class.getResource("/imagenes/Favoritos.png"));
+                             	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconFavoritos);
                                 chef.menuFavoritos();
                                 break;
                             case 2:

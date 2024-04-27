@@ -60,7 +60,26 @@ public class Chef extends Aficionado {
 	    	    }
 
 	    public void menuFavoritos() {
-	    	return;
+	    	String[] opcionesRecetas = {
+	            "Ver recetas favoritas", "Eliminar recetas de favoritas", "Volver"
+	        };
+	        int opcionElegida = 0;
+	        do {
+	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesRecetas, opcionesRecetas[0]);
+	            switch (opcionElegida) {
+	                case 0:
+	                    subirReceta();
+	                    JOptionPane.showMessageDialog(null, "Hola, Soy una lista de recetas favoritas c:");
+	                    break;
+	                case 1:
+	                    verReceta();
+	                    JOptionPane.showMessageDialog(null, "Esta receta se elimino con exito");
+	                    break;
+	                case 2:
+	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+	                    break;
+	            }
+	        } while (opcionElegida != 2);
 	    }
 	    public void menuBusqueda() {
 	    	return;
