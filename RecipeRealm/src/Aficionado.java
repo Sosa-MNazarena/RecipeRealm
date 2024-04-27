@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 public class Aficionado implements Menu {
 	// Create aficionado
@@ -43,6 +45,7 @@ public class Aficionado implements Menu {
 	        System.out.println("2. Salir");
 	    }
 	    
+	    //SubMenuRecetas
 	    public void subirReceta() {
 	    	return;
 	    }
@@ -54,6 +57,42 @@ public class Aficionado implements Menu {
 	    public void eliminarReceta() {
 	    	return;
 	    }
+	    
+	    //Menu
+	    public void menuRecetas() {
+	    	  String[] opcionesRecetas = {
+	    	            "Subir receta", "Ver receta", "Eliminar receta", "Volver"
+	    	        };
+	    	        int opcionElegida = 0;
+	    	        do {
+	    	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesRecetas, opcionesRecetas[0]);
+	    	            switch (opcionElegida) {
+	    	                case 0:
+	    	                    subirReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se subio exitosamente");
+	    	                    break;
+	    	                case 1:
+	    	                    verReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Hola, soy una receta");
+	    	                    break;
+	    	                case 2:
+	    	                    eliminarReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimno exitosamente");
+	    	                    break;
+	    	                case 3:
+	    	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+	    	                    break;
+	    	            }
+	    	        } while (opcionElegida != 3);
+	    	    }
+
+	    public void menuFavoritos() {
+	    	return;
+	    }
+	    public void menuBusqueda() {
+	    	return;
+	    }
+
 
 	    @Override
 	    public void seleccionarOpcion(int opcion) {
