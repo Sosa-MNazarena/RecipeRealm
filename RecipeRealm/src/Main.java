@@ -22,20 +22,22 @@ public class Main {
                 	Aficionado aficionado = new Aficionado("Juan", "juan@aficionado.com", "contrasena");
                     JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre(), "Aficionado", JOptionPane.PLAIN_MESSAGE, iconAficionado);
                     String[] opciones = {
-                        "Subir receta", "Ver receta", "Eliminar receta", "Salir"
+                        "Recetas", "Favoritos", "Busqueda", "Salir"
                     };
                     int opcionElegida = 0;
                     do {
                         opcionElegida = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Aficionado", opcion, opcion, null, opciones, opciones[0]);
                         switch (opcionElegida) {
                             case 0:
-                                aficionado.subirReceta();
+                            	ImageIcon iconRecetas = new ImageIcon(Main.class.getResource("/imagenes/Recetas.png"));
+                           	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconRecetas);
+                                aficionado.menuRecetas();
                                 break;
                             case 1:
-                                aficionado.verReceta();
+                                aficionado.menuFavoritos();
                                 break;
                             case 2:
-                                aficionado.eliminarReceta();
+                                aficionado.menuBusqueda();
                                 break;
                             case 3:
                                 JOptionPane.showMessageDialog(null, "Salir del perfil");
@@ -49,21 +51,21 @@ public class Main {
                     Chef chef = new Chef("Maria", "maria@chef.com", "contrasena", true);
                     JOptionPane.showMessageDialog(null, "Bienvenido " + chef.getNombre(), "Chef", JOptionPane.PLAIN_MESSAGE, iconChef);
                     String[] opcionesChef = {
-                        "Subir receta verificada", "Ver receta", "Eliminar receta", "Salir"
+                    		"Recetas", "Favoritos", "Busqueda", "Salir"
                     };
                     int opcionElegidaChef = 0;
                     do {
-                        opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesChef, opcionesChef[0]);
+                       // opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesChef, opcionesChef[0]);
                         opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef",opcion, opcion, null, opcionesChef, opcionesChef[0]);
                         switch (opcionElegidaChef) {
                             case 0:
-                                chef.subirRecetaVerificada();
+                                chef.menuRecetas();
                                 break;
                             case 1:
-                                chef.verReceta();
+                                chef.menuFavoritos();
                                 break;
                             case 2:
-                                chef.eliminarReceta();
+                                chef.menuBusqueda();
                                 break;
                             case 3:
                                 JOptionPane.showMessageDialog(null, "Salir del perfil");
@@ -73,7 +75,8 @@ public class Main {
                     break;
 
                 case 2: // Salir
-                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema");
+                	ImageIcon iconSalir = new ImageIcon(Main.class.getResource("/imagenes/Salir.png"));
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Chef", JOptionPane.PLAIN_MESSAGE, iconSalir);
                     break;
             }
         } while (opcion != 2);
