@@ -14,13 +14,13 @@ public class Main {
         	ImageIcon iconBienvenida = new ImageIcon(Main.class.getResource("/imagenes/Bienvenida.png"));
         	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconBienvenida);
              
-            opcion = JOptionPane.showOptionDialog(null, "Elija el rol para ingresar", "Selección de Rol", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, Ingreso, Ingreso[0]);
+            opcion = JOptionPane.showOptionDialog(null, "Elija el rol para ingresar", "Selección de Rol", 0, 0, null, Ingreso, Ingreso[0]);
 
             switch (opcion) {
                 case 0: // Aficionado
                 	ImageIcon iconAficionado = new ImageIcon(Main.class.getResource("/imagenes/aficionado.png"));
                 	Aficionado aficionado = new Aficionado("Juan", "juan@aficionado.com", "contrasena");
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre(), "Aficionado", JOptionPane.PLAIN_MESSAGE, iconAficionado);
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre(), "Aficionado", 0, iconAficionado);
                     String[] opciones = {
                         "Recetas", "Favoritos", "Busqueda", "Salir"
                     };
@@ -30,12 +30,12 @@ public class Main {
                         switch (opcionElegida) {
                             case 0:
                             	ImageIcon iconRecetas = new ImageIcon(Main.class.getResource("/imagenes/Recetas.png"));
-                           	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconRecetas);
+                           	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconRecetas);
                                 aficionado.menuRecetas();
                                 break;
                             case 1:
                             	ImageIcon iconFavoritos = new ImageIcon(Main.class.getResource("/imagenes/Favoritos.png"));
-                              	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconFavoritos);
+                              	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconFavoritos);
                                 aficionado.menuFavoritos();
                                 break;
                             case 2:
@@ -51,7 +51,7 @@ public class Main {
                 case 1: // Chef
                 	ImageIcon iconChef = new ImageIcon(Main.class.getResource("/imagenes/chef.png"));
                     Chef chef = new Chef("Maria", "maria@chef.com", "contrasena", true);
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + chef.getNombre(), "Chef", JOptionPane.PLAIN_MESSAGE, iconChef);
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + chef.getNombre(), "Chef", 0, iconChef);
                     String[] opcionesChef = {
                     		"Recetas", "Favoritos", "Busqueda", "Salir"
                     };
@@ -61,17 +61,17 @@ public class Main {
                         switch (opcionElegidaChef) {
                             case 0:
                             	ImageIcon iconRecetas = new ImageIcon(Main.class.getResource("/imagenes/Recetas.png"));
-                              	 JOptionPane.showMessageDialog(null, "", "Bienvenida", 0, iconRecetas);
+                              	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconRecetas);
                                 chef.menuRecetas();
                                 break;
                             case 1:
                             	ImageIcon iconFavoritos = new ImageIcon(Main.class.getResource("/imagenes/Favoritos.png"));
-                             	 JOptionPane.showMessageDialog(null, "", "Bienvenida", 0, iconFavoritos);
+                             	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconFavoritos);
                                 chef.menuFavoritos();
                                 break;
                             case 2:
                             	ImageIcon iconBusqueda = new ImageIcon(Main.class.getResource("/imagenes/Busqueda.png"));
-                            	 JOptionPane.showMessageDialog(null, "", "Bienvenida", 0, iconBusqueda);
+                            	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconBusqueda);
                                 chef.menuBusqueda();
                                 break;
                             case 3:
@@ -83,12 +83,11 @@ public class Main {
 
                 case 2: // Salir
                 	ImageIcon iconSalir = new ImageIcon(Main.class.getResource("/imagenes/Salir.png"));
-                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Chef", JOptionPane.PLAIN_MESSAGE, iconSalir);
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Chef", 0, iconSalir);
                     break;
             }
         } while (opcion != 2);
     
-		//hola
 		
 	}
 
