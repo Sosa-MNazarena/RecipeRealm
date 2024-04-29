@@ -1,7 +1,7 @@
 import javax.swing.JOptionPane;
 
 
-public class Aficionado implements Menu {
+public class Aficionado {
 	// Create aficionado
 	  	private String nombre;
 	    private String correo;
@@ -40,10 +40,6 @@ public class Aficionado implements Menu {
 	        this.contrasena = contrasena;
 	    }
 	    
-	    public void mostrarMenu() {
-	        System.out.println("1. Realizar actividad");
-	        System.out.println("2. Salir");
-	    }
 	    
 	    //SubMenuRecetas
 	    public void subirReceta() {
@@ -131,26 +127,6 @@ public class Aficionado implements Menu {
 		        } while (opcionElegida != 2);
 		    }
 
-	    @Override
-	    public void seleccionarOpcion(int opcion) {
-	        switch (opcion) {
-	            case 1:
-	                realizarActividad();
-	                break;
-	            case 2:
-	                System.out.println("Saliendo...");
-	                System.exit(0);
-	                break;
-	            default:
-	                System.out.println("Opción no válida");
-	                mostrarMenu();
-	        }
-	    }
-
-	    public void realizarActividad() {
-	        System.out.println(this.nombre + " está realizando una actividad.");
-	    }
-	
 
 	  
 	}
