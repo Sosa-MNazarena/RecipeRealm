@@ -50,7 +50,7 @@ public class Chef extends Aficionado {
 	    	                    break;
 	    	                case 2:
 	    	                    eliminarReceta();
-	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimno exitosamente");
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
 	    	                    break;
 	    	                case 3:
 	    	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");

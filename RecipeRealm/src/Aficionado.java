@@ -1,5 +1,5 @@
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
+
 
 public class Aficionado implements Menu {
 	// Create aficionado
@@ -77,7 +77,7 @@ public class Aficionado implements Menu {
 	    	                    break;
 	    	                case 2:
 	    	                    eliminarReceta();
-	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimno exitosamente");
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
 	    	                    break;
 	    	                case 3:
 	    	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
