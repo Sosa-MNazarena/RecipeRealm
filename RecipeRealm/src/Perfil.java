@@ -4,7 +4,7 @@ public class Perfil {
 	private String pseudonimo;
 	private String descripcion;
 
-	// Constructor
+
 	public Perfil(String pseudonimo, String descripcion) {
 		this.pseudonimo = pseudonimo;
 		this.descripcion = descripcion;

@@ -2,12 +2,11 @@ import javax.swing.JOptionPane;
 
 
 public class Aficionado {
-	// Create aficionado
 	  	private String nombre;
 	    private String correo;
 	    private String contrasena;
 
-	    // Constructor 
+
 	    public Aficionado(String nombre, String correo, String contrasena) {
 	        this.nombre = nombre;
 	        this.correo = correo;
