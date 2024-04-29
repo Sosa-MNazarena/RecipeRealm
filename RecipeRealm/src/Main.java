@@ -12,7 +12,7 @@ public class Main {
         int opcion = 0;
         do {
         	ImageIcon iconBienvenida = new ImageIcon(Main.class.getResource("/imagenes/Bienvenida.png"));
-        	 JOptionPane.showMessageDialog(null, "", "Bienvenida", JOptionPane.PLAIN_MESSAGE, iconBienvenida);
+        	 JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconBienvenida);
              
             opcion = JOptionPane.showOptionDialog(null, "Elija el rol para ingresar", "Selección de Rol", 0, 0, null, Ingreso, Ingreso[0]);
 
