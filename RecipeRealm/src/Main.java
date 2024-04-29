@@ -5,7 +5,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// Options for initial role selection
+		// Seleccion de roles
         String[] Ingreso = {
             "Aficionado", "Chef", "Salir"
         };
@@ -57,7 +57,6 @@ public class Main {
                     };
                     int opcionElegidaChef = 0;
                     do {
-                       // opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesChef, opcionesChef[0]);
                         opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de Chef",opcion, opcion, null, opcionesChef, opcionesChef[0]);
                         switch (opcionElegidaChef) {
                             case 0:

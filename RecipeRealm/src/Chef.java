@@ -38,7 +38,7 @@ public class Chef extends Aficionado {
 	    	        };
 	    	        int opcionElegida = 0;
 	    	        do {
-	    	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesRecetas, opcionesRecetas[0]);
+	    	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesRecetas, opcionesRecetas[0]);
 	    	            switch (opcionElegida) {
 	    	                case 0:
 	    	                    subirReceta();
@@ -50,7 +50,7 @@ public class Chef extends Aficionado {
 	    	                    break;
 	    	                case 2:
 	    	                    eliminarReceta();
-	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimno exitosamente");
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
 	    	                    break;
 	    	                case 3:
 	    	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
@@ -65,7 +65,7 @@ public class Chef extends Aficionado {
 	        };
 	        int opcionElegida = 0;
 	        do {
-	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesFavoritos, opcionesFavoritos[0]);
+	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesFavoritos, opcionesFavoritos[0]);
 	            switch (opcionElegida) {
 	                case 0:
 	                    subirReceta();
@@ -87,7 +87,7 @@ public class Chef extends Aficionado {
 		        };
 		        int opcionElegida = 0;
 		        do {
-		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesBusqueda, opcionesBusqueda[0]);
+		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesBusqueda, opcionesBusqueda[0]);
 		            switch (opcionElegida) {
 		                case 0:
 		                    subirReceta();
