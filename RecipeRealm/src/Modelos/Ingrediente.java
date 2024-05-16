@@ -1,3 +1,4 @@
+package Modelos;
 
 public class Ingrediente {
 	private String nombre;

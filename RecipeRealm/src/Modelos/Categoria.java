@@ -1,3 +1,4 @@
+package Modelos;
 
 public class Categoria {
 	private String nombre;

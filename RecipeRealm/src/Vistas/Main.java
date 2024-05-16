@@ -1,4 +1,9 @@
+package Vistas;
 import javax.swing.JOptionPane;
+
+import Modelos.Aficionado;
+import Modelos.Chef;
+
 import javax.swing.ImageIcon;
 
 public class Main {
