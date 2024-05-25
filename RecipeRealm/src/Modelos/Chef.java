@@ -1,4 +1,4 @@
-package Modelos;
+/* package Modelos;
 import javax.swing.JOptionPane;
 
 public class Chef extends Aficionado {
@@ -6,7 +6,7 @@ public class Chef extends Aficionado {
 
 	    
 	    public Chef(String nombre, String correo, String contrasena, boolean esVerificado) {
-	        super(nombre, correo, contrasena);
+	        super(nombre, correo, contrasena, contrasena, contrasena, esVerificado);
 	        this.esVerificado = esVerificado;
 	    }
 
@@ -103,4 +103,4 @@ public class Chef extends Aficionado {
 		        } while (opcionElegida != 2);
 		    }
 
-}
+}*/
