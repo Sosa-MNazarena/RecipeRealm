@@ -2,8 +2,16 @@ package Vistas;
 
 import javax.swing.JOptionPane;
 import Modelos.Aficionado;
+import Modelos.Categoria;
+import Modelos.Ingrediente;
+import Modelos.Resena;
 import Controladores.DatabaseConnection;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Date;
+import Modelos.Receta;
+import Controladores.RecetaControlador;
+
 import javax.swing.ImageIcon;
 
 public class Main {
@@ -42,7 +50,6 @@ public class Main {
 					opcionElegida = JOptionPane.showOptionDialog(null, "Elija que desea hacer",
 							"Acciones de Aficionado", opcion, opcion, null, opciones, opciones[0]);
 					switch (opcionElegida) {
-
 					case 0:
 						aficionado.agregarAficionado();
 						break;
@@ -63,7 +70,7 @@ public class Main {
 						JOptionPane.showMessageDialog(null, "Salir del perfil");
 						break;
 					}
-				} while (opcionElegida != 3);
+				} while (opcionElegida != 5);
 				break;
 			/*
 			 * case 1: // Chef ImageIcon iconChef = new
@@ -72,9 +79,9 @@ public class Main {
 			 * JOptionPane.showMessageDialog(null, "Bienvenido " + chef.getNombre(), "Chef",
 			 * 0, iconChef); String[] opcionesChef = {"Recetas", "Favoritos", "Busqueda",
 			 * "Salir"}; int opcionElegidaChef = 0; do { opcionElegidaChef =
-			 * JOptionPane.showOptionDialog(null, "Elija que desea hacer",
-			 * "Acciones de Chef", opcion, opcion, null, opcionesChef, opcionesChef[0]);
-			 * switch (opcionElegidaChef) { case 0: ImageIcon iconRecetas = new
+			 * JOptionPane.showOptionDialog(null, "Elija que desea hacer", "Acciones de
+			 * Chef", opcion, opcion, null, opcionesChef, opcionesChef[0]); switch
+			 * (opcionElegidaChef) { case 0: ImageIcon iconRecetas = new
 			 * ImageIcon(Main.class.getResource("/imagenes/Recetas.png"));
 			 * JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconRecetas);
 			 * chef.menuRecetas(); break; case 1: ImageIcon iconFavoritos = new
@@ -93,4 +100,5 @@ public class Main {
 			}
 		} while (opcion != 2);
 	}
+
 }

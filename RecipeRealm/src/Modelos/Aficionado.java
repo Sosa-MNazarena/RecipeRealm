@@ -1,12 +1,14 @@
 package Modelos;
 
+import java.util.ArrayList;
 import Controladores.DatabaseConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
+import Controladores.RecetaControlador;
 import javax.swing.JOptionPane;
 
 public class Aficionado {
@@ -145,49 +147,11 @@ public class Aficionado {
 		}
 	}
 
-	private void eliminarReceta() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void verReceta() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void subirReceta() {
-		// TODO Auto-generated method stub
-
-	}
-
 	// Menu
 	public void menuRecetas() {
-		String[] opcionesRecetas = { "PRUEBA -- Ver usuarios", "Subir receta", "Ver receta", "Eliminar receta", "Volver" };
-		int opcionElegida = 0;
-		do {
-			opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
-					opcionesRecetas, opcionesRecetas[0]);
-			switch (opcionElegida) {
-			case 0:
-				mostrarAficionados();
-				break;
-			case 1:
-				subirReceta();
-				JOptionPane.showMessageDialog(null, "Su receta se subio exitosamente");
-				break;
-			case 2:
-				verReceta();
-				JOptionPane.showMessageDialog(null, "Hola, soy una receta");
-				break;
-			case 3:
-				eliminarReceta();
-				JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
-				break;
-			case 4:
-				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
-				break;
-			}
-		} while (opcionElegida != 3);
+		Receta receta = new Receta(idUsuario, contrasena, contrasena, null, idUsuario, idUsuario, null, null, null, null, null, null, null);
+
+		receta.menuRecetas();
 	}
 
 	public void menuFavoritos() {
@@ -198,11 +162,11 @@ public class Aficionado {
 					opcionesFavoritos, opcionesFavoritos[0]);
 			switch (opcionElegida) {
 			case 0:
-				subirReceta();
+				// subirReceta();
 				JOptionPane.showMessageDialog(null, "Hola, Soy una lista de recetas favoritas c:");
 				break;
 			case 1:
-				verReceta();
+				//verReceta();
 				JOptionPane.showMessageDialog(null, "Esta receta se elimino con exito");
 				break;
 			case 2:
@@ -220,11 +184,11 @@ public class Aficionado {
 					opcionesBusqueda, opcionesBusqueda[0]);
 			switch (opcionElegida) {
 			case 0:
-				subirReceta();
+				// subirReceta();
 				JOptionPane.showMessageDialog(null, "Nada de stalckear a tu ex");
 				break;
 			case 1:
-				verReceta();
+				//verReceta();
 				JOptionPane.showMessageDialog(null, "Esta es tu receta");
 				break;
 			case 2:
