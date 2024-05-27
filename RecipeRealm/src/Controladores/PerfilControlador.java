@@ -5,41 +5,38 @@ import java.util.List;
 
 import Modelos.Perfil;
 import interfaces.PerfilRepository;
-public class PerfilControlador implements PerfilRepository{
-	 private final Connection connection;
 
-	 public PerfilControlador() {
-	        this.connection = DatabaseConnection.getInstance().getConnection();
-	 }
+public class PerfilControlador implements PerfilRepository {
+    private final Connection connection;
 
-	@Override
-	public List<Perfil> getAllPerfils() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public PerfilControlador() {
+        this.connection = DatabaseConnection.getInstance().getConnection();
+    }
 
-	@Override
-	public Perfil getPerfilById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Perfil> getAllPerfils() {
+        // TODO: Implementar la lógica para obtener todos los perfiles
+        return null;
+    }
 
-	@Override
-	public void addPerfil(Perfil Perfil) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public Perfil getPerfilById(int id) {
+        // TODO: Implementar la lógica para obtener un perfil por ID
+        return null;
+    }
 
-	@Override
-	public void updatePerfil(Perfil Perfil) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void addPerfil(Perfil perfil) {
+        // TODO: Implementar la lógica para agregar un perfil
+    }
 
-	@Override
-	public void deletePerfil(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-	 
+    @Override
+    public void updatePerfil(Perfil perfil) {
+        // TODO: Implementar la lógica para actualizar un perfil
+    }
+
+    @Override
+    public void deletePerfil(int id) {
+        // TODO: Implementar la lógica para eliminar un perfil por ID
+    }
 }

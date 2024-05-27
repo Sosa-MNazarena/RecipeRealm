@@ -1,18 +1,27 @@
 package Modelos;
 
 public class Categoria {
-	private String nombre;
+    private int idCategoria;
+    private String nombreCategoria;
 
-	public Categoria(String nombre) {
-		this.nombre = nombre;
-	}
+    public Categoria(int idCategoria, String nombreCategoria) {
+        this.idCategoria = idCategoria;
+        this.nombreCategoria = nombreCategoria;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public int getIdCategoria() {
+        return idCategoria;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
 }

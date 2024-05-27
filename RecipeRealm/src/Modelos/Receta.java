@@ -1,35 +1,62 @@
 package Modelos;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Receta {
 
+	private int idReceta;
 	private String titulo;
-	private Aficionado autor;
+	private String procedimiento;
+	private Ingrediente idIngrediente;
+	private Aficionado idUsuario;
+	private Categoria idCategoria;
+	private Resena idResena;
 	private Date fecha;
 	private ArrayList<Ingrediente> ingredientes;
 	private ArrayList<Categoria> categorias;
-	private String procedimiento;
-	private boolean esFavorita;
 
-	// Constructor
-	public Receta(String titulo, Aficionado autor, Date fecha, ArrayList<Ingrediente> ingredientes,
-			ArrayList<Categoria> categorias, String procedimiento, boolean esFavorita) {
+	public Receta(int idReceta, String titulo, String procedimiento, Ingrediente idIngrediente, Aficionado idUsuario,
+			Categoria idCategoria, Resena idResena, Aficionado autor, Date fecha, ArrayList<Ingrediente> ingredientes,
+			ArrayList<Categoria> categorias) {
+		this.idReceta = idReceta;
 		this.titulo = titulo;
-		this.autor = autor;
+		this.procedimiento = procedimiento;
+		this.idIngrediente = idIngrediente;
+		this.idUsuario = idUsuario;
+		this.idCategoria = idCategoria;
+		this.idResena = idResena;
 		this.fecha = fecha;
 		this.ingredientes = ingredientes;
 		this.categorias = categorias;
-		this.procedimiento = procedimiento;
-		this.esFavorita = esFavorita;
+	}
+
+	public int getIdReceta() {
+		return idReceta;
 	}
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public Aficionado getAutor() {
-		return autor;
+	public String getProcedimiento() {
+		return procedimiento;
+	}
+
+	public Ingrediente getIdIngrediente() {
+		return idIngrediente;
+	}
+
+	public Aficionado getIdUsuario() {
+		return idUsuario;
+	}
+
+	public Categoria getIdCategoria() {
+		return idCategoria;
+	}
+
+	public Resena getIdResena() {
+		return idResena;
 	}
 
 	public Date getFecha() {
@@ -44,20 +71,32 @@ public class Receta {
 		return categorias;
 	}
 
-	public String getProcedimiento() {
-		return procedimiento;
-	}
-
-	public boolean isEsFavorita() {
-		return esFavorita;
+	public void setIdReceta(int idReceta) {
+		this.idReceta = idReceta;
 	}
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
-	public void setAutor(Aficionado autor) {
-		this.autor = autor;
+	public void setProcedimiento(String procedimiento) {
+		this.procedimiento = procedimiento;
+	}
+
+	public void setIdIngrediente(Ingrediente idIngrediente) {
+		this.idIngrediente = idIngrediente;
+	}
+
+	public void setIdUsuario(Aficionado idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public void setIdCategoria(Categoria idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public void setIdResena(Resena idResena) {
+		this.idResena = idResena;
 	}
 
 	public void setFecha(Date fecha) {
@@ -71,13 +110,4 @@ public class Receta {
 	public void setCategorias(ArrayList<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-
-	public void setProcedimiento(String procedimiento) {
-		this.procedimiento = procedimiento;
-	}
-
-	public void setEsFavorita(boolean esFavorita) {
-		this.esFavorita = esFavorita;
-	}
-
 }
