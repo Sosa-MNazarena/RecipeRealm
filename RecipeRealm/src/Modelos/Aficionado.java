@@ -3,7 +3,10 @@ package Modelos;
 import Controladores.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
 
 public class Aficionado {
@@ -55,6 +58,10 @@ public class Aficionado {
 		return verificado;
 	}
 
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -99,6 +106,45 @@ public class Aficionado {
 		}
 	}
 
+	public void mostrarAficionados() {
+		LinkedList<Aficionado> aficionados = new LinkedList<>();
+		String sql = "SELECT * FROM usuario";
+		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet resultados = stmt.executeQuery()) {
+			while (resultados.next()) {
+				String[] datos = new String[6];
+				datos[0] = resultados.getString("id_usuario");
+				datos[1] = resultados.getString("nombre");
+				datos[2] = resultados.getString("pseudonimo");
+				datos[3] = resultados.getString("correo");
+				datos[4] = resultados.getString("contrasena");
+				datos[5] = resultados.getString("descripcion");
+				int verificado = resultados.getInt("verificado");
+
+				Aficionado aficionado = new Aficionado(datos[1], datos[2], datos[3], datos[4], datos[5], verificado);
+				aficionado.setIdUsuario(Integer.parseInt(datos[0]));
+				aficionados.add(aficionado);
+			}
+			if (aficionados.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "No hay aficionados.");
+			} else {
+				String message = "Lista de aficionados:\n";
+				for (Aficionado aficionado : aficionados) {
+					message += "ID: " + aficionado.getIdUsuario() + "\n";
+					message += "Nombre: " + aficionado.getNombre() + "\n";
+					message += "Pseudónimo: " + aficionado.getPseudonimo() + "\n";
+					message += "Correo: " + aficionado.getCorreo() + "\n";
+					message += "Descripción: " + aficionado.getDescripcion() + "\n";
+					message += "Verificado: " + aficionado.isVerificado() + "\n";
+					message += "--------------------------------------\n";
+				}
+				JOptionPane.showMessageDialog(null, message);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al recuperar los aficionados: " + e.getMessage());
+		}
+	}
+
 	private void eliminarReceta() {
 		// TODO Auto-generated method stub
 
@@ -116,25 +162,28 @@ public class Aficionado {
 
 	// Menu
 	public void menuRecetas() {
-		String[] opcionesRecetas = { "Subir receta", "Ver receta", "Eliminar receta", "Volver" };
+		String[] opcionesRecetas = { "PRUEBA -- Ver usuarios", "Subir receta", "Ver receta", "Eliminar receta", "Volver" };
 		int opcionElegida = 0;
 		do {
 			opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
 					opcionesRecetas, opcionesRecetas[0]);
 			switch (opcionElegida) {
 			case 0:
+				mostrarAficionados();
+				break;
+			case 1:
 				subirReceta();
 				JOptionPane.showMessageDialog(null, "Su receta se subio exitosamente");
 				break;
-			case 1:
+			case 2:
 				verReceta();
 				JOptionPane.showMessageDialog(null, "Hola, soy una receta");
 				break;
-			case 2:
+			case 3:
 				eliminarReceta();
 				JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
 				break;
-			case 3:
+			case 4:
 				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
 				break;
 			}
