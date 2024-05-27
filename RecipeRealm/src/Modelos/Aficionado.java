@@ -13,11 +13,11 @@ public class Aficionado {
 	private String correo;
 	private String contrasena;
 	private String descripcion;
-	private boolean verificado;
+	private int verificado;
 	private Connection connection;
 
 	public Aficionado(String nombre, String pseudonimo, String correo, String contrasena, String descripcion,
-			boolean verificado) {
+			int verificado) {
 		this.nombre = nombre;
 		this.pseudonimo = pseudonimo;
 		this.correo = correo;
@@ -51,7 +51,7 @@ public class Aficionado {
 		return descripcion;
 	}
 
-	public boolean isVerificado() {
+	public int isVerificado() {
 		return verificado;
 	}
 
@@ -75,7 +75,7 @@ public class Aficionado {
 		this.descripcion = descripcion;
 	}
 
-	public void setVerificado(boolean verificado) {
+	public void setVerificado(int verificado) {
 		this.verificado = verificado;
 	}
 
@@ -88,7 +88,7 @@ public class Aficionado {
 			pstmt.setString(3, this.getCorreo());
 			pstmt.setString(4, this.getContrasena());
 			pstmt.setString(5, this.getDescripcion());
-			pstmt.setBoolean(6, this.isVerificado());
+			pstmt.setInt(6, this.isVerificado());
 			pstmt.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Aficionado insertado exitosamente.");
 			return true;

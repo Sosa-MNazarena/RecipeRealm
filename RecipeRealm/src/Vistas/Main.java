@@ -33,11 +33,10 @@ public class Main {
 			case 0: // Aficionado
 				ImageIcon iconAficionado = new ImageIcon(Main.class.getResource("/imagenes/aficionado.png"));
 				Aficionado aficionado = new Aficionado("Juan", "Juancito", "juan@aficionado.com", "contrasena",
-						"mi nombre es juan", false);
-				// recordar cambiar el boolean de verificado!!
+						"mi nombre es juan", Integer.parseInt("1"));
 				JOptionPane.showMessageDialog(null, "Bienvenido " + aficionado.getNombre(), "Aficionado", 0,
 						iconAficionado);
-				String[] opciones = {"Agregar aficionado", "Recetas", "Favoritos", "Busqueda", "Salir" };
+				String[] opciones = { "Agregar aficionado", "Recetas", "Favoritos", "Busqueda", "Salir" };
 				int opcionElegida = 0;
 				do {
 					opcionElegida = JOptionPane.showOptionDialog(null, "Elija que desea hacer",
