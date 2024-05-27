@@ -135,8 +135,9 @@ public class Receta {
 		this.categorias = categorias;
 	}
 
-	public void menuRecetas() {
-		String[] opcionesRecetas = { "PRUEBA -- Ver usuarios", "Subir receta", "Ver receta", "Eliminar receta",
+	// Menu Mis Recetas
+	public static void menuRecetas() {
+		String[] opcionesRecetas = {"Subir receta", "Ver mis recetas", "Eliminar receta",
 				"Volver" };
 		int opcionElegida = 0;
 		do {
@@ -144,30 +145,26 @@ public class Receta {
 					opcionesRecetas, opcionesRecetas[0]);
 			switch (opcionElegida) {
 			case 0:
-				// Código para ver usuarios
-				break;
-			case 1:
 				subirReceta();
 				JOptionPane.showMessageDialog(null, "Su receta se subió exitosamente");
 				break;
-			case 2:
+			case 1:
 				verReceta();
 				JOptionPane.showMessageDialog(null, "Hola, soy una receta");
 				break;
-			case 3:
+			case 2:
 				eliminarReceta(opcionElegida);
 				JOptionPane.showMessageDialog(null, "Su receta se eliminó exitosamente");
 				break;
-			case 4:
+			case 3:
 				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
 				break;
 			}
 		} while (opcionElegida != 3);
 	}
 
-	
-	//Metodos de las recetas
-	private void subirReceta() {
+	// Metodos de las recetas
+	private static void subirReceta() {
 		// Datos de la receta ingresados manualmente
 		String titulo = "Título de la receta";
 		String procedimiento = "Pasos para preparar la receta...";
@@ -203,12 +200,12 @@ public class Receta {
 		recetaControlador.addReceta(receta);
 	}
 
-	private void eliminarReceta(int opcionElegida) {
+	private static void eliminarReceta(int opcionElegida) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void verReceta() {
+	private static void verReceta() {
 		// TODO Auto-generated method stub
 
 	}

@@ -1,5 +1,5 @@
 package Modelos;
-
+import Modelos.Receta;
 import java.util.ArrayList;
 import Controladores.DatabaseConnection;
 import java.sql.Connection;
@@ -147,12 +147,27 @@ public class Aficionado {
 		}
 	}
 
-	// Menu
+	// Menues
 	public void menuRecetas() {
-		Receta receta = new Receta(idUsuario, contrasena, contrasena, null, idUsuario, idUsuario, null, null, null, null, null, null, null);
-
-		receta.menuRecetas();
+	    String[] opcionesRecetas = { "Mis recetas", "Recetas (no me acuerdo bien que nombre habiamos dicho que iba aca)", "Volver" };
+	    int opcionElegida = 0;
+	    do {
+	        opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
+	                opcionesRecetas, opcionesRecetas[0]);
+	        switch (opcionElegida) {
+	            case 0:
+	                  Receta.menuRecetas();
+	                break;
+	            case 1:
+	                // Funcionalidades para recetas que no son propias
+	                break;
+	            case 2:
+	                JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+	                break;
+	        }
+	    } while (opcionElegida != 2);
 	}
+
 
 	public void menuFavoritos() {
 		String[] opcionesFavoritos = { "Ver recetas favoritas", "Eliminar recetas de favoritas", "Volver" };
