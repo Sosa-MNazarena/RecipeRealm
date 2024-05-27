@@ -1,0 +1,4 @@
+INDEX VERSION 1.132+C:\Users\sleon\OneDrive\Documentos\GitHub\RecipeRealm\.metadata\.plugins\org.eclipse.jdt.core
+427364343.index
+1865797976.index
+1491279272.index
