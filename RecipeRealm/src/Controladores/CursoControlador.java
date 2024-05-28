@@ -98,7 +98,7 @@ public class CursoControlador implements CursoRepositorio{
 	@Override
 	public void updateCurso(Cursos curso) {
 		try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE cursos SET titulo = ?, lugar = ?, dia = ? , cupo = ? , precio = ?, horario = ?   WHERE id_curso = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE cursos SET titulo = ?, lugar = ?, dia = ? , cupo = ? , precio = ?, horario = ?  WHERE id_curso = ?");
             statement.setString(1, curso.getTitulo());
             statement.setString(2, curso.getLugar());
             statement.setString(3, curso.getDia());
@@ -119,7 +119,7 @@ public class CursoControlador implements CursoRepositorio{
 	@Override
 	public void deleteCurso(int id_curso) {
 		try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM cursos WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM cursos WHERE id_curso = ?");
             statement.setInt(1, id_curso);
             
             int rowsDeleted = statement.executeUpdate();
