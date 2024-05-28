@@ -166,23 +166,18 @@ public class Receta {
 
 	// Metodos de las recetas
 
-	// --------------------------------------- Subir una receta
-	// ---------------------------------------
+	// ----------------------------------- Subir una receta
+	// -------------------------------------
+	// ----------------------------------- Subir una receta
+	// -------------------------------------
 	private static void subirReceta() {
-		// Datos de la receta ingresados manualmente
-		String titulo = "Título de la receta";
+		String titulo = "Título de la receta"; // esto luego sería un showinputdialog
 		String procedimiento = "Pasos para preparar la receta...";
-
 		Date fecha = new Date(System.currentTimeMillis()); // para ingresar la fecha actual
 
-		// número de ingredientes que el usuario quiera agregar
 		int numIngredientes = Integer
 				.parseInt(JOptionPane.showInputDialog("Ingrese el número de ingredientes que va a tener su receta:"));
-
-		// inicio lista de ingredientes
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-
-		// solicitar al usuario que ingrese el nombre y la cantidad de cada ingrediente
 		for (int i = 0; i < numIngredientes; i++) {
 			String nombreIngrediente = JOptionPane
 					.showInputDialog("Ingrese el nombre del ingrediente " + (i + 1) + ":");
@@ -193,20 +188,30 @@ public class Receta {
 			ingredientes.add(ingrediente); // Agregar el ingrediente a la lista
 		}
 
-		// instanciar receta
-		Receta receta = new Receta(1, titulo, procedimiento, null, 2, 2, null, null, null, null, fecha, ingredientes,
-				null);
+		// Solicitar categorías al usuario hasta que ingrese 0
+		ArrayList<Categoria> categorias = new ArrayList<>();
+		String nombreCategoria;
+		while (true) {
+			nombreCategoria = JOptionPane
+					.showInputDialog("Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
+			if (nombreCategoria.equals("0")) {
+				break; //
+			}
+			Categoria categoria = new Categoria(0, nombreCategoria); 
+			categorias.add(categoria); 
+		}
+
+		Receta receta = new Receta(1, titulo, procedimiento, null, numIngredientes, 0, null, null, null, null, fecha,
+				ingredientes, categorias);
 		receta.setTitulo(titulo);
 		receta.setProcedimiento(procedimiento);
 
-		// llamar al controlador
 		RecetaControlador recetaControlador = new RecetaControlador();
 		recetaControlador.addReceta(receta);
 	}
 
-	// --------------------------------------- Ver una receta
-	// ---------------------------------------
-
+	// ------------------------------------ Ver una receta
+	// --------------------------------------------
 	private static void verReceta() {
 		RecetaControlador recetaControlador = new RecetaControlador();
 		List<Receta> recetas = recetaControlador.getAllRecetas();
@@ -230,8 +235,8 @@ public class Receta {
 		}
 	}
 
-	// --------------------------------------- Eliminar una receta
-	// ---------------------------------------
+	// ------------------------------- Eliminar una receta
+	// --------------------------------------
 	private static void eliminarReceta(int opcionElegida) {
 		// recetas disponibles
 		RecetaControlador recetaControlador = new RecetaControlador();
