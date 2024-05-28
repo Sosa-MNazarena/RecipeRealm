@@ -25,7 +25,6 @@ public class Cursos {
         this.horario = horario;
     }
 
-    // Getters y setters...
 
     public int getIdCurso() {
         return idCurso;

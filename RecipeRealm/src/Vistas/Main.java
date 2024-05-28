@@ -17,8 +17,7 @@ public class Main {
 		
 		//TESTEO DE CONTROLADOR CURSOS
 		
-CursoControlador controlar = new CursoControlador();
-		
+		CursoControlador controlar = new CursoControlador();
 		
 		String[] opciones = {
 				"Agregar curso","Ver curso","Buscar curso por id","Editar curso","Eliminar curso","Salir"

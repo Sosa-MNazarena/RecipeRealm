@@ -128,5 +128,11 @@ public class CursoControlador implements CursoRepositorio {
             e.printStackTrace();
         }
     }
+
+	@Override
+	public void inscribirCurso() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
