@@ -5,13 +5,10 @@ import javax.swing.JOptionPane;
 
 import Controladores.CursoControlador;
 import Controladores.DatabaseConnection;
-
 import Modelos.Cursos;
-
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import javax.swing.ImageIcon;
 
 public class Main {
@@ -37,7 +34,7 @@ CursoControlador controlar = new CursoControlador();
               LocalDate dia = LocalDate.parse(JOptionPane.showInputDialog("Ingrese dia (YYYY-MM-DD)"));
               int cupo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de cupos"));
               Double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese precio"));
-              LocalTime horario = LocalTime.parse(JOptionPane.showInputDialog("Ingrese horario (HH:MM:SS)"));
+              LocalTime horario = LocalTime.parse(JOptionPane.showInputDialog("Ingrese horario (HH:MM)"));
               controlar.addCurso(new Cursos(0, titulo, null, lugar, dia, cupo, precio, horario));		
 			break;
 		case 1:
@@ -74,12 +71,10 @@ CursoControlador controlar = new CursoControlador();
 			break;
 		}
 	} while (opcion!=5);
-	
 		
 	}
 	public static Cursos BuscarCurso(CursoControlador controlar) {
 		String[] listaCursos = new String[controlar.getAllCursos().size()];
-		
 		
 		for (int i = 0; i < listaCursos.length; i++) {
 			listaCursos[i] = Integer.toString(controlar.getAllCursos().get(i).getIdCurso());
