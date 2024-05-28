@@ -1,9 +1,13 @@
 package Modelos;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import Controladores.RecetaControlador;
 
@@ -137,8 +141,7 @@ public class Receta {
 
 	// Menu Mis Recetas
 	public static void menuRecetas() {
-		String[] opcionesRecetas = {"Subir receta", "Ver mis recetas", "Eliminar receta",
-				"Volver" };
+		String[] opcionesRecetas = { "Subir receta", "Ver mis recetas creadas", "Eliminar receta", "Volver" };
 		int opcionElegida = 0;
 		do {
 			opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
@@ -150,11 +153,9 @@ public class Receta {
 				break;
 			case 1:
 				verReceta();
-				JOptionPane.showMessageDialog(null, "Hola, soy una receta");
 				break;
 			case 2:
 				eliminarReceta(opcionElegida);
-				JOptionPane.showMessageDialog(null, "Su receta se eliminó exitosamente");
 				break;
 			case 3:
 				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
@@ -164,6 +165,9 @@ public class Receta {
 	}
 
 	// Metodos de las recetas
+
+	// --------------------------------------- Subir una receta
+	// ---------------------------------------
 	private static void subirReceta() {
 		// Datos de la receta ingresados manualmente
 		String titulo = "Título de la receta";
@@ -200,13 +204,61 @@ public class Receta {
 		recetaControlador.addReceta(receta);
 	}
 
-	private static void eliminarReceta(int opcionElegida) {
-		// TODO Auto-generated method stub
-
-	}
+	// --------------------------------------- Ver una receta
+	// ---------------------------------------
 
 	private static void verReceta() {
-		// TODO Auto-generated method stub
+		RecetaControlador recetaControlador = new RecetaControlador();
+		List<Receta> recetas = recetaControlador.getAllRecetas();
 
+		System.out.println("Recetas Disponibles:");
+		System.out.println("====================");
+
+		for (Receta receta : recetas) {
+			System.out.println("ID: " + receta.getIdReceta());
+			System.out.println("Título: " + receta.getTitulo());
+			System.out.println("Procedimiento: " + receta.getProcedimiento());
+			System.out.println("Número de Ingredientes: " + receta.getnroIngredientes());
+			System.out.println("Fecha: " + receta.getFecha());
+			System.out.println("Ingredientes:");
+			// mostrar la lista de ingredientes
+			for (Ingrediente ingrediente : receta.getIngredientes()) {
+				System.out.println("- " + ingrediente.getNombre() + ": " + ingrediente.getCantidad());
+			}
+
+			System.out.println("====================");
+		}
 	}
+
+	// --------------------------------------- Eliminar una receta
+	// ---------------------------------------
+	private static void eliminarReceta(int opcionElegida) {
+		// recetas disponibles
+		RecetaControlador recetaControlador = new RecetaControlador();
+		List<Receta> recetas = recetaControlador.getAllRecetas();
+
+		// array de strings con los títulos de las recetas
+		String[] titulosRecetas = new String[recetas.size()];
+		for (int i = 0; i < recetas.size(); i++) {
+			titulosRecetas[i] = recetas.get(i).getTitulo();
+		}
+
+		// mostrar titulos de las recetas para que el usuario elija cual eliminar
+		String recetaSeleccionada = (String) JOptionPane.showInputDialog(null, "Seleccione la receta a eliminar:",
+				"Eliminar Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas, titulosRecetas[0]);
+
+		// verificar si el usuario seleccionó una receta y eliminarla del sistema
+		if (recetaSeleccionada != null) {
+			for (Receta receta : recetas) {
+				if (receta.getTitulo().equals(recetaSeleccionada)) {
+					recetaControlador.deleteReceta(receta.getIdReceta());
+					JOptionPane.showMessageDialog(null, "La receta \"" + recetaSeleccionada + "\" ha sido eliminada.");
+					break;
+				}
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "No se seleccionó ninguna receta para eliminar.");
+		}
+	}
+
 }

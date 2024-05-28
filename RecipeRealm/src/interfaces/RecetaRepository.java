@@ -9,4 +9,5 @@ public interface RecetaRepository {
     void addReceta(Receta receta);
     void updateReceta(Receta receta);
     void deleteReceta(int id);
+	Receta getRecetaByUsuario(int id);
 }

@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Date;
 import Modelos.Ingrediente;
 import Modelos.Receta;
+import Modelos.Categoria;
 import interfaces.RecetaRepository;
 
 public class RecetaControlador implements RecetaRepository {
@@ -20,8 +23,62 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public List<Receta> getAllRecetas() {
-		return null;
+		String sql = "SELECT id_receta, titulo, procedimiento, nro_ingredientes, fecha FROM receta";
+		LinkedList<Receta> recetas = new LinkedList<>();
+
+		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+			while (rs.next()) {
+				int idReceta = rs.getInt("id_receta");
+				String titulo = rs.getString("titulo");
+				String procedimiento = rs.getString("procedimiento");
+				int nroIngredientes = rs.getInt("nro_ingredientes");
+				Date fecha = new Date(rs.getDate("fecha").getTime());
+
+				// usar un metodo para traer los ingredientes y cada cantidad del mismo 
+				ArrayList<Ingrediente> ingredientes = getIngredientesByRecetaId(idReceta);
+				ArrayList<Categoria> categorias = new ArrayList<>();
+
+				// crear el objeto Receta y agregarlo a la lista que se va a mostrar
+				Receta receta = new Receta(idReceta, titulo, procedimiento, null, nroIngredientes, 0, null, null, null,
+						null, fecha, ingredientes, categorias);
+				recetas.add(receta);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error al obtener todas las recetas: " + e.getMessage());
+		}
+
+		return recetas;
 	}
+
+	private ArrayList<Ingrediente> getIngredientesByRecetaId(int idReceta) {
+	    String sql = "SELECT ingrediente.nombre, receta_ingrediente.cantidad " +
+	                 "FROM ingrediente " +
+	                 "JOIN receta_ingrediente ON ingrediente.id_ingrediente = receta_ingrediente.id_ingrediente " +
+	                 "WHERE receta_ingrediente.id_receta = ?";
+	    ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+
+	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+	        pstmt.setInt(1, idReceta);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                String nombreIngrediente = rs.getString("nombre");
+	                double cantidad = rs.getDouble("cantidad");
+
+	                Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
+	                ingrediente.setCantidad(cantidad);
+	                ingredientes.add(ingrediente);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al obtener los ingredientes de la receta: " + e.getMessage());
+	    }
+
+	    return ingredientes;
+	}
+
 
 	public void addReceta(Receta receta) {
 		String sqlReceta = "INSERT INTO receta (titulo, procedimiento, nro_ingredientes, fecha) VALUES (?, ?, ?, ?)";
@@ -85,7 +142,7 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	@Override
-	public Receta getRecetaById(int id) {
+	public Receta getRecetaByUsuario(int id) {
 		return null;
 	}
 
@@ -93,9 +150,40 @@ public class RecetaControlador implements RecetaRepository {
 	public void updateReceta(Receta receta) {
 	}
 
+	
 	@Override
 	public void deleteReceta(int idReceta) {
-		
+	    String sqlDeleteRecetaIngrediente = "DELETE FROM receta_ingrediente WHERE id_receta = ?";
+	    String sqlDeleteReceta = "DELETE FROM receta WHERE id_receta = ?";
+
+	    try (Connection connection = DatabaseConnection.getInstance().getConnection();
+	         PreparedStatement pstmtDeleteRecetaIngrediente = connection.prepareStatement(sqlDeleteRecetaIngrediente);
+	         PreparedStatement pstmtDeleteReceta = connection.prepareStatement(sqlDeleteReceta)) {
+
+	        // primero se eliminan los registros en la tabla receta_ingrediente
+	        pstmtDeleteRecetaIngrediente.setInt(1, idReceta);
+	        pstmtDeleteRecetaIngrediente.executeUpdate();
+
+	        // luego se elimina la receta en si
+	        pstmtDeleteReceta.setInt(1, idReceta);
+	        int affectedRows = pstmtDeleteReceta.executeUpdate();
+
+	        if (affectedRows > 0) {
+	            System.out.println("La receta con ID " + idReceta + " ha sido eliminada correctamente.");
+	        } else {
+	            System.out.println("No se encontró ninguna receta con ID " + idReceta + ".");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al eliminar la receta con ID " + idReceta + ": " + e.getMessage());
+	    }
+	}
+
+
+	@Override
+	public Receta getRecetaById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
