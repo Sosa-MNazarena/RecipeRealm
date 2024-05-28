@@ -2,30 +2,31 @@ package Modelos;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class Cursos {
 	private int idCurso;
 	private String titulo;
 	private Aficionado instructor;
-	private double valor;
 	private String lugar;
-	private Date dia;
+	private String dia;
 	private int cupo;
 	private double precio;
-	private Time horario;
+	private String horario;
 
-	public Cursos(int idCurso, String titulo, Aficionado instructor, double valor, String lugar, Date dia, int cupo,
-			double precio, Time horario) {
+	public Cursos(int idCurso, String titulo, Aficionado instructor, String lugar, String dia, int cupo,
+			double precio, String horario) {
 		this.idCurso = idCurso;
 		this.titulo = titulo;
 		this.instructor = instructor;
-		this.valor = valor;
 		this.lugar = lugar;
 		this.dia = dia;
 		this.cupo = cupo;
 		this.precio = precio;
 		this.horario = horario;
 	}
+
+
 
 	public int getIdCurso() {
 		return idCurso;
@@ -51,14 +52,6 @@ public class Cursos {
 		this.instructor = instructor;
 	}
 
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
 	public String getLugar() {
 		return lugar;
 	}
@@ -67,11 +60,11 @@ public class Cursos {
 		this.lugar = lugar;
 	}
 
-	public Date getDia() {
+	public String getDia() {
 		return dia;
 	}
 
-	public void setDia(Date dia) {
+	public void setDia(String dia) {
 		this.dia = dia;
 	}
 
@@ -91,12 +84,18 @@ public class Cursos {
 		this.precio = precio;
 	}
 
-	public Time getHorario() {
+	public String getHorario() {
 		return horario;
 	}
 
-	public void setHorario(Time horario) {
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Cursos [idCurso=" + idCurso + ", titulo=" + titulo + ", instructor=" + instructor + 
+				", lugar=" + lugar + ", dia=" + dia + ", cupo=" + cupo + ", precio=" + precio + ", horario=" + horario
+				+ "]\n";
+	}
 }
