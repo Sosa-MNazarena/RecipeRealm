@@ -9,6 +9,9 @@ import Controladores.DatabaseConnection;
 import Modelos.Cursos;
 
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.swing.ImageIcon;
 
 public class Main {
@@ -29,13 +32,13 @@ CursoControlador controlar = new CursoControlador();
 	opcion = JOptionPane.showOptionDialog(null, "Elija una opcion", null, 0, 0, null, opciones, opciones[0]);
 		switch (opcion) {
 		case 0:
-			String titulo = JOptionPane.showInputDialog( "Ingrese titulo");
-			String lugar = JOptionPane.showInputDialog("Ingrese lugar");
-			String dia = JOptionPane.showInputDialog("Ingrese dia");
-			int cupo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de cupos"));
-			Double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese precio"));
-			String horario = JOptionPane.showInputDialog("Ingrese horario");
-			controlar.addCurso(new Cursos(cupo, titulo,null, lugar,dia,cupo,precio,horario));		
+			  String titulo = JOptionPane.showInputDialog("Ingrese titulo");
+              String lugar = JOptionPane.showInputDialog("Ingrese lugar");
+              LocalDate dia = LocalDate.parse(JOptionPane.showInputDialog("Ingrese dia (YYYY-MM-DD)"));
+              int cupo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cantidad de cupos"));
+              Double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese precio"));
+              LocalTime horario = LocalTime.parse(JOptionPane.showInputDialog("Ingrese horario (HH:MM:SS)"));
+              controlar.addCurso(new Cursos(0, titulo, null, lugar, dia, cupo, precio, horario));		
 			break;
 		case 1:
 			JOptionPane.showMessageDialog(null, controlar.getAllCursos());	
@@ -48,10 +51,10 @@ CursoControlador controlar = new CursoControlador();
 			Cursos encontrado = BuscarCurso(controlar);
 			String nuevoTitulo = JOptionPane.showInputDialog( "Ingrese el nuevo titulo de "+ encontrado.getTitulo());
 			String nuevoLugar = JOptionPane.showInputDialog("Ingrese el nuevo lugar de "+encontrado.getLugar());
-			String nuevoDia = JOptionPane.showInputDialog("Ingrese nuevo dia "+encontrado.getDia());
+			LocalDate nuevoDia = LocalDate.parse(JOptionPane.showInputDialog("Ingrese nuevo dia "+encontrado.getDia()));
 			int nuevoCupo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese nueva cantidad de cupos "+encontrado.getCupo()));
 			Double nuevoPrecio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese nuevo precio "+encontrado.getPrecio() ));
-			String nuevoHorario = JOptionPane.showInputDialog("Ingrese nuevo horario "+encontrado.getHorario());
+			LocalTime nuevoHorario =LocalTime.parse(JOptionPane.showInputDialog("Ingrese nuevo horario "+encontrado.getHorario()));
 			encontrado.setTitulo(nuevoTitulo);
 			encontrado.setLugar(nuevoLugar);
 			encontrado.setDia(nuevoDia);
