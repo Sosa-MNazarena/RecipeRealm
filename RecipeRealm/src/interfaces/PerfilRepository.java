@@ -14,7 +14,8 @@ public interface PerfilRepository {
 	    
 	    void updatePerfil(Perfil Perfil); 
 	    
-	    void deletePerfil(int id); 
+	    void deletePerfil(int id);
 
-
+		Perfil iniciarSesion(String correo, String contrasena); 
+	    
 }

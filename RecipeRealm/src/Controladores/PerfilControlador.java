@@ -94,9 +94,17 @@ public class PerfilControlador implements PerfilRepository {
     }
     @Override
     public Perfil iniciarSesion(String correo, String contrasena) {
-        return perfilRepository.findByCorreoAndContrasena(correo, contrasena);
-    }
+    	 List<Perfil> perfiles = this.getAllPerfils();
 
+    	    for (Perfil perfil : perfiles) {
+    	        if (perfil.getCorreo().equals(correo) && perfil.getContrasena().equals(contrasena)) {
+    	            return perfil;
+    	        }
+    	    }
+
+    	    return null;
+    }
+    
     @Override
     public void updatePerfil(Perfil perfil) {
         // TODO: Implementar la lógica para actualizar un perfil

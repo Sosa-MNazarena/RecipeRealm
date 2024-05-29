@@ -65,6 +65,26 @@ public class Main {
 					}
 				} while (opcionElegida != 3);
 				break;
+
+                case 1: // Registrar
+                    String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
+                    String pseudonimo = JOptionPane.showInputDialog("Ingrese su pseudónimo:");
+                    correo = JOptionPane.showInputDialog("Ingrese su correo:");
+                    contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+                    String descripcion = JOptionPane.showInputDialog("Ingrese una descripción:");
+                    boolean verificado = JOptionPane.showInputDialog("¿Es Chef? (true/false)").equals("true");
+                    Perfil nuevoPerfil = new Perfil(0, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+                    perfilControlador.addPerfil(nuevoPerfil);
+                    break;
+
+                case 2: // Salir
+                    ImageIcon iconSalir = new ImageIcon(Main.class.getResource("/imagenes/Salir.png"));
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Salir", 0, iconSalir);
+                    break;
+            }
+        } while (opcion != 2);
+    }
+}
 			/*
 			 * case 1: // Chef ImageIcon iconChef = new
 			 * ImageIcon(Main.class.getResource("/imagenes/chef.png")); Chef chef = new
