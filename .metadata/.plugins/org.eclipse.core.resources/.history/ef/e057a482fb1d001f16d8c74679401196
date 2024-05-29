@@ -1,0 +1,154 @@
+package Modelos;
+
+import javax.swing.*;
+
+public class Chef extends Perfil {
+    public Chef(int id, String nombre, String pseudonimo, String correo, String contrasena, String descripcion, boolean verificado) {
+        super(id, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+    }
+
+    public void mostrarMenu() {
+        ImageIcon iconChef = new ImageIcon(Chef.class.getResource("/imagenes/chef.png"));
+        JOptionPane.showMessageDialog(null, "Bienvenido Chef " + getNombre(), "Chef", 0, iconChef);
+
+        String[] opcionesChef = { "Recetas", "Favoritos", "Búsqueda", "Salir" };
+        int opcionElegidaChef;
+        do {
+            opcionElegidaChef = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Acciones de Chef", 0, 0, null,
+                    opcionesChef, opcionesChef[0]);
+
+            switch (opcionElegidaChef) {
+                case 0:
+                    menuRecetas();
+                    break;
+                case 1:
+                    menuFavoritos();
+                    break;
+                case 2:
+                    menuBusqueda();
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Salir del perfil de Chef");
+                    break;
+            }
+        } while (opcionElegidaChef != 3);
+    }
+
+    public void menuRecetas() {
+        // Lógica para gestionar recetas
+        JOptionPane.showMessageDialog(null, "Recetas - Chef");
+    }
+
+    public void menuFavoritos() {
+        // Lógica para gestionar favoritos
+        JOptionPane.showMessageDialog(null, "Favoritos - Chef");
+    }
+
+    public void menuBusqueda() {
+        // Lógica para búsqueda
+        JOptionPane.showMessageDialog(null, "Búsqueda - Chef");
+    }
+}
+
+
+	 /*	    
+	    public Chef(String nombre, String correo, String contrasena, boolean esVerificado) {
+	        super(nombre, correo, contrasena, contrasena, contrasena, esVerificado);
+	        this.esVerificado = esVerificado;
+	    }
+
+	    public boolean isVerificado() {
+	        return esVerificado;
+	    }
+	   
+	    public void setVerificado(boolean esVerificado) {
+	        this.esVerificado = esVerificado;
+	    }
+	    //SubMenuReceta
+	    public void subirRecetaVerificada() {
+	    	return;
+	    }
+	    
+	    public void verReceta() {
+	    	return;
+	    }
+	    
+	    public void eliminarReceta() {
+	    	return;
+	    }
+	    
+	    //Menu
+	    public void menuRecetas() {
+	    	  String[] opcionesRecetas = {
+	    	            "Subir receta", "Ver receta", "Eliminar receta", "Volver"
+	    	        };
+	    	        int opcionElegida = 0;
+	    	        do {
+	    	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesRecetas, opcionesRecetas[0]);
+	    	            switch (opcionElegida) {
+	    	                case 0:
+	    	                    subirReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se subio exitosamente");
+	    	                    break;
+	    	                case 1:
+	    	                    verReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Hola, soy una receta");
+	    	                    break;
+	    	                case 2:
+	    	                    eliminarReceta();
+	    	                    JOptionPane.showMessageDialog(null, "Su receta se elimino exitosamente");
+	    	                    break;
+	    	                case 3:
+	    	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+	    	                    break;
+	    	            }
+	    	        } while (opcionElegida != 3);
+	    	    }
+
+	    public void menuFavoritos() {
+	    	String[] opcionesFavoritos = {
+	            "Ver recetas favoritas", "Eliminar recetas de favoritas", "Volver"
+	        };
+	        int opcionElegida = 0;
+	        do {
+	            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesFavoritos, opcionesFavoritos[0]);
+	            switch (opcionElegida) {
+	                case 0:
+	                    subirReceta();
+	                    JOptionPane.showMessageDialog(null, "Hola, Soy una lista de recetas favoritas c:");
+	                    break;
+	                case 1:
+	                    verReceta();
+	                    JOptionPane.showMessageDialog(null, "Esta receta se elimino con exito");
+	                    break;
+	                case 2:
+	                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+	                    break;
+	            }
+	        } while (opcionElegida != 2);
+	    }
+	    public void menuBusqueda() {
+	    	String[] opcionesBusqueda = {
+		            "Buscar un perfil", "Buscar una receta", "Volver"
+		        };
+		        int opcionElegida = 0;
+		        do {
+		            opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null, opcionesBusqueda, opcionesBusqueda[0]);
+		            switch (opcionElegida) {
+		                case 0:
+		                    subirReceta();
+		                    JOptionPane.showMessageDialog(null, "Nada de stalckear a tu ex");
+		                    break;
+		                case 1:
+		                    verReceta();
+		                    JOptionPane.showMessageDialog(null, "Esta es tu receta");
+		                    break;
+		                case 2:
+		                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+		                    break;
+		            }
+		        } while (opcionElegida != 2);
+		    }
+*/
+}
+	 
