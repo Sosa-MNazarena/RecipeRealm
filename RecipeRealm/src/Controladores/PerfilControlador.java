@@ -132,7 +132,23 @@ public class PerfilControlador implements PerfilRepository {
 
     @Override
     public void updatePerfil(Perfil perfil) {
-        // TODO: Implementar la lógica para actualizar un perfil
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE usuarios SET nombre = ?, pseudonimo = ?, correo = ?, contrasena = ?, descripcion = ?, verificado = ? WHERE id_usuario = ?");
+            statement.setString(1, perfil.getNombre());
+            statement.setString(2, perfil.getPseudonimo());
+            statement.setString(3, perfil.getCorreo());
+            statement.setString(4, perfil.getContrasena());
+            statement.setString(5, perfil.getDescripcion());
+            statement.setBoolean(6, perfil.isVerificado());
+            statement.setInt(7, perfil.getIdUsuario());
+            
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("El perfil fue actualizado exitosamente!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
