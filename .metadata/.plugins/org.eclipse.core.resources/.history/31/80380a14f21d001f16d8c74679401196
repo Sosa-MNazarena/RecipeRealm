@@ -27,30 +27,30 @@ public class PerfilControlador implements PerfilRepository {
 
     @Override
     public Perfil getPerfilById(int id) {
-        Perfil perfil = null;
-        try {
-            String query = "SELECT id_usuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado FROM usuarios WHERE id_usuario = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
+    	
+    	 List<Perfil> perfiles = new ArrayList<>();
+    	    try {
+    	        PreparedStatement statement = connection.prepareStatement("SELECT id_usuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado FROM usuarios");
+    	        ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()) {
-                int idUsuario = resultSet.getInt("id_usuario");
-                String nombre = resultSet.getString("nombre");
-                String pseudonimo = resultSet.getString("pseudonimo");
-                String correo = resultSet.getString("correo");
-                String contrasena = resultSet.getString("contrasena");
-                String descripcion = resultSet.getString("descripcion");
-                boolean verificado = resultSet.getBoolean("verificado");
+    	        while (resultSet.next()) {
+    	            int idUsuario = resultSet.getInt("id_usuario");
+    	            String nombre = resultSet.getString("nombre");
+    	            String pseudonimo = resultSet.getString("pseudonimo");
+    	            String correo = resultSet.getString("correo");
+    	            String contrasena = resultSet.getString("contrasena");
+    	            String descripcion = resultSet.getString("descripcion");
+    	            boolean verificado = resultSet.getBoolean("verificado");
 
-                // Crear un objeto Perfil con los datos obtenidos
-                perfil = new Perfil(idUsuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return perfil;
-    }
+    	            // Crear un objeto Perfil con los datos obtenidos
+    	            Perfil perfil = new Perfil(idUsuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+    	            perfiles.add(perfil);
+    	        }
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	    }
+    	    return (Perfil) perfiles;
+    	}
 
     @Override
     public void addPerfil(Perfil perfil) {
