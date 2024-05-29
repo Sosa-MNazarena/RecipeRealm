@@ -5,29 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Date;
+
+import Modelos.Categoria;
 import Modelos.Ingrediente;
 import Modelos.Receta;
-import Modelos.Categoria;
+import Modelos.RecetaSingleton;
 import interfaces.RecetaRepository;
 
 public class RecetaControlador implements RecetaRepository {
-
 	private Connection connection;
 
 	public RecetaControlador() {
 		this.connection = DatabaseConnection.getInstance().getConnection();
+		cargarRecetasDesdeBaseDeDatos();
 	}
 
-	@Override
-	public List<Receta> getAllRecetas() {
+	private void cargarRecetasDesdeBaseDeDatos() {
 		String sql = "SELECT id_receta, titulo, procedimiento, nro_ingredientes, fecha FROM receta";
-		LinkedList<Receta> recetas = new LinkedList<>();
-
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
 			while (rs.next()) {
 				int idReceta = rs.getInt("id_receta");
 				String titulo = rs.getString("titulo");
@@ -40,17 +38,19 @@ public class RecetaControlador implements RecetaRepository {
 
 				Receta receta = new Receta(idReceta, titulo, procedimiento, null, nroIngredientes, 0, null, null, null,
 						null, fecha, ingredientes, categorias);
-				recetas.add(receta);
+				RecetaSingleton.getInstance().addReceta(receta);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error al obtener todas las recetas: " + e.getMessage());
+			System.out.println("Error al cargar las recetas desde la base de datos: " + e.getMessage());
 		}
-
-		return recetas;
 	}
 
-	// obtener lista de ingredientes para receta segun el id
+	@Override
+	public List<Receta> getAllRecetas() {
+		return RecetaSingleton.getInstance().getRecetas();
+	}
+
 	private ArrayList<Ingrediente> getIngredientesByRecetaId(int idReceta) {
 		String sql = "SELECT ingrediente.nombre, receta_ingrediente.cantidad " + "FROM ingrediente "
 				+ "JOIN receta_ingrediente ON ingrediente.id_ingrediente = receta_ingrediente.id_ingrediente "
@@ -77,7 +77,6 @@ public class RecetaControlador implements RecetaRepository {
 		return ingredientes;
 	}
 
-	// obtener lista de categorias para receta segun el id
 	private ArrayList<Categoria> getCategoriasByRecetaId(int idReceta) {
 		String sql = "SELECT categoria.id_categoria, categoria.nombre_categoria " + "FROM categoria "
 				+ "JOIN receta_categoria ON categoria.id_categoria = receta_categoria.id_categoria "
@@ -186,6 +185,9 @@ public class RecetaControlador implements RecetaRepository {
 						pstmtRecetaCategoria.executeUpdate();
 					}
 
+					// Agregar la receta al singleton
+					RecetaSingleton.getInstance().addReceta(receta);
+
 				} else {
 					throw new SQLException("Fallo al insertar la receta");
 				}
@@ -194,15 +196,6 @@ public class RecetaControlador implements RecetaRepository {
 			e.printStackTrace();
 			System.out.println("Error al insertar la receta: " + e.getMessage());
 		}
-	}
-
-	@Override
-	public Receta getRecetaByUsuario(int id) {
-		return null;
-	}
-
-	@Override
-	public void updateReceta(Receta receta) {
 	}
 
 	@Override
@@ -225,6 +218,19 @@ public class RecetaControlador implements RecetaRepository {
 
 			if (affectedRows > 0) {
 				System.out.println("La receta con ID " + idReceta + " ha sido eliminada correctamente.");
+
+				// Eliminar la receta del singleton
+				Receta recetaAEliminar = null;
+				for (Receta receta : RecetaSingleton.getInstance().getRecetas()) {
+					if (receta.getIdReceta() == idReceta) {
+						recetaAEliminar = receta;
+						break;
+					}
+				}
+
+				if (recetaAEliminar != null) {
+					RecetaSingleton.getInstance().removeReceta(recetaAEliminar);
+				}
 			} else {
 				System.out.println("No se encontró ninguna receta con ID " + idReceta + ".");
 			}
@@ -235,9 +241,19 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	@Override
-	public Receta getRecetaById(int id) {
-		// TODO Auto-generated method stub
+	public Receta getRecetaByUsuario(int id) {
+		// Implementación según sea necesario
 		return null;
 	}
 
+	@Override
+	public void updateReceta(Receta receta) {
+		// Implementación según sea necesario
+	}
+
+	@Override
+	public Receta getRecetaById(int id) {
+		// Implementación según sea necesario
+		return null;
+	}
 }

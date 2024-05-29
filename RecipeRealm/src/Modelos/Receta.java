@@ -166,8 +166,7 @@ public class Receta {
 
 	// Metodos de las recetas
 
-	// ----------------------------------- Subir una receta
-	// -------------------------------------
+
 	// ----------------------------------- Subir una receta
 	// -------------------------------------
 	private static void subirReceta() {

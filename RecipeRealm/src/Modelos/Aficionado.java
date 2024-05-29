@@ -149,7 +149,7 @@ public class Aficionado {
 
 	// Menues
 	public void menuRecetas() {
-	    String[] opcionesRecetas = { "Mis recetas", "Recetas (no me acuerdo bien que nombre habiamos dicho que iba aca)", "Volver" };
+	    String[] opcionesRecetas = { "Mis recetas", "Recetas", "Volver" };
 	    int opcionElegida = 0;
 	    do {
 	        opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
