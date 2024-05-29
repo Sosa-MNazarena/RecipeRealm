@@ -117,12 +117,12 @@ public class PerfilControlador implements PerfilRepository {
                 int idUsuario = resultSet.getInt("id_usuario");
                 String nombre = resultSet.getString("nombre");
                 String pseudonimo = resultSet.getString("pseudonimo");
-                String correoUser = resultSet.getString("correo");
-                String contrasenaUser = resultSet.getString("contrasena");
+                String correoDb = resultSet.getString("correo");
+                String contrasenaDb = resultSet.getString("contrasena");
                 String descripcion = resultSet.getString("descripcion");
                 boolean verificado = resultSet.getBoolean("verificado");
 
-                perfil = new Perfil(idUsuario, nombre, pseudonimo, correoUser, contrasenaUser, descripcion, verificado);
+                perfil = new Perfil(idUsuario, nombre, pseudonimo, correoDb, contrasenaDb, descripcion, verificado);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,18 +153,6 @@ public class PerfilControlador implements PerfilRepository {
     
     @Override
     public void deletePerfil(int id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM usuarios WHERE id_usuario = ?");
-            statement.setInt(1, id);
-            int rowsDeleted = statement.executeUpdate();
-            
-            if (rowsDeleted > 0) {
-                System.out.println("Perfil eliminado exitosamente.");
-            } else {
-                System.out.println("No se encontró el perfil con el ID proporcionado.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // TODO: Implementar la lógica para eliminar un perfil por ID
     }
 }
