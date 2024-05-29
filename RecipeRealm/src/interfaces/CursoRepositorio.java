@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.List;
 
+import Modelos.Aficionado;
 import Modelos.Cursos;
 
 public interface CursoRepositorio {
@@ -14,6 +15,6 @@ public interface CursoRepositorio {
 	    void updateCurso(Cursos curso); 
 	    
 	    void deleteCurso(int id); 
-	    
-	    void inscribirCurso(); //pensar si iría acá o en la inteface de aficionado
+
+		void inscribirCurso(Aficionado aficionado, int idCurso);
 }

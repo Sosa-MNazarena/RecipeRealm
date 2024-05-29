@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import Modelos.Aficionado;
 import Modelos.Cursos;
 import interfaces.CursoRepositorio;
 
@@ -130,8 +131,33 @@ public class CursoControlador implements CursoRepositorio {
     }
 
 	@Override
-	public void inscribirCurso() {
-		// TODO Auto-generated method stub
+	public void inscribirCurso(Aficionado aficionado, int id_Curso) {
+		try {
+            PreparedStatement cupoStatement = connection.prepareStatement("SELECT cupo FROM cursos WHERE id_curso = ?");
+            cupoStatement.setInt(1, id_Curso);
+            ResultSet cupoResultSet = cupoStatement.executeQuery();
+
+            if (cupoResultSet.next()) {
+                int cupo = cupoResultSet.getInt("cupo");
+
+                if (cupo > 0) {
+                    PreparedStatement inscribirStatement = connection.prepareStatement("INSERT INTO inscripciones (id_usuario, id_curso) VALUES (?, ?)");
+                    inscribirStatement.setInt(1, aficionado.getIdUsuario());
+                    inscribirStatement.setInt(2, id_Curso);
+                    inscribirStatement.executeUpdate();
+
+                    PreparedStatement actualizarCupoStatement = connection.prepareStatement("UPDATE cursos SET cupo = cupo - 1 WHERE id_curso = ?");
+                    actualizarCupoStatement.setInt(1, id_Curso);
+                    actualizarCupoStatement.executeUpdate();
+
+                    JOptionPane.showMessageDialog(null, "Te has inscripto exitosamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay cupo disponible en este curso");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 		
 	}
 }
