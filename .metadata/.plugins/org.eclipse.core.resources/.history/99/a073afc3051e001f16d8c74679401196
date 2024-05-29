@@ -12,8 +12,6 @@ public interface PerfilRepository {
 	    
 	    void addPerfil(Perfil Perfil); 
 	    
-	    Perfil autenticar(String correo, String contrasena);
-	    
 	    void updatePerfil(Perfil Perfil); 
 	    
 	    void deletePerfil(int id);

@@ -105,36 +105,30 @@ public class PerfilControlador implements PerfilRepository {
     	    return null;
     }
     
-    public Perfil autenticar(String correo, String contrasena) {
-        Perfil perfil = null;
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT id_usuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado FROM usuarios WHERE correo = ? AND contrasena = ?");
-            statement.setString(1, correo);
-            statement.setString(2, contrasena);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                int idUsuario = resultSet.getInt("id_usuario");
-                String nombre = resultSet.getString("nombre");
-                String pseudonimo = resultSet.getString("pseudonimo");
-                String correoDb = resultSet.getString("correo");
-                String contrasenaDb = resultSet.getString("contrasena");
-                String descripcion = resultSet.getString("descripcion");
-                boolean verificado = resultSet.getBoolean("verificado");
-
-                perfil = new Perfil(idUsuario, nombre, pseudonimo, correoDb, contrasenaDb, descripcion, verificado);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return perfil;
-    }
-
     @Override
     public void updatePerfil(Perfil perfil) {
-        // TODO: Implementar la lógica para actualizar un perfil
-    }
-    
+    	 String sql = "UPDATE usuarios SET nombre = ?, pseudonimo = ?, correo = ?, contrasena = ?, descripcion = ?, verificado = ? WHERE id_usuario = ?";
+         PreparedStatement statement = connection.prepareStatement(sql);
+
+         statement.setString(1, perfil.getNombre());
+         statement.setString(2, perfil.getPseudonimo());
+         statement.setString(3, perfil.getCorreo());
+         statement.setString(4, perfil.getContrasena());
+         statement.setString(5, perfil.getDescripcion());
+         statement.setBoolean(6, perfil.isVerificado());
+         statement.setInt(7, perfil.getIdUsuario());
+
+         int rowsUpdated = statement.executeUpdate();
+         if (rowsUpdated > 0) {
+             JOptionPane.showMessageDialog(null, "Perfil actualizado exitosamente");
+         } else {
+             JOptionPane.showMessageDialog(null, "No se encontró el perfil con ID: " + perfil.getIdUsuario());
+         }
+     } catch (SQLException e) {
+         e.printStackTrace();
+         JOptionPane.showMessageDialog(null, "Error al actualizar el perfil: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+     }
+ 
     @Override
     public void deletePerfil(int id) {
         // TODO: Implementar la lógica para eliminar un perfil por ID

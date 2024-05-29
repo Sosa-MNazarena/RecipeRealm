@@ -12,7 +12,7 @@ public interface PerfilRepository {
 	    
 	    void addPerfil(Perfil Perfil); 
 	    
-	    Perfil autenticar(String correo, String contrasena);
+	    void autenticar (Perfil Perfil); 
 	    
 	    void updatePerfil(Perfil Perfil); 
 	    
