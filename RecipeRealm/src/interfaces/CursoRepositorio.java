@@ -2,8 +2,9 @@ package interfaces;
 
 import java.util.List;
 
-import Modelos.Aficionado;
+
 import Modelos.Cursos;
+import Modelos.Perfil;
 
 public interface CursoRepositorio {
 	 	List<Cursos> getAllCursos(); 
@@ -16,5 +17,5 @@ public interface CursoRepositorio {
 	    
 	    void deleteCurso(int id); 
 
-		void inscribirCurso(Aficionado aficionado, int idCurso);
+		void inscribirCurso(Perfil perfil, int idCurso);
 }
