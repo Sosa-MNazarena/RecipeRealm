@@ -74,7 +74,8 @@ public class PerfilControlador implements PerfilRepository {
 
     @Override
     public boolean addPerfil(Perfil perfil) {
-        if (Perfil.esContrasenaValida(perfil.getContrasena())) {
+        if (perfil.RegistrarPerfil(perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion()) 
+            && perfil.caracteresMaxDescripcion(perfil.getDescripcion())) {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)"
