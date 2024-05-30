@@ -74,6 +74,9 @@ public class PerfilControlador implements PerfilRepository {
 
     @Override
     public void addPerfil(Perfil perfil) {
+    	
+    	if (Perfil.esContrasenaValida(perfil.getContrasena())) {
+           
         try {
         	PreparedStatement statement = connection.prepareStatement("INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)");
         	statement.setString(1, perfil.getNombre());
@@ -92,6 +95,7 @@ public class PerfilControlador implements PerfilRepository {
             e.printStackTrace();
         }
     }
+    	}
     
     public Perfil autenticar(String correo, String contrasena) {
         Perfil perfil = null;
