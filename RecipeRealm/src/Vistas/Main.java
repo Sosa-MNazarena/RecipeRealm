@@ -42,10 +42,10 @@ public class Main {
                     if (perfil != null) {
                         if (perfil.isVerificado()) {
                             Chef chef = new Chef(perfil.getIdUsuario(), perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion(), perfil.isVerificado());
-                            chef.mostrarMenu();
+                            chef.menuPrincipalChef();
                         } else {
                             Aficionado aficionado = new Aficionado(perfil.getIdUsuario(), perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion(), perfil.isVerificado());
-                            aficionado.mostrarMenu();
+                            aficionado.menuPrincipalAficionado();
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.");
