@@ -1,13 +1,14 @@
 package Tests;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import Controladores.PerfilControlador;
 
 import Modelos.Perfil;
 public class TestPerfil {
-	
-	
-	
-	public class InicioSesion {
+
 	   @Test
 	    public void InicioCorrecto() {
 	        PerfilControlador controlador = new PerfilControlador();
@@ -36,14 +37,14 @@ public class TestPerfil {
 	        assertEquals(false,flag);
 
 	    }
-	}
+
 	
-	public class RegistroPerfil {
+	
 		@Test
 		public void RegistroCorrecto() {
 		    PerfilControlador controlador = new PerfilControlador();
 		    boolean flag = false;
-		    Perfil nuevoPerfil = new Perfil(0, "nuevo_usuario", "nuevo_pseudonimo", "nuevo_correo@gmail.com", "nueva_contrasena", "Descripción", false);
+		    Perfil nuevoPerfil = new Perfil(0, "nuevo_usuario", "nuevo_pseudonimo", "nuevo_correo@gmail.com", "Nueva_contrasena1", "Descripción", false);
 		    if (controlador.addPerfil(nuevoPerfil)) {
 		        System.out.println("Registro correcto");
 		        flag = true;
@@ -54,7 +55,7 @@ public class TestPerfil {
 		}
 		
 		@Test
-		 public void InicioIncorrecto() {
+		 public void RegistroIncorrecto() {
 		        PerfilControlador controlador = new PerfilControlador();
 		        boolean flag = false;
 
@@ -91,4 +92,4 @@ public class TestPerfil {
 		    }
 	
 }
-}
+
