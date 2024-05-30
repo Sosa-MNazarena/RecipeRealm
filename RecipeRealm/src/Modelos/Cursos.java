@@ -97,15 +97,13 @@ public class Cursos {
                 + "]\n";
     }
     
-    public boolean publicarCurso() {
-    	if (instructor.isVerificado()&&titulo.length()>=10 && cupo<=100 ) {
+    public boolean publicarCurso(Perfil instructor) {
+    	if (instructor.isVerificado() && titulo.length()>=10 && cupo<=100 ) {
     		if (!lugar.isEmpty()&&!dia.isBefore(LocalDate.now())&&precio>0) {
 				return true;
-			} else {
-				return false;
 			}
-		} else {
-			return false;
-		}
+    	}
+		return false;
+		
     }
 }

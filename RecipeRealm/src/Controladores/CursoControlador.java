@@ -76,8 +76,8 @@ public class CursoControlador implements CursoRepositorio {
     }
 
     @Override
-    public boolean addCurso(Cursos curso) {
-    	if (curso.publicarCurso()) {
+    public boolean addCurso(Cursos curso, Perfil perfil) {
+    	if (curso.publicarCurso(perfil)) {
     		try {
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario) VALUES (?, ?, ?, ?, ?, ?)");
                 statement.setString(1, curso.getTitulo());
@@ -137,7 +137,7 @@ public class CursoControlador implements CursoRepositorio {
     }
 
 	@Override
-	public void inscribirCurso(Perfil perfil, int id_Curso) {
+	public boolean inscribirCurso(int idUsuario, int id_Curso) {
 		try {
             PreparedStatement cupoStatement = connection.prepareStatement("SELECT cupo FROM cursos WHERE id_curso = ?");
             cupoStatement.setInt(1, id_Curso);
@@ -148,22 +148,24 @@ public class CursoControlador implements CursoRepositorio {
 
                 if (cupo > 0) {
                     PreparedStatement inscribirStatement = connection.prepareStatement("INSERT INTO inscripciones (id_usuario, id_curso) VALUES (?, ?)");
-                    inscribirStatement.setInt(1, perfil.getIdUsuario());
+                    inscribirStatement.setInt(1, idUsuario);
                     inscribirStatement.setInt(2, id_Curso);
                     inscribirStatement.executeUpdate();
 
                     PreparedStatement actualizarCupoStatement = connection.prepareStatement("UPDATE cursos SET cupo = cupo - 1 WHERE id_curso = ?");
                     actualizarCupoStatement.setInt(1, id_Curso);
                     actualizarCupoStatement.executeUpdate();
-
                     JOptionPane.showMessageDialog(null, "Te has inscripto exitosamente");
+                    return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "No hay cupo disponible en este curso");
+                    return false;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+		return false;
 		
 	}
 }

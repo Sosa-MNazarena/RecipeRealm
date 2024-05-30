@@ -11,11 +11,11 @@ public interface CursoRepositorio {
 	    
 	    Cursos getCursoById(int id); 
 	    
-	    boolean addCurso(Cursos curso); 
+	    boolean addCurso(Cursos curso, Perfil perfil); 
 	    
 	    void updateCurso(Cursos curso); 
 	    
 	    void deleteCurso(int id); 
 
-		void inscribirCurso(Perfil perfil, int idCurso);
+		boolean inscribirCurso(int idUsuario, int idCurso);
 }
