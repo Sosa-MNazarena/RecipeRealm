@@ -73,24 +73,29 @@ public class PerfilControlador implements PerfilRepository {
     }
 
     @Override
-    public void addPerfil(Perfil perfil) {
-        try {
-        	PreparedStatement statement = connection.prepareStatement("INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)");
-        	statement.setString(1, perfil.getNombre());
-        	statement.setString(2, perfil.getPseudonimo());
-        	statement.setString(3, perfil.getCorreo());
-        	statement.setString(4, perfil.getContrasena());
-        	statement.setString(5, perfil.getDescripcion());
-        	statement.setBoolean(6, perfil.isVerificado());
-        	
-        	int rowsInserted = statement.executeUpdate();
-        	if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Perfil creado exitosamente");
-			}
-			
-		} catch (SQLException e) {
-            e.printStackTrace();
+    public boolean addPerfil(Perfil perfil) {
+        if (perfil.RegistrarPerfil(perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion()) 
+            && perfil.caracteresMaxDescripcion(perfil.getDescripcion())) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)"
+                );
+                statement.setString(1, perfil.getNombre());
+                statement.setString(2, perfil.getPseudonimo());
+                statement.setString(3, perfil.getCorreo());
+                statement.setString(4, perfil.getContrasena());
+                statement.setString(5, perfil.getDescripcion());
+                statement.setBoolean(6, perfil.isVerificado());
+                
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    return true; //correcto
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return false; //incorrecto
     }
     
     public Perfil autenticar(String correo, String contrasena) {

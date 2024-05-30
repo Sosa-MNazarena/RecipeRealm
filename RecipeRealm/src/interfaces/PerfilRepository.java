@@ -10,7 +10,7 @@ public interface PerfilRepository {
 	    
 	    Perfil getPerfilById(int id); 
 	    
-	    void addPerfil(Perfil Perfil); 
+	    boolean addPerfil(Perfil Perfil); 
 	    
 	    Perfil autenticar(String correo, String contrasena);
 	    
