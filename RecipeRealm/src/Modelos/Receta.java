@@ -1,14 +1,9 @@
 package Modelos;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import com.mysql.jdbc.PreparedStatement;
-
 import Controladores.RecetaControlador;
 
 public class Receta {
@@ -169,32 +164,71 @@ public class Receta {
 	// -------------------------------------
 
 	private static void subirReceta() {
-		String titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
-		String procedimiento = JOptionPane.showInputDialog("Ingrese el procedimiento de la receta:");
+		String titulo;
+		do {
+			titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
+			if (titulo.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "El título no puede estar vacío.");
+			}
+		} while (titulo.isEmpty());
+
+		String procedimiento;
+		do {
+			procedimiento = JOptionPane.showInputDialog("Ingrese el procedimiento de la receta:");
+			if (procedimiento.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "El procedimiento no puede estar vacío.");
+			}
+		} while (procedimiento.isEmpty());
+
 		Date fecha = new Date(System.currentTimeMillis());
 
-		int numIngredientes = Integer
-				.parseInt(JOptionPane.showInputDialog("Ingrese el número de ingredientes que va a tener su receta:"));
+		int numIngredientes = 0;
+		while (numIngredientes <= 0) {
+			try {
+				numIngredientes = Integer.parseInt(
+						JOptionPane.showInputDialog("Ingrese el número de ingredientes que va a tener su receta:"));
+				if (numIngredientes <= 0) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar al menos un ingrediente.");
+				}
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+			}
+		}
+
 		ArrayList<Ingrediente> ingredientes = new ArrayList<>();
 		for (int i = 0; i < numIngredientes; i++) {
 			String nombreIngrediente = JOptionPane
 					.showInputDialog("Ingrese el nombre del ingrediente " + (i + 1) + ":");
-			double cantidad = Double
-					.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad de " + nombreIngrediente + ":"));
+			double cantidad = 0;
+			while (cantidad <= 0) {
+				try {
+					cantidad = Double.parseDouble(
+							JOptionPane.showInputDialog("Ingrese la cantidad de " + nombreIngrediente + ":"));
+					if (cantidad <= 0) {
+						JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor que 0.");
+					}
+				} catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+				}
+			}
 			Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
-			ingrediente.setCantidad(cantidad); // Establecer la cantidad en el ingrediente
+			ingrediente.setCantidad(cantidad);
 			ingredientes.add(ingrediente);
 		}
 
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String nombreCategoria;
-		while (true) {
+		do {
 			nombreCategoria = JOptionPane.showInputDialog(
 					"Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
-			if (nombreCategoria.equals("0")) {
-				break;
+			if (!nombreCategoria.equals("0")) {
+				categorias.add(new Categoria(numIngredientes, nombreCategoria));
 			}
-			categorias.add(new Categoria(numIngredientes, nombreCategoria));
+		} while (!nombreCategoria.equals("0") || categorias.isEmpty());
+
+		if (categorias.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar al menos una categoría.");
+			return;
 		}
 
 		Receta receta = new Receta(1, titulo, procedimiento, null, numIngredientes, 0, null, null, null, null, fecha,
@@ -206,35 +240,33 @@ public class Receta {
 		receta.setCategorias(categorias);
 
 		RecetaControlador recetaControlador = new RecetaControlador();
-		recetaControlador.addReceta(receta);
+		try {
+			recetaControlador.addReceta(receta);
+			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
+		}
 	}
 
 	// ------------------------------------ Ver una receta
 	// --------------------------------------------
 	private static void verReceta() {
-		RecetaControlador recetaControlador = new RecetaControlador();
-		List<Receta> recetas = recetaControlador.getAllRecetas();
+		RecetaControlador RecetaControlador = new RecetaControlador();
+		List<String> titulosRecetas = RecetaControlador.getTitulosRecetas();
 
-		String[] titulosRecetas = new String[recetas.size()];
-		for (int i = 0; i < recetas.size(); i++) {
-			titulosRecetas[i] = recetas.get(i).getTitulo();
+		// dar un mennsaje al usuario si no se encuentra ninguna receta creada
+		if (titulosRecetas.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "No se encontraron recetas disponibles.");
+			return; // Salir del método si no hay recetas disponibles
 		}
-
 		// Mostrar los titulos para que el usuario seleccione una receta
 		String recetaSeleccionada = (String) JOptionPane.showInputDialog(null, "Seleccione la receta a ver:",
-				"Ver Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas, titulosRecetas[0]);
+				"Ver Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas.toArray(), titulosRecetas.get(0));
 
 		if (recetaSeleccionada != null) {
-			Receta receta = null;
-			for (Receta r : recetas) {
-				if (r.getTitulo().equals(recetaSeleccionada)) {
-					receta = r;
-					break;
-				}
-			}
-
-			// se muestran los detalles de la receta seleccionada
+			Receta receta = RecetaControlador.getRecetaByTitulo(recetaSeleccionada);
 			if (receta != null) {
+				// Se muestran los detalles de la receta seleccionada
 				StringBuilder detalles = new StringBuilder();
 				detalles.append("Título: ").append(receta.getTitulo()).append("\n");
 				detalles.append("Procedimiento: ").append(receta.getProcedimiento()).append("\n");
@@ -249,8 +281,32 @@ public class Receta {
 					detalles.append("- ").append(cat.getNombreCategoria()).append("\n");
 				}
 
-				JOptionPane.showMessageDialog(null, detalles.toString(), "Detalles de la Receta",
-						JOptionPane.INFORMATION_MESSAGE);
+				String[] opciones = { "Eliminar Receta", "Volver" };
+				int opcionSeleccionada = JOptionPane.showOptionDialog(null, detalles.toString(),
+						"Detalles de la Receta", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+						opciones, opciones[0]);
+
+				switch (opcionSeleccionada) {
+				case 0:
+					// Eliminar receta
+					int confirmacion = JOptionPane.showConfirmDialog(null,
+							"¿Estás seguro de que quieres eliminar la receta \"" + recetaSeleccionada + "\"?",
+							"Eliminar Receta", JOptionPane.YES_NO_OPTION);
+					if (confirmacion == JOptionPane.YES_OPTION) {
+						RecetaControlador.deleteReceta(receta.getIdReceta());
+						JOptionPane.showMessageDialog(null,
+								"La receta \"" + recetaSeleccionada + "\" ha sido eliminada.");
+					}
+					break;
+
+				case 1:
+					// Volver
+					break;
+				default:
+					break;
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "No se encontró la receta seleccionada.");
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "No se seleccionó ninguna receta para ver.");

@@ -50,7 +50,14 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public List<Receta> getAllRecetas() {
-		return RecetaSingleton.getInstance().getRecetas();
+		// try catch como validacion
+		try {
+			return RecetaSingleton.getInstance().getRecetas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al obtener todas las recetas: " + e.getMessage());
+			return new ArrayList<>();
+		}
 	}
 
 	private ArrayList<Ingrediente> getIngredientesByRecetaId(int idReceta) {
@@ -245,7 +252,15 @@ public class RecetaControlador implements RecetaRepository {
 			e.printStackTrace();
 			System.out.println("Error al eliminar la receta con ID " + idReceta + ": " + e.getMessage());
 		}
+	}public List<String> getTitulosRecetas() {
+	    List<String> titulosRecetas = new ArrayList<>();
+	    List<Receta> recetas = getAllRecetas();
+	    for (Receta receta : recetas) {
+	        titulosRecetas.add(receta.getTitulo());
+	    }
+	    return titulosRecetas;
 	}
+
 
 	@Override
 	public Receta getRecetaByUsuario(int id) {
@@ -260,4 +275,18 @@ public class RecetaControlador implements RecetaRepository {
 	public Receta getRecetaById(int id) {
 		return null;
 	}
+
+
+	public Receta getRecetaByTitulo(String titulo) {
+	    List<Receta> recetas = RecetaSingleton.getInstance().getRecetas();
+	    for (Receta receta : recetas) {
+	        if (receta.getTitulo().equals(titulo)) {
+	            return receta;
+	        }
+	    }
+	    return null; 
+	}
+
+
+
 }
