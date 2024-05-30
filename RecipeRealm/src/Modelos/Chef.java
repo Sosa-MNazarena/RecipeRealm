@@ -1,10 +1,87 @@
-/* package Modelos;
-import javax.swing.JOptionPane;
+package Modelos;
 
-public class Chef extends Aficionado {
-	 private boolean esVerificado;
+import javax.swing.*;
 
-	    
+public class Chef extends Perfil {
+    public Chef(int id, String nombre, String pseudonimo, String correo, String contrasena, String descripcion, boolean verificado) {
+        super(id, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+    }
+
+    public void menuPrincipalChef() {
+        String[] opciones = { "Perfil", "Recetas", "Favoritos", "Cursos", "Salir" };
+        int opcionElegida = 0;
+        do {
+            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú Principal", 0, 0, null, opciones, opciones[0]);
+            switch (opcionElegida) {
+                case 0:
+                    menuPerfil();
+                    break;
+                case 1:
+                    menuRecetas();
+                    break;
+                case 2:
+                    menuFavoritos();
+                    break;
+                case 3:
+                    menuCursos();
+                    break;
+                case 4:
+                    JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+                    break;
+            }
+        } while (opcionElegida != 4);
+    }
+    
+    private void menuPerfil() {
+        String[] opcionesPerfil = { "Ver perfil", "Editar perfil", "Eliminar perfil", "Volver" };
+        int opcionElegida = 0;
+        do {
+            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú de Perfil", 0, 0, null, opcionesPerfil, opcionesPerfil[0]);
+            switch (opcionElegida) {
+                case 0:
+                    verPerfil();
+                    break;
+                case 1:
+                    editarPerfil();
+                    break;
+                case 2:
+                    eliminarPerfil();
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+                    break;
+            }
+        } while (opcionElegida != 3);
+    }
+    
+    private void verPerfil() {
+    }
+    
+    private void editarPerfil() {
+    }
+    
+    private void eliminarPerfil() {
+    }
+    
+    private void menuRecetas() {
+        //Menu de recetas
+    }
+    
+    private void menuFavoritos() {
+        // Menu de favoritos
+    }
+    
+   /* private void menuBusqueda() {
+        // En caso de que se llegue a hacer lo de busqueda
+    }
+    */
+    
+    private void menuCursos() {
+        // Aca van los cursillos
+    }
+
+}
+	 /*	    
 	    public Chef(String nombre, String correo, String contrasena, boolean esVerificado) {
 	        super(nombre, correo, contrasena, contrasena, contrasena, esVerificado);
 	        this.esVerificado = esVerificado;
@@ -102,5 +179,5 @@ public class Chef extends Aficionado {
 		            }
 		        } while (opcionElegida != 2);
 		    }
-
-}*/
+*/
+	 
