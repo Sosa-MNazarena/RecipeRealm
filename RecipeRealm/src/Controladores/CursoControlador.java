@@ -76,23 +76,28 @@ public class CursoControlador implements CursoRepositorio {
     }
 
     @Override
-    public void addCurso(Cursos curso) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario) VALUES (?, ?, ?, ?, ?, ?)");
-            statement.setString(1, curso.getTitulo());
-            statement.setString(2, curso.getLugar());
-            statement.setDate(3, Date.valueOf(curso.getDia()));
-            statement.setInt(4, curso.getCupo());
-            statement.setDouble(5, curso.getPrecio());
-            statement.setTime(6, Time.valueOf(curso.getHorario()));
+    public boolean addCurso(Cursos curso) {
+    	if (curso.publicarCurso()) {
+    		try {
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario) VALUES (?, ?, ?, ?, ?, ?)");
+                statement.setString(1, curso.getTitulo());
+                statement.setString(2, curso.getLugar());
+                statement.setDate(3, Date.valueOf(curso.getDia()));
+                statement.setInt(4, curso.getCupo());
+                statement.setDouble(5, curso.getPrecio());
+                statement.setTime(6, Time.valueOf(curso.getHorario()));
 
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Curso cargado exitosamente");
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(null, "Curso cargado exitosamente");
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		}
+		return false;
+        
     }
 
     @Override

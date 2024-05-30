@@ -6,14 +6,14 @@ import java.time.LocalTime;
 public class Cursos {
     private int idCurso;
     private String titulo;
-    private Aficionado instructor;
+    private Perfil instructor;
     private String lugar;
     private LocalDate dia;
     private int cupo;
     private double precio;
     private LocalTime horario;
 
-    public Cursos(int idCurso, String titulo, Aficionado instructor, String lugar, LocalDate dia, int cupo,
+    public Cursos(int idCurso, String titulo, Perfil instructor, String lugar, LocalDate dia, int cupo,
                   double precio, LocalTime horario) {
         this.idCurso = idCurso;
         this.titulo = titulo;
@@ -42,11 +42,11 @@ public class Cursos {
         this.titulo = titulo;
     }
 
-    public Aficionado getInstructor() {
+    public Perfil getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(Aficionado instructor) {
+    public void setInstructor(Perfil instructor) {
         this.instructor = instructor;
     }
 
@@ -95,5 +95,17 @@ public class Cursos {
         return "Cursos [idCurso=" + idCurso + ", titulo=" + titulo + ", instructor=" + instructor +
                 ", lugar=" + lugar + ", dia=" + dia + ", cupo=" + cupo + ", precio=" + precio + ", horario=" + horario
                 + "]\n";
+    }
+    
+    public boolean publicarCurso() {
+    	if (instructor.isVerificado()&&titulo.length()>=10 && cupo<=100 ) {
+    		if (!lugar.isEmpty()&&!dia.isBefore(LocalDate.now())&&precio>0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
     }
 }

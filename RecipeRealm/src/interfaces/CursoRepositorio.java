@@ -11,7 +11,7 @@ public interface CursoRepositorio {
 	    
 	    Cursos getCursoById(int id); 
 	    
-	    void addCurso(Cursos curso); 
+	    boolean addCurso(Cursos curso); 
 	    
 	    void updateCurso(Cursos curso); 
 	    
