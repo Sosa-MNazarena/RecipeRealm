@@ -1,4 +1,5 @@
 package Controladores;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -130,7 +131,6 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	public void addReceta(Receta receta) {
-		// flag que se usa para el test de crear recetas
 		reiniciarRecetas();
 		recetaAgregada = false;
 
@@ -140,11 +140,11 @@ public class RecetaControlador implements RecetaRepository {
 		}
 
 		String sqlReceta = "INSERT INTO receta (titulo, procedimiento, nro_ingredientes, fecha) VALUES (?, ?, ?, ?)";
-		String sqlIngrediente = "INSERT INTO ingrediente (nombre) VALUES (?)";
+		String sqlIngrediente = "INSERT INTO ingrediente (nombre) VALUES (?) ON DUPLICATE KEY UPDATE id_ingrediente=LAST_INSERT_ID(id_ingrediente)";
 		String sqlRecetaIngrediente = "INSERT INTO receta_ingrediente (id_receta, id_ingrediente, cantidad) VALUES (?, ?, ?)";
 		String sqlRecetaCategoria = "INSERT INTO receta_categoria (id_receta, id_categoria) VALUES (?, ?)";
 		String sqlBuscarCategoria = "SELECT id_categoria FROM categoria WHERE nombre_categoria = ?";
-		String sqlInsertarCategoria = "INSERT INTO categoria (nombre_categoria) VALUES (?)";
+		String sqlInsertarCategoria = "INSERT INTO categoria (nombre_categoria) VALUES (?) ON DUPLICATE KEY UPDATE id_categoria=LAST_INSERT_ID(id_categoria)";
 
 		try (PreparedStatement pstmtReceta = connection.prepareStatement(sqlReceta,
 				PreparedStatement.RETURN_GENERATED_KEYS);
@@ -221,6 +221,7 @@ public class RecetaControlador implements RecetaRepository {
 					}
 
 					// Agregar la receta a la lista de recetas
+					receta.setIdReceta(idReceta);
 					RecetaSingleton.getInstance().addReceta(receta);
 					recetaAgregada = true;
 					JOptionPane.showMessageDialog(null, "Receta agregada exitosamente.");
@@ -318,9 +319,9 @@ public class RecetaControlador implements RecetaRepository {
 		return null;
 	}
 
-	 public void reiniciarRecetas() {
-	        RecetaSingleton.getInstance().getRecetas().clear();
-	        recetaAgregada = false;
-	    }
+	public void reiniciarRecetas() {
+		RecetaSingleton.getInstance().getRecetas().clear();
+		recetaAgregada = false;
+	}
 
 }
