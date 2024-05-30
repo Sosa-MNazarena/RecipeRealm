@@ -1,5 +1,4 @@
 package Modelos;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -135,7 +134,7 @@ public class Receta {
 	}
 
 	// Menu Mis Recetas
-	public static void menuRecetas() {
+	public static void menuMisRecetas() {
 		String[] opcionesRecetas = { "Subir receta", "Ver mis recetas creadas", "Eliminar receta", "Volver" };
 		int opcionElegida = 0;
 		do {
@@ -166,19 +165,19 @@ public class Receta {
 	private static void subirReceta() {
 		String titulo;
 		do {
-			titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
-			if (titulo.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "El título no puede estar vacío.");
-			}
-		} while (titulo.isEmpty());
+		    titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
+		    if (titulo.isEmpty() || titulo.length() < 3) {
+		        JOptionPane.showMessageDialog(null, "El título debe tener al menos 3 caracteres.");
+		    }
+		} while (titulo.isEmpty() || titulo.length() < 3);
 
 		String procedimiento;
 		do {
-			procedimiento = JOptionPane.showInputDialog("Ingrese el procedimiento de la receta:");
-			if (procedimiento.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "El procedimiento no puede estar vacío.");
-			}
-		} while (procedimiento.isEmpty());
+		    procedimiento = JOptionPane.showInputDialog("Ingrese el procedimiento de la receta:");
+		    if (procedimiento.isEmpty() || procedimiento.length() < 20) {
+		        JOptionPane.showMessageDialog(null, "El procedimiento debe tener al menos 20 caracteres.");
+		    }
+		} while (procedimiento.isEmpty() || procedimiento.length() < 20);
 
 		Date fecha = new Date(System.currentTimeMillis());
 

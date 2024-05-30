@@ -155,4 +155,30 @@ public class PerfilControlador implements PerfilRepository {
             e.printStackTrace();
         }
     }
+
+		public Perfil iniciarSesion(String correo, String contrasena) {
+		    Perfil perfil = null;
+		    try {
+		        String query = "SELECT id_usuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado FROM usuario WHERE correo = ? AND contrasena = ?";
+		        PreparedStatement statement = connection.prepareStatement(query);
+		        statement.setString(1, correo);
+		        statement.setString(2, contrasena);
+		        ResultSet resultSet = statement.executeQuery();
+
+		        if (resultSet.next()) {
+		            int idUsuario = resultSet.getInt("id_usuario");
+		            String nombre = resultSet.getString("nombre");
+		            String pseudonimo = resultSet.getString("pseudonimo");
+		            String correoUser = resultSet.getString("correo");
+		            String contrasenaUser = resultSet.getString("contrasena");
+		            String descripcion = resultSet.getString("descripcion");
+		            boolean verificado = resultSet.getBoolean("verificado");
+
+		            perfil = new Perfil(idUsuario, nombre, pseudonimo, correoUser, contrasenaUser, descripcion, verificado);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return perfil;
+		}
 }

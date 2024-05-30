@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import Modelos.Categoria;
 import Modelos.Ingrediente;
+import Modelos.Perfil;
 import Modelos.Receta;
 import Modelos.RecetaSingleton;
 import interfaces.RecetaRepository;
@@ -112,6 +111,7 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	public void addReceta(Receta receta) {
+
 		String sqlReceta = "INSERT INTO receta (titulo, procedimiento, nro_ingredientes, fecha) VALUES (?, ?, ?, ?)";
 		String sqlIngrediente = "INSERT INTO ingrediente (nombre) VALUES (?)";
 		String sqlRecetaIngrediente = "INSERT INTO receta_ingrediente (id_receta, id_ingrediente, cantidad) VALUES (?, ?, ?)";
@@ -134,7 +134,6 @@ public class RecetaControlador implements RecetaRepository {
 			pstmtReceta.setString(2, receta.getProcedimiento());
 			pstmtReceta.setInt(3, receta.getnroIngredientes());
 			pstmtReceta.setDate(4, new java.sql.Date(receta.getFecha().getTime()));
-
 			int affectedRows = pstmtReceta.executeUpdate();
 
 			if (affectedRows == 0) {

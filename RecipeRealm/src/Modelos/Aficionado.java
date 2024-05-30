@@ -1,8 +1,8 @@
 package Modelos;
 import Modelos.Receta;
 import java.util.ArrayList;
-
 import javax.swing.*;
+import Controladores.RecetaControlador;
 
 public class Aficionado extends Perfil {
     public Aficionado(int id, String nombre, String pseudonimo, String correo, String contrasena, String descripcion, boolean verificado) {
@@ -19,7 +19,7 @@ public class Aficionado extends Perfil {
                     menuPerfil();
                     break;
                 case 1:
-                    menuRecetas();
+                   menuRecetas();
                     break;
                 case 2:
                     menuFavoritos();
@@ -34,7 +34,27 @@ public class Aficionado extends Perfil {
         } while (opcionElegida != 4);
     }
     
-    private void menuPerfil() {
+    public void menuRecetas() {
+    	 String[] opcionesRecetas = { "Mis recetas", "Recetas (no me acuerdo bien que nombre habiamos dicho que iba aca)", "Volver" };
+ 	    int opcionElegida = 0;
+ 	    do {
+ 	        opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
+ 	                opcionesRecetas, opcionesRecetas[0]);
+ 	        switch (opcionElegida) {
+ 	            case 0:
+ 	                  Receta.menuMisRecetas();
+ 	                break;
+ 	            case 1:
+ 	                // Funcionalidades para recetas que no son propias
+ 	                break;
+ 	            case 2:
+ 	                JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+ 	                break;
+ 	        }
+ 	    } while (opcionElegida != 2);
+    }
+
+	private void menuPerfil() {
         String[] opcionesPerfil = { "Ver perfil", "Editar perfil", "Eliminar perfil", "Volver" };
         int opcionElegida = 0;
         do {
@@ -63,10 +83,6 @@ public class Aficionado extends Perfil {
     }
     
     private void eliminarPerfil() {
-    }
-    
-    private void menuRecetas() {
-        //Menu de recetas
     }
     
     private void menuFavoritos() {
