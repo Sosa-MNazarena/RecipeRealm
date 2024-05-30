@@ -163,6 +163,7 @@ public class Receta {
 	// -------------------------------------
 
 	private static void subirReceta() {
+
 		String titulo;
 		do {
 		    titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
@@ -217,18 +218,18 @@ public class Receta {
 
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String nombreCategoria;
-		do {
-			nombreCategoria = JOptionPane.showInputDialog(
-					"Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
-			if (!nombreCategoria.equals("0")) {
-				categorias.add(new Categoria(numIngredientes, nombreCategoria));
-			}
-		} while (!nombreCategoria.equals("0") || categorias.isEmpty());
+		  do {
+		        nombreCategoria = JOptionPane.showInputDialog(
+		                "Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
+		        if (!nombreCategoria.equals("0")) {
+		            categorias.add(new Categoria(numIngredientes, nombreCategoria));
+		        } else if (categorias.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Para crear su receta, debe tener al menos una categoría.");
+		            return;
+		        }
+		    } while (!nombreCategoria.equals("0"));
 
-		if (categorias.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Debe ingresar al menos una categoría.");
-			return;
-		}
+
 
 		Receta receta = new Receta(1, titulo, procedimiento, null, numIngredientes, 0, null, null, null, null, fecha,
 				ingredientes, categorias);
