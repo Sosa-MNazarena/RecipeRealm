@@ -1,5 +1,57 @@
 package Modelos;
 
+import javax.swing.*;
+
+public class Aficionado extends Perfil {
+    public Aficionado(int id, String nombre, String pseudonimo, String correo, String contrasena, String descripcion, boolean verificado) {
+        super(id, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+    }
+
+    public void menuPrincipalAficionado() {
+        String[] opciones = { "Perfil", "Recetas", "Favoritos", "Cursos", "Salir" };
+        int opcionElegida = 0;
+        do {
+            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú Principal", 0, 0, null, opciones, opciones[0]);
+            switch (opcionElegida) {
+                case 0:
+                    menuPerfil();
+                    break;
+                case 1:
+                    menuRecetas();
+                    break;
+                case 2:
+                    menuFavoritos();
+                    break;
+                case 3:
+                    menuCursos();
+                    break;
+                case 4:
+                    JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+                    break;
+            }
+        } while (opcionElegida != 4);
+    }
+    
+    private void menuPerfil() {
+    }
+    
+    private void menuFavoritos() {
+        // Menu de favoritos
+    }
+    
+   /* private void menuBusqueda() {
+        // En caso de que se llegue a hacer lo de busqueda
+    }
+    */
+    
+    private void menuCursos() {
+        // Aca van los cursillos
+    }
+
+}
+
+/*package Modelos;
+
 import Controladores.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -186,3 +238,4 @@ public class Aficionado {
 	}
 
 }
+*/
