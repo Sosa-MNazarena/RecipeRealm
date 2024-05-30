@@ -15,7 +15,7 @@ public interface CursoRepositorio {
 	    
 	    void updateCurso(Cursos curso); 
 	    
-	    void deleteCurso(int id); 
+	    boolean deleteCurso(int id); 
 
 		boolean inscribirCurso(int idUsuario, int idCurso);
 }

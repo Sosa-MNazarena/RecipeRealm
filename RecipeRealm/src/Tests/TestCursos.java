@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -13,6 +14,7 @@ import org.junit.Test;
 import Controladores.CursoControlador;
 import Modelos.Cursos;
 import Modelos.Perfil;
+
 
 
 public class TestCursos {
@@ -58,8 +60,30 @@ public class TestCursos {
 	    assertEquals(controlador.addCurso(tituloCorto, perfilInscripcion), false);
 	 }
 	
+	@Test
+	public void eliminarCurso_Valido() {
+		CursoControlador controlador = new CursoControlador();
+		boolean flag = false;
+		for (Cursos curso : controlador.getAllCursos()) {
+			if (curso.eliminarCurso(controlador, 2)) {
+				flag=true;
+				break;
+			}
+		}
+		assertEquals(true,flag);
+	}
 	
-	
-	
+	@Test
+    public void eliminarCurso_Invalido() {
+		CursoControlador controlador = new CursoControlador();
+        boolean flag = false;
+        int invalidCursoId = 999; 
 
+        for (Cursos curso : controlador.getAllCursos()) {
+            if (curso.eliminarCurso(controlador, invalidCursoId)) {
+                flag = true;
+                break;
+            }
+        }
+	}
 }

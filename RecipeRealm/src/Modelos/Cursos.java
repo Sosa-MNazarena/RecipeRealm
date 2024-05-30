@@ -3,6 +3,10 @@ package Modelos;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.swing.JOptionPane;
+
+import Controladores.CursoControlador;
+
 public class Cursos {
     private int idCurso;
     private String titulo;
@@ -104,6 +108,17 @@ public class Cursos {
 			}
     	}
 		return false;
-		
     }
+    
+    public boolean eliminarCurso(CursoControlador cursoControlador, int idCurso) {
+        boolean exito = cursoControlador.deleteCurso(idCurso);
+        if (exito) {
+            JOptionPane.showMessageDialog(null, "Se ha eliminado el curso exitosamente");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha podido eliminar el curso");
+            return false;
+        }
+    }
+
 }

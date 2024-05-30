@@ -122,7 +122,7 @@ public class CursoControlador implements CursoRepositorio {
     }
 
     @Override
-    public void deleteCurso(int id_curso) {
+    public boolean deleteCurso(int id_curso) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM cursos WHERE id_curso = ?");
             statement.setInt(1, id_curso);
@@ -130,10 +130,15 @@ public class CursoControlador implements CursoRepositorio {
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(null, "Curso eliminado exitosamente");
+                return true;
+            } else {
+            	JOptionPane.showMessageDialog(null, "Curso no encontrado");
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+		return false;
     }
 
 	@Override
@@ -166,7 +171,8 @@ public class CursoControlador implements CursoRepositorio {
             e.printStackTrace();
         }
 		return false;
-		
 	}
+	
+	
 }
 
