@@ -12,9 +12,12 @@ public interface PerfilRepository {
 	    
 	    void addPerfil(Perfil Perfil); 
 	    
+	    Perfil autenticar(String correo, String contrasena);
+	    
 	    void updatePerfil(Perfil Perfil); 
 	    
-	    void deletePerfil(int id); 
+	    void deletePerfil(int id);
 
-
+		Perfil iniciarSesion(String correo, String contrasena); 
+	    
 }

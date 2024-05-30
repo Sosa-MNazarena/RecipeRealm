@@ -1,0 +1,89 @@
+package Controladores;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import Modelos.Perfil;
+import interfaces.PerfilRepository;
+
+public class PerfilControlador implements PerfilRepository {
+    private final Connection connection;
+
+    public PerfilControlador() {
+        this.connection = DatabaseConnection.getInstance().getConnection();
+    }
+
+    @Override
+    public List<Perfil> getAllPerfils() {
+        // TODO: Implementar la lógica para obtener todos los perfiles
+        return null;
+    }
+
+    @Override
+    public Perfil getPerfilById(int id) {
+    	
+    	 List<Perfil> perfiles = new ArrayList<>();
+    	    try {
+    	        PreparedStatement statement = connection.prepareStatement("SELECT id_usuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado FROM usuarios");
+    	        ResultSet resultSet = statement.executeQuery();
+
+    	        while (resultSet.next()) {
+    	            int idUsuario = resultSet.getInt("id_usuario");
+    	            String nombre = resultSet.getString("nombre");
+    	            String pseudonimo = resultSet.getString("pseudonimo");
+    	            String correo = resultSet.getString("correo");
+    	            String contrasena = resultSet.getString("contrasena");
+    	            String descripcion = resultSet.getString("descripcion");
+    	            boolean verificado = resultSet.getBoolean("verificado");
+
+    	            // Crear un objeto Perfil con los datos obtenidos
+    	            Perfil perfil = new Perfil(idUsuario, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+    	            perfiles.add(perfil);
+    	        }
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	    }
+    	    return (Perfil) perfiles;
+    	}
+
+    @Override
+    public void addPerfil(Perfil perfil) {
+        try {
+        	PreparedStatement statement = connection.prepareStatement("INSERT INTO usuarios (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)");
+        	statement.setString(1, perfil.getNombre());
+        	statement.setString(2, perfil.getPseudonimo());
+        	statement.setString(3, perfil.getCorreo());
+        	statement.setString(4, perfil.getContrasena());
+        	statement.setString(5, perfil.getDescripcion());
+        	statement.setBoolean(6, perfil.getisVerificado());
+        	
+        	int rowsInserted = statement.executeUpdate();
+        	if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "Perfil creado exitosamente");
+			}
+			
+		} catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Perfil iniciarSesion(String correo, String contrasena) {
+        return perfilRepository.findByCorreoAndContrasena(correo, contrasena);
+    }
+
+    @Override
+    public void updatePerfil(Perfil perfil) {
+        // TODO: Implementar la lógica para actualizar un perfil
+    }
+
+    @Override
+    public void deletePerfil(int id) {
+        // TODO: Implementar la lógica para eliminar un perfil por ID
+    }
+}

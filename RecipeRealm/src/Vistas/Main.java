@@ -8,6 +8,9 @@ import Modelos.Aficionado;
 import Modelos.Categoria;
 import Modelos.Ingrediente;
 import Modelos.Resena;
+import Modelos.Chef;
+import Modelos.Perfil;
+import Controladores.PerfilControlador;
 import Controladores.DatabaseConnection;
 import Modelos.Cursos;
 import java.sql.Connection;
@@ -178,16 +181,25 @@ public class Main {
 	*/
 	
 }
+    public static void main(String[] args) {
+        // Conexión a la base de datos
+        DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
+        Connection connection = databaseConnection.getConnection();
 
-		// Selección de roles
-		String[] Ingreso = { "Aficionado", "Chef", "Salir" };
-		int opcion = 0;
-		do {
-			ImageIcon iconBienvenida = new ImageIcon(Main.class.getResource("/imagenes/Bienvenida.png"));
-			JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconBienvenida);
+        // Verificar si la conexión fue exitosa
+        if (connection == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión a la base de datos.");
+            System.exit(0);
+        }
 
-			opcion = JOptionPane.showOptionDialog(null, "Elija el rol para ingresar", "Selección de Rol", 0, 0, null,
-					Ingreso, Ingreso[0]);
+        // Selección de rol
+        String[] opcionesInicioSesion = { "Iniciar sesión", "Registrar", "Salir" };
+        int opcion;
+        PerfilControlador perfilControlador = new PerfilControlador();
+
+        do {
+            ImageIcon iconBienvenida = new ImageIcon(Main.class.getResource("/imagenes/Bienvenida.png"));
+            JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconBienvenida);
 
 			switch (opcion) {
 			case 0: // Aficionado
@@ -224,6 +236,46 @@ public class Main {
 					}
 				} while (opcionElegida != 5);
 				break;
+            opcion = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Inicio de sesión", 0, 0, null,
+                    opcionesInicioSesion, opcionesInicioSesion[0]);
+
+            switch (opcion) {
+                case 0: // Iniciar sesión
+                    String correo = JOptionPane.showInputDialog("Ingrese su correo:");
+                    String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+                    Perfil perfil = perfilControlador.iniciarSesion(correo, contrasena);
+                    if (perfil != null) {
+                        if (perfil.isVerificado()) {
+                            Chef chef = new Chef(perfil.getIdUsuario(), perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion(), perfil.isVerificado());
+                            chef.mostrarMenu();
+                        } else {
+                            Aficionado aficionado = new Aficionado(perfil.getIdUsuario(), perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion(), perfil.isVerificado());
+                            aficionado.mostrarMenu();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.");
+                    }
+                    break;
+
+                case 1: // Registrar
+                    String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
+                    String pseudonimo = JOptionPane.showInputDialog("Ingrese su pseudónimo:");
+                    correo = JOptionPane.showInputDialog("Ingrese su correo:");
+                    contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+                    String descripcion = JOptionPane.showInputDialog("Ingrese una descripción:");
+                    boolean verificado = JOptionPane.showInputDialog("¿Es Chef? (true/false)").equals("true");
+                    Perfil nuevoPerfil = new Perfil(0, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+                    perfilControlador.addPerfil(nuevoPerfil);
+                    break;
+
+                case 2: // Salir
+                    ImageIcon iconSalir = new ImageIcon(Main.class.getResource("/imagenes/Salir.png"));
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Salir", 0, iconSalir);
+                    break;
+            }
+        } while (opcion != 2);
+    }
+}
 			/*
 			 * case 1: // Chef ImageIcon iconChef = new
 			 * ImageIcon(Main.class.getResource("/imagenes/chef.png")); Chef chef = new
@@ -244,7 +296,7 @@ public class Main {
 			 * JOptionPane.showMessageDialog(null, "", "Bienvenid@", 0, iconBusqueda);
 			 * chef.menuBusqueda(); break; case 3: JOptionPane.showMessageDialog(null,
 			 * "Salir del perfil"); break; } } while (opcionElegidaChef != 3); break;
-			 */
+			
 			case 2: // Salir
 				ImageIcon iconSalir = new ImageIcon(Main.class.getResource("/imagenes/Salir.png"));
 				JOptionPane.showMessageDialog(null, "Gracias por usar el sistema", "Chef", 0, iconSalir);
@@ -254,3 +306,6 @@ public class Main {
 	}
 
 }
+	
+		} while (opcion != 2); 
+	} */
