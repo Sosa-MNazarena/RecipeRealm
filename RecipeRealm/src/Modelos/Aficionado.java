@@ -33,6 +33,38 @@ public class Aficionado extends Perfil {
     }
     
     private void menuPerfil() {
+        String[] opcionesPerfil = { "Ver perfil", "Editar perfil", "Eliminar perfil", "Volver" };
+        int opcionElegida = 0;
+        do {
+            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú de Perfil", 0, 0, null, opcionesPerfil, opcionesPerfil[0]);
+            switch (opcionElegida) {
+                case 0: 
+                    verPerfil();
+                    break;
+                case 1: 
+                    editarPerfil();
+                    break;
+                case 2: 
+                    eliminarPerfil();
+                    break;
+                case 3: 
+                    JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+                    break;
+            }
+        } while (opcionElegida != 3);
+    }
+    
+    private void verPerfil() {
+    }
+    
+    private void editarPerfil() {
+    }
+    
+    private void eliminarPerfil() {
+    }
+    
+    private void menuRecetas() {
+        //Menu de recetas
     }
     
     private void menuFavoritos() {
