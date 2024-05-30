@@ -17,6 +17,8 @@ import Modelos.RecetaSingleton;
 import interfaces.RecetaRepository;
 
 public class RecetaControlador implements RecetaRepository {
+    private boolean recetaAgregada; 
+
 	private Connection connection;
 
 	public RecetaControlador() {
@@ -110,7 +112,30 @@ public class RecetaControlador implements RecetaRepository {
 		return categorias;
 	}
 
+	private boolean validarReceta(Receta receta) {
+		if (receta == null) {
+			return false;
+		}
+		if (receta.getTitulo() == null || receta.getTitulo().length() < 3) {
+			return false;
+		}
+		if (receta.getProcedimiento() == null || receta.getProcedimiento().length() < 20) {
+			return false;
+		}
+		if (receta.getnroIngredientes() < 1) {
+			return false;
+		}
+		return true;
+	}
+
 	public void addReceta(Receta receta) {
+		//flag que se usa para el test de crear receta
+        recetaAgregada = false; 
+
+		if (!validarReceta(receta)) {
+			System.out.println("La receta no es válida y no se puede agregar.");
+			return;
+		}
 
 		String sqlReceta = "INSERT INTO receta (titulo, procedimiento, nro_ingredientes, fecha) VALUES (?, ?, ?, ?)";
 		String sqlIngrediente = "INSERT INTO ingrediente (nombre) VALUES (?)";
@@ -160,7 +185,7 @@ public class RecetaControlador implements RecetaRepository {
 
 						pstmtRecetaIngrediente.setInt(1, idReceta);
 						pstmtRecetaIngrediente.setInt(2, idIngrediente);
-						pstmtRecetaIngrediente.setDouble(3, ingrediente.getCantidad()); // Usar la cantidad correcta
+						pstmtRecetaIngrediente.setDouble(3, ingrediente.getCantidad());
 						pstmtRecetaIngrediente.executeUpdate();
 					}
 
@@ -195,6 +220,7 @@ public class RecetaControlador implements RecetaRepository {
 
 					// Agregar la receta al singleton
 					RecetaSingleton.getInstance().addReceta(receta);
+			        recetaAgregada = true; 
 
 				} else {
 					throw new SQLException("Fallo al insertar la receta");
@@ -205,7 +231,9 @@ public class RecetaControlador implements RecetaRepository {
 			System.out.println("Error al insertar la receta: " + e.getMessage());
 		}
 	}
-
+	   public boolean isRecetaAgregada() {
+	        return recetaAgregada;
+	    }
 	@Override
 	public void deleteReceta(int idReceta) {
 		String sqlDeleteRecetaCategoria = "DELETE FROM receta_categoria WHERE id_receta = ?";
