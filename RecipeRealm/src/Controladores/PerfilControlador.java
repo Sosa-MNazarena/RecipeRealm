@@ -73,29 +73,29 @@ public class PerfilControlador implements PerfilRepository {
     }
 
     @Override
-    public void addPerfil(Perfil perfil) {
-    	
-    	if (Perfil.esContrasenaValida(perfil.getContrasena())) {
-           
-        try {
-        	PreparedStatement statement = connection.prepareStatement("INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)");
-        	statement.setString(1, perfil.getNombre());
-        	statement.setString(2, perfil.getPseudonimo());
-        	statement.setString(3, perfil.getCorreo());
-        	statement.setString(4, perfil.getContrasena());
-        	statement.setString(5, perfil.getDescripcion());
-        	statement.setBoolean(6, perfil.isVerificado());
-        	
-        	int rowsInserted = statement.executeUpdate();
-        	if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Perfil creado exitosamente");
-			}
-			
-		} catch (SQLException e) {
-            e.printStackTrace();
+    public boolean addPerfil(Perfil perfil) {
+        if (Perfil.esContrasenaValida(perfil.getContrasena())) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)"
+                );
+                statement.setString(1, perfil.getNombre());
+                statement.setString(2, perfil.getPseudonimo());
+                statement.setString(3, perfil.getCorreo());
+                statement.setString(4, perfil.getContrasena());
+                statement.setString(5, perfil.getDescripcion());
+                statement.setBoolean(6, perfil.isVerificado());
+                
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    return true; //correcto
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return false; //incorrecto
     }
-    	}
     
     public Perfil autenticar(String correo, String contrasena) {
         Perfil perfil = null;
@@ -159,4 +159,10 @@ public class PerfilControlador implements PerfilRepository {
             e.printStackTrace();
         }
     }
+
+	@Override
+	public Perfil iniciarSesion(String correo, String contrasena) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

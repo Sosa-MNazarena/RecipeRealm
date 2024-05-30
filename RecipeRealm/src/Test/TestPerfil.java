@@ -38,6 +38,20 @@ public class TestPerfil {
 	    }
 	}
 	
-
+	public class RegistroPerfil {
+		@Test
+		public void RegistroCorrecto() {
+		    PerfilControlador controlador = new PerfilControlador();
+		    boolean flag = false;
+		    Perfil nuevoPerfil = new Perfil(0, "nuevo_usuario", "nuevo_pseudonimo", "nuevo_correo@gmail.com", "nueva_contrasena", "Descripción", false);
+		    if (controlador.addPerfil(nuevoPerfil)) {
+		        System.out.println("Registro correcto");
+		        flag = true;
+		    } else {
+		        System.out.println("Error el registro falló.");
+		    }
+		    assertEquals(true, flag);
+		}
 	
+}
 }
