@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Modelos.Categoria;
 import Modelos.Ingrediente;
 import Modelos.Receta;
@@ -23,7 +25,7 @@ public class RecetaControlador implements RecetaRepository {
 		cargarRecetasDesdeBaseDeDatos();
 	}
 
-	private void cargarRecetasDesdeBaseDeDatos() {
+	private void cargarRecetasDesdeBaseDeDatos() { // cargar las recetas al singleton
 		String sql = "SELECT id_receta, titulo, procedimiento, nro_ingredientes, fecha FROM receta";
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
@@ -147,12 +149,12 @@ public class RecetaControlador implements RecetaRepository {
 						if (rsIngrediente.next()) {
 							idIngrediente = rsIngrediente.getInt(1);
 						} else {
-							throw new SQLException("Failed to insert ingredient, no ID obtained.");
+							throw new SQLException("No se pudo ingresar");
 						}
 
 						pstmtRecetaIngrediente.setInt(1, idReceta);
 						pstmtRecetaIngrediente.setInt(2, idIngrediente);
-						pstmtRecetaIngrediente.setDouble(3, ingrediente.getCantidad());
+						pstmtRecetaIngrediente.setDouble(3, ingrediente.getCantidad()); // Usar la cantidad correcta
 						pstmtRecetaIngrediente.executeUpdate();
 					}
 
@@ -200,26 +202,31 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public void deleteReceta(int idReceta) {
+		String sqlDeleteRecetaCategoria = "DELETE FROM receta_categoria WHERE id_receta = ?";
 		String sqlDeleteRecetaIngrediente = "DELETE FROM receta_ingrediente WHERE id_receta = ?";
 		String sqlDeleteReceta = "DELETE FROM receta WHERE id_receta = ?";
 
 		try (Connection connection = DatabaseConnection.getInstance().getConnection();
+				PreparedStatement pstmtDeleteRecetaCategoria = connection.prepareStatement(sqlDeleteRecetaCategoria);
 				PreparedStatement pstmtDeleteRecetaIngrediente = connection
 						.prepareStatement(sqlDeleteRecetaIngrediente);
 				PreparedStatement pstmtDeleteReceta = connection.prepareStatement(sqlDeleteReceta)) {
 
-			// primero se eliminan los registros en la tabla receta_ingrediente
+			// primero se borran los datos de receta_categoria
+			pstmtDeleteRecetaCategoria.setInt(1, idReceta);
+			pstmtDeleteRecetaCategoria.executeUpdate();
+
+			// luego receta_ingrediente
 			pstmtDeleteRecetaIngrediente.setInt(1, idReceta);
 			pstmtDeleteRecetaIngrediente.executeUpdate();
 
-			// despues se elimina la receta en si
 			pstmtDeleteReceta.setInt(1, idReceta);
 			int affectedRows = pstmtDeleteReceta.executeUpdate();
 
 			if (affectedRows > 0) {
-				System.out.println("La receta con ID " + idReceta + " ha sido eliminada correctamente.");
+				JOptionPane.showMessageDialog(null, "La receta se eliminó exitosamente");
 
-				// Eliminar la receta del singleton
+				// eliminar la receta del singleton
 				Receta recetaAEliminar = null;
 				for (Receta receta : RecetaSingleton.getInstance().getRecetas()) {
 					if (receta.getIdReceta() == idReceta) {
@@ -242,18 +249,15 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public Receta getRecetaByUsuario(int id) {
-		// Implementación según sea necesario
 		return null;
 	}
 
 	@Override
 	public void updateReceta(Receta receta) {
-		// Implementación según sea necesario
 	}
 
 	@Override
 	public Receta getRecetaById(int id) {
-		// Implementación según sea necesario
 		return null;
 	}
 }

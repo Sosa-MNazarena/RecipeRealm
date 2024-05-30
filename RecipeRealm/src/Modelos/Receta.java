@@ -149,7 +149,6 @@ public class Receta {
 			switch (opcionElegida) {
 			case 0:
 				subirReceta();
-				JOptionPane.showMessageDialog(null, "Su receta se subió exitosamente");
 				break;
 			case 1:
 				verReceta();
@@ -166,13 +165,13 @@ public class Receta {
 
 	// Metodos de las recetas
 
-
 	// ----------------------------------- Subir una receta
 	// -------------------------------------
+
 	private static void subirReceta() {
-		String titulo = "Título de la receta"; // esto luego sería un showinputdialog
-		String procedimiento = "Pasos para preparar la receta...";
-		Date fecha = new Date(System.currentTimeMillis()); // para ingresar la fecha actual
+		String titulo = JOptionPane.showInputDialog("Ingrese el título de la receta:");
+		String procedimiento = JOptionPane.showInputDialog("Ingrese el procedimiento de la receta:");
+		Date fecha = new Date(System.currentTimeMillis());
 
 		int numIngredientes = Integer
 				.parseInt(JOptionPane.showInputDialog("Ingrese el número de ingredientes que va a tener su receta:"));
@@ -180,30 +179,31 @@ public class Receta {
 		for (int i = 0; i < numIngredientes; i++) {
 			String nombreIngrediente = JOptionPane
 					.showInputDialog("Ingrese el nombre del ingrediente " + (i + 1) + ":");
-			String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad de " + nombreIngrediente + ":");
-			double cantidad = Double.parseDouble(cantidadStr);
+			double cantidad = Double
+					.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad de " + nombreIngrediente + ":"));
 			Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
-			ingrediente.setCantidad(cantidad); // Establecer la cantidad en el objeto Ingrediente
-			ingredientes.add(ingrediente); // Agregar el ingrediente a la lista
+			ingrediente.setCantidad(cantidad); // Establecer la cantidad en el ingrediente
+			ingredientes.add(ingrediente);
 		}
 
-		// Solicitar categorías al usuario hasta que ingrese 0
 		ArrayList<Categoria> categorias = new ArrayList<>();
 		String nombreCategoria;
 		while (true) {
-			nombreCategoria = JOptionPane
-					.showInputDialog("Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
+			nombreCategoria = JOptionPane.showInputDialog(
+					"Ingrese de a una las categorías que tendrá su receta (o ingrese 0 para terminar de ingresarlas):");
 			if (nombreCategoria.equals("0")) {
-				break; //
+				break;
 			}
-			Categoria categoria = new Categoria(0, nombreCategoria); 
-			categorias.add(categoria); 
+			categorias.add(new Categoria(numIngredientes, nombreCategoria));
 		}
 
 		Receta receta = new Receta(1, titulo, procedimiento, null, numIngredientes, 0, null, null, null, null, fecha,
 				ingredientes, categorias);
 		receta.setTitulo(titulo);
 		receta.setProcedimiento(procedimiento);
+		receta.setFecha(fecha);
+		receta.setIngredientes(ingredientes);
+		receta.setCategorias(categorias);
 
 		RecetaControlador recetaControlador = new RecetaControlador();
 		recetaControlador.addReceta(receta);
@@ -215,22 +215,45 @@ public class Receta {
 		RecetaControlador recetaControlador = new RecetaControlador();
 		List<Receta> recetas = recetaControlador.getAllRecetas();
 
-		System.out.println("Recetas Disponibles:");
-		System.out.println("====================");
+		String[] titulosRecetas = new String[recetas.size()];
+		for (int i = 0; i < recetas.size(); i++) {
+			titulosRecetas[i] = recetas.get(i).getTitulo();
+		}
 
-		for (Receta receta : recetas) {
-			System.out.println("ID: " + receta.getIdReceta());
-			System.out.println("Título: " + receta.getTitulo());
-			System.out.println("Procedimiento: " + receta.getProcedimiento());
-			System.out.println("Número de Ingredientes: " + receta.getnroIngredientes());
-			System.out.println("Fecha: " + receta.getFecha());
-			System.out.println("Ingredientes:");
-			// mostrar la lista de ingredientes
-			for (Ingrediente ingrediente : receta.getIngredientes()) {
-				System.out.println("- " + ingrediente.getNombre() + ": " + ingrediente.getCantidad());
+		// Mostrar los titulos para que el usuario seleccione una receta
+		String recetaSeleccionada = (String) JOptionPane.showInputDialog(null, "Seleccione la receta a ver:",
+				"Ver Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas, titulosRecetas[0]);
+
+		if (recetaSeleccionada != null) {
+			Receta receta = null;
+			for (Receta r : recetas) {
+				if (r.getTitulo().equals(recetaSeleccionada)) {
+					receta = r;
+					break;
+				}
 			}
 
-			System.out.println("====================");
+			// se muestran los detalles de la receta seleccionada
+			if (receta != null) {
+				StringBuilder detalles = new StringBuilder();
+				detalles.append("Título: ").append(receta.getTitulo()).append("\n");
+				detalles.append("Procedimiento: ").append(receta.getProcedimiento()).append("\n");
+				detalles.append("Fecha: ").append(receta.getFecha()).append("\n");
+				detalles.append("Ingredientes:\n");
+				for (Ingrediente ing : receta.getIngredientes()) {
+					detalles.append("- ").append(ing.getNombre()).append(" - Cantidad: ").append(ing.getCantidad())
+							.append("\n");
+				}
+				detalles.append("Categorías:\n");
+				for (Categoria cat : receta.getCategorias()) {
+					detalles.append("- ").append(cat.getNombreCategoria()).append("\n");
+				}
+
+				JOptionPane.showMessageDialog(null, detalles.toString(), "Detalles de la Receta",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "No se seleccionó ninguna receta para ver.");
 		}
 	}
 
