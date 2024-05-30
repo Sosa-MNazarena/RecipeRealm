@@ -5,100 +5,84 @@ import java.util.ArrayList;
 import javax.swing.*;
 import Controladores.RecetaControlador;
 
-public class Aficionado extends Perfil {
-	public Aficionado(int id, String nombre, String pseudonimo, String correo, String contrasena, String descripcion,
-			boolean verificado) {
-		super(id, nombre, pseudonimo, correo, contrasena, descripcion, verificado);
+public class Aficionado {
+	private int idUsuario;
+	private String nombre;
+	private String pseudonimo;
+	private String correo;
+	private String contrasena;
+	private String descripcion;
+	private int verificado;
+
+
+	public Aficionado(String nombre, String pseudonimo, String correo, String contrasena, String descripcion,
+			int esVerificado) {
+		this.nombre = nombre;
+		this.pseudonimo = pseudonimo;
+		this.correo = correo;
+		this.contrasena = contrasena;
+		this.descripcion = descripcion;
+		this.verificado = esVerificado;
 	}
 
-	public void menuPrincipalAficionado() {
-		String[] opciones = { "Perfil", "Recetas", "Favoritos", "Cursos", "Salir" };
-		int opcionElegida = 0;
-		do {
-			opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú Principal", 0, 0, null,
-					opciones, opciones[0]);
-			switch (opcionElegida) {
-			case 0:
-				menuPerfil();
-				break;
-			case 1:
-				menuRecetas();
-				break;
-			case 2:
-				menuFavoritos();
-				break;
-			case 3:
-				menuCursos();
-				break;
-			case 4:
-				JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-				break;
-			}
-		} while (opcionElegida != 4);
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void menuRecetas() {
-		String[] opcionesRecetas = { "Mis recetas", "Volver" };
-		int opcionElegida = 0;
-		do {
-			opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
-					opcionesRecetas, opcionesRecetas[0]);
-			switch (opcionElegida) {
-			case 0:
-				Receta.menuMisRecetas();
-				break;
-
-			case 1:
-				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
-				break;
-			}
-		} while (opcionElegida != 1);
+	public String getNombre() {
+		return nombre;
 	}
 
-	private void menuPerfil() {
-		String[] opcionesPerfil = { "Ver perfil", "Editar perfil", "Eliminar perfil", "Volver" };
-		int opcionElegida = 0;
-		do {
-			opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú de Perfil", 0, 0, null,
-					opcionesPerfil, opcionesPerfil[0]);
-			switch (opcionElegida) {
-			case 0:
-				verPerfil();
-				break;
-			case 1:
-				editarPerfil();
-				break;
-			case 2:
-				eliminarPerfil();
-				break;
-			case 3:
-				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
-				break;
-			}
-		} while (opcionElegida != 3);
+	public String getPseudonimo() {
+		return pseudonimo;
 	}
 
-	private void verPerfil() {
+	public String getCorreo() {
+		return correo;
 	}
 
-	private void editarPerfil() {
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	private void eliminarPerfil() {
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	private void menuFavoritos() {
-		// Menu de favoritos
+	public int isVerificado() {
+		return verificado;
 	}
 
-	/*
-	 * private void menuBusqueda() { // En caso de que se llegue a hacer lo de
-	 * busqueda }
-	 */
-
-	private void menuCursos() {
-		// Aca van los cursillos
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setPseudonimo(String pseudonimo) {
+		this.pseudonimo = pseudonimo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setVerificado(int verificado) {
+		this.verificado = verificado;
+	}
+
+	
+	
 
 }
 
