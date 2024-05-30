@@ -1,5 +1,7 @@
 package Modelos;
 
+import java.util.List;
+
 public class Perfil {
 
     private int idUsuario;
@@ -85,4 +87,24 @@ public class Perfil {
 				+ "]";
 	}
     
-}
+    
+    public boolean IniciarSesion(String contrasena,String correo) {
+        if (contrasena.isEmpty() || correo.isEmpty()) {
+        	//Error, uno de los campos o ambos estan vacios.
+        }
+            return false;
+
+            if (this.getCorreo().equals(correo)){
+                if( this.getNombre().equals(contrasena)) {
+                    return true; //Todo oki
+                } else {
+                    //Error contrasena
+                    return false;
+                }
+
+            } else {
+                //Error correo
+                return false;
+            }
+            
+    }

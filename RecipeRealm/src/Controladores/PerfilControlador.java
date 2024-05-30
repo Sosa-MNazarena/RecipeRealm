@@ -92,18 +92,6 @@ public class PerfilControlador implements PerfilRepository {
             e.printStackTrace();
         }
     }
-    @Override
-    public Perfil iniciarSesion(String correo, String contrasena) {
-    	 List<Perfil> perfiles = this.getAllPerfils();
-
-    	    for (Perfil perfil : perfiles) {
-    	        if (perfil.getCorreo().equals(correo) && perfil.getContrasena().equals(contrasena)) {
-    	            return perfil;
-    	        }
-    	    }
-
-    	    return null;
-    }
     
     public Perfil autenticar(String correo, String contrasena) {
         Perfil perfil = null;
