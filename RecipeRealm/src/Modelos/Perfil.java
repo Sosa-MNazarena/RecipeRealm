@@ -3,6 +3,8 @@ package Modelos;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Perfil {
 
     private int idUsuario;
@@ -88,60 +90,113 @@ public class Perfil {
 				+ "]";
 	}
     
-    
+
 	public boolean IniciarSesion(String contrasena, String pseudonimo) {
-        if (contrasena.isEmpty() || pseudonimo.isEmpty()) {
-            return false;
-        }
+		if (contrasena.isEmpty() || pseudonimo.isEmpty()) {
+			return false;
+		}
 
-        if (this.getContrasena().equals(contrasena) && this.getPseudonimo().equals(pseudonimo)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-	
-	public boolean RegistrarPerfil(String nombre, String pseudonimo, String correo, String contrasena, String descripcion) {
-		if (nombre.isEmpty() || pseudonimo.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || descripcion.isEmpty()) {
-            //Error, todos los campos son obilgatorios
-            return false;
-        }
-
-        if (!esContrasenaValida(contrasena)) {
-            //La contraseña no cumple con los requisitos
-            return false;
-        }
-		return verificado;
-    }
-	
-	public boolean caracteresMaxDescripcion(String descripcion) {
-	    if (descripcion.length() > 200) {
-	        //La descripcion excede el limite de caracteres
-	        return false;
-	    } else {
-	        return true;
-	    }
+		if (this.getContrasena().equals(contrasena) && this.getPseudonimo().equals(pseudonimo)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
-	 public static boolean esContrasenaValida(String contrasena) {
-        if (contrasena.length() < 1) {
-            return false;
-        }
-        boolean tieneMayuscula = false;
-        boolean tieneMinuscula = false;
-        boolean tieneDigito = false;
-        boolean tieneCaracterEspecial = false;
-        for (char c : contrasena.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                tieneMayuscula = true;
-            } else if (Character.isLowerCase(c)) {
-                tieneMinuscula = true;
-            } else if (Character.isDigit(c)) {
-                tieneDigito = true;
-            } else if (!Character.isLetterOrDigit(c)) {
-                tieneCaracterEspecial = true;
-            }
-        }
-        return tieneMayuscula && tieneMinuscula && tieneDigito && tieneCaracterEspecial;
-    }
+
+	public boolean RegistrarPerfil(String nombre, String pseudonimo, String correo, String contrasena,
+			String descripcion) {
+		if (nombre.isEmpty() || pseudonimo.isEmpty() || correo.isEmpty() || contrasena.isEmpty()
+				|| descripcion.isEmpty()) {
+			// Error, todos los campos son obilgatorios
+			return false;
+		}
+
+		if (!esContrasenaValida(contrasena)) {
+			// La contraseña no cumple con los requisitos
+			return false;
+		}
+		return verificado;
+	}
+
+	public boolean caracteresMaxDescripcion(String descripcion) {
+		if (descripcion.length() > 200) {
+			// La descripcion excede el limite de caracteres
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public static boolean esContrasenaValida(String contrasena) {
+		if (contrasena.length() < 1) {
+			return false;
+		}
+		boolean tieneMayuscula = false;
+		boolean tieneMinuscula = false;
+		boolean tieneDigito = false;
+		boolean tieneCaracterEspecial = false;
+		for (char c : contrasena.toCharArray()) {
+			if (Character.isUpperCase(c)) {
+				tieneMayuscula = true;
+			} else if (Character.isLowerCase(c)) {
+				tieneMinuscula = true;
+			} else if (Character.isDigit(c)) {
+				tieneDigito = true;
+			} else if (!Character.isLetterOrDigit(c)) {
+				tieneCaracterEspecial = true;
+			}
+		}
+		return tieneMayuscula && tieneMinuscula && tieneDigito && tieneCaracterEspecial;
+	}
+
+	// Menues
+		public void menuRecetas() {
+			String[] opcionesRecetas = { "Mis recetas", "Recetas", "Volver" };
+			int opcionElegida = 0;
+			do {
+				opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
+						opcionesRecetas, opcionesRecetas[0]);
+				switch (opcionElegida) {
+				case 0:
+					Receta.menuMisRecetas();
+					break;
+				case 1:
+
+					// Funcionalidades para recetas que no son propias
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
+					break;
+				}
+			} while (opcionElegida != 2);
+		}
+
+
+		public static void menuPrincipalPerfil() {
+
+			        String[] opciones = { "Perfil", "Recetas", "Favoritos", "Cursos", "Salir" };
+			        int opcionElegida = 0;
+			        do {
+			            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú Principal", 0, 0, null, opciones, opciones[0]);
+			            switch (opcionElegida) {
+			                case 0:
+			                    //menuPerfil();
+			                    break;
+			                case 1:
+			                    Receta.menuMisRecetas();
+			                    break;
+			                case 2:
+			                    //menuFavoritos();
+			                    break;
+			                case 3:
+			                    //menuCursos();
+			                    break;
+			                case 4:
+			                    JOptionPane.showMessageDialog(null, "¡Hasta luego!");
+			                    break;
+			            }
+			        } while (opcionElegida != 4);
+			    }		
+	 
+	 
 }

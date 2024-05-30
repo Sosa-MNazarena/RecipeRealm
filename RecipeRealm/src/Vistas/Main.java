@@ -95,6 +95,7 @@ public class Main {
                 String correo = JOptionPane.showInputDialog("Ingrese su correo:");
                 String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
                 Perfil perfil = perfilControlador.iniciarSesion(correo, contrasena);
+                Perfil.menuPrincipalPerfil();
                 /*if (perfil != null) {
                     if (perfil.isVerificado()) {
                         Chef chef = new Chef(perfil.getIdUsuario(), perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion(), perfil.isVerificado());
