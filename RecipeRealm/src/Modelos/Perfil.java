@@ -2,7 +2,7 @@
 package Modelos;
 
 import java.util.List;
-
+import Controladores.PerfilControlador;
 import javax.swing.JOptionPane;
 
 public class Perfil {
@@ -91,16 +91,23 @@ public class Perfil {
 	}
     
 
-	public boolean IniciarSesion(String contrasena, String pseudonimo) {
-		if (contrasena.isEmpty() || pseudonimo.isEmpty()) {
-			return false;
+	public static String IniciarSesion(String correo, String contrasena) {
+
+		PerfilControlador controlador = new PerfilControlador();
+
+		if (controlador.getAllPerfils().isEmpty()) {
+			return "No hay usuarios registrados";
+		} else {
+			for (Perfil perfil : controlador.getAllPerfils()) {
+				if (perfil.getCorreo().equals(correo) && perfil.getContrasena().equals(contrasena)) {
+					return "Ingreso correcto";
+				}else if (perfil.getCorreo().equals(correo) && !perfil.getContrasena().equals(contrasena)) {
+					return "Contraseña inválida. Inténtelo nuevamente";
+				}
+			}
+			return "No hay usuario registrado";
 		}
 
-		if (this.getContrasena().equals(contrasena) && this.getPseudonimo().equals(pseudonimo)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public boolean RegistrarPerfil(String nombre, String pseudonimo, String correo, String contrasena,

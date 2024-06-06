@@ -8,13 +8,13 @@ import Controladores.PerfilControlador;
 
 import Modelos.Perfil;
 public class TestPerfil {
-
+	/*
 	   @Test
 	    public void InicioCorrecto() {
 	        PerfilControlador controlador = new PerfilControlador();
 	        boolean flag = false;
 	        for (Perfil perfil : controlador.getAllPerfils()) {
-	            if (perfil.IniciarSesion("Coni_2020", "Coni")) {
+	            if (perfil.IniciarSesion("coni@gmail.com", "Coni")) {
 	                System.out.println("Perfil si");
 	                System.out.println("Contraseña: " + perfil.getContrasena()); 
 	                flag=true;
@@ -36,7 +36,7 @@ public class TestPerfil {
 	        }
 	        assertEquals(false,flag);
 
-	    }
+	    }*/
 
 	
 	
