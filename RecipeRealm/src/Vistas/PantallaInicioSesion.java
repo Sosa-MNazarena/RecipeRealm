@@ -108,8 +108,11 @@ public class PantallaInicioSesion extends JFrame {
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String respuesta = Perfil.IniciarSesion(inputCorreo.getText(), inputContrasena.getText());
-				if(respuesta.equals("Ingreso correcto")) {
+				if(respuesta.equals("rol:false")) {
 					PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado();
+					dispose();
+				}else if(respuesta.equals("rol:true")) {
+					PantallaHomeChef homeChef = new PantallaHomeChef();
 					dispose();
 				}else {
 					if (respuesta.equals("Contraseña inválida. Inténtelo nuevamente")) {

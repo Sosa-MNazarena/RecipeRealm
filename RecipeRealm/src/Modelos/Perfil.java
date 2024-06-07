@@ -100,7 +100,7 @@ public class Perfil {
 		} else {
 			for (Perfil perfil : controlador.getAllPerfils()) {
 				if (perfil.getCorreo().equals(correo) && perfil.getContrasena().equals(contrasena)) {
-					return "Ingreso correcto";
+					return "rol:"+perfil.isVerificado();
 				}else if (perfil.getCorreo().equals(correo) && !perfil.getContrasena().equals(contrasena)) {
 					return "Contraseña inválida. Inténtelo nuevamente";
 				}
