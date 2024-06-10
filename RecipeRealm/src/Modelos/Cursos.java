@@ -101,14 +101,41 @@ public class Cursos {
                 + "]\n";
     }
     
-    public boolean publicarCurso(Perfil instructor) {
-    	if (instructor.isVerificado() && titulo.length()>=10 && cupo<=100 ) {
-    		if (!lugar.isEmpty()&&!dia.isBefore(LocalDate.now())&&precio>0) {
-				return true;
-			}
-    	}
-		return false;
+    private static String publicarCurso(String titulo, String lugar, LocalDate dia, int cupo, Double precio, LocalTime horario) {
+        if (titulo.isEmpty() || titulo.length() < 3) {
+            return "Título inválido, más de 3 caracteres.";
+        }
+
+        if (lugar.isEmpty() || lugar.length() < 5) {
+            return "Lugar inválido, más de 3 caracteres.";
+        }
+
+        if (dia.isBefore(LocalDate.now())) {
+            return "Fecha inválida.";
+        }
+
+        if (cupo < 10) {
+            return "Cupos inválidos, debe ser una cantidad mayor a 10";
+        }
+
+
+        Cursos curso = new Cursos(0, titulo, null, lugar, dia, cupo, precio, horario);
+        curso.setTitulo(titulo);
+        curso.setLugar(lugar);
+        curso.setDia(dia);
+        curso.setCupo(cupo);
+        curso.setPrecio(precio);
+        curso.setHorario(horario);
+
+        CursoControlador cursoControlador = new CursoControlador();
+        try {
+            cursoControlador.addCurso(curso);
+            return "El curso se ha subido exitosamente.";
+        } catch (Exception e) {
+            return "El curso no se ha subido exitosamente.";
+        }
     }
+
     
     public boolean eliminarCurso(CursoControlador cursoControlador, int idCurso) {
         boolean exito = cursoControlador.deleteCurso(idCurso);
@@ -120,5 +147,17 @@ public class Cursos {
             return false;
         }
     }
+    
+    public static Cursos BuscarCurso(CursoControlador controlar) {
+		String[] listaCursos = new String[controlar.getAllCursos().size()];
+		
+		for (int i = 0; i < listaCursos.length; i++) {
+			listaCursos[i] = Integer.toString(controlar.getAllCursos().get(i).getIdCurso());
+		}
+		String elegido =(String) JOptionPane.showInputDialog(null, "Elija un id", null, 0, null, listaCursos, listaCursos[0]);
+		
+		Cursos nuevo = controlar.getCursoById(Integer.parseInt(elegido));
+		return nuevo;
+	}
 
 }

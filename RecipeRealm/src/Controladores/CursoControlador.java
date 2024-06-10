@@ -76,8 +76,7 @@ public class CursoControlador implements CursoRepositorio {
     }
 
     @Override
-    public boolean addCurso(Cursos curso, Perfil perfil) {
-    	if (curso.publicarCurso(perfil)) {
+    public void addCurso(Cursos curso) {
     		try {
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario) VALUES (?, ?, ?, ?, ?, ?)");
                 statement.setString(1, curso.getTitulo());
@@ -90,14 +89,10 @@ public class CursoControlador implements CursoRepositorio {
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
                     JOptionPane.showMessageDialog(null, "Curso cargado exitosamente");
-                    return true;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-		}
-		return false;
-        
     }
 
     @Override
