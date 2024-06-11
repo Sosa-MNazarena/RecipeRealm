@@ -33,7 +33,19 @@ public class PantallaSubirCurso extends JFrame {
 	private JTextField inputFecha;
 	private JTextField inputHorario;
 
-	
+
+	  public static void main(String[] args) {
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                    PantallaSubirCurso frame = new PantallaSubirCurso();
+	                    frame.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+	    }
 	public PantallaSubirCurso() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
