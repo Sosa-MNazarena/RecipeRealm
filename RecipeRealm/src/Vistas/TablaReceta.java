@@ -142,12 +142,13 @@ public class TablaReceta extends JFrame {
 						int selectedRow = table.getSelectedRow();
 						if (selectedRow != -1) {
 							int id = (int) table.getValueAt(selectedRow, 0);
-							String titulo = (String) table.getValueAt(selectedRow, 1);
-							String lugar = (String) table.getValueAt(selectedRow, 2);
-							String fecha = (String) table.getValueAt(selectedRow, 3);
-							int cupo = (int) table.getValueAt(selectedRow, 4);
-							double precio = (double) table.getValueAt(selectedRow, 5);
-							String horario = (String) table.getValueAt(selectedRow, 6);
+				            String titulo = (String) table.getValueAt(selectedRow, 1);
+				            String procedimiento = (String) table.getValueAt(selectedRow, 2);
+				            int nroIngredientes = (int) table.getValueAt(selectedRow, 3);
+				            int idUsuario = (int) table.getValueAt(selectedRow, 4);
+				            int idResena = (int) table.getValueAt(selectedRow, 5);
+				            String fecha = (String) table.getValueAt(selectedRow, 6);
+
 
 							 elemento.setText("Seleccionado: ID=" + id + ", Título=" + titulo + ", Procedimiento=" + procedimiento +
 		                                ", NroIngredientes=" + nroIngredientes + ", IdUsuario=" + idUsuario + ", IdResena=" + idResena +
