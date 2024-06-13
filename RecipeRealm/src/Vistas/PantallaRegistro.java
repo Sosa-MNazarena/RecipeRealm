@@ -1,4 +1,5 @@
 package Vistas;
+import javax.swing.ButtonGroup;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -14,7 +15,8 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import Modelos.Perfil;
+import Controladores.PerfilControlador;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.Component;
@@ -28,7 +30,9 @@ public class PantallaRegistro extends JFrame {
 	private JTextField inputNombreUsuario;
 	private JTextField inputNombre;
 	private JTextField inputCorreo;
-	private JTextField inputDescripcion;
+	private JTextField inputDescripcion;    private JRadioButton rdbtnChef;
+    private JRadioButton rdbtnAficionado;
+    private ButtonGroup groupRol;
 
 	/**
 	 * Launch the application.
@@ -102,15 +106,20 @@ public class PantallaRegistro extends JFrame {
 		lblProfesional.setBounds(71, 563, 276, 22);
 		contentPane.add(lblProfesional);
 
-		JRadioButton rdbtnChef = new JRadioButton("Chef");
-		rdbtnChef.setFont(new Font("Leelawadee UI", Font.PLAIN, 13));
-		rdbtnChef.setBounds(76, 596, 109, 23);
-		contentPane.add(rdbtnChef);
+        rdbtnChef = new JRadioButton("Chef");
+        rdbtnChef.setFont(new Font("Leelawadee UI", Font.PLAIN, 13));
+        rdbtnChef.setBounds(76, 596, 109, 23);
+        contentPane.add(rdbtnChef);
 
-		JRadioButton rdbtnAficionado = new JRadioButton("Aficionado");
-		rdbtnAficionado.setFont(new Font("Leelawadee UI", Font.PLAIN, 13));
-		rdbtnAficionado.setBounds(212, 596, 109, 23);
-		contentPane.add(rdbtnAficionado);
+        rdbtnAficionado = new JRadioButton("Aficionado");
+        rdbtnAficionado.setFont(new Font("Leelawadee UI", Font.PLAIN, 13));
+        rdbtnAficionado.setBounds(212, 596, 109, 23);
+        contentPane.add(rdbtnAficionado);
+
+        // Crear el grupo y agregar los botones
+        groupRol = new ButtonGroup();
+        groupRol.add(rdbtnChef);
+        groupRol.add(rdbtnAficionado);
 
 		JLabel lblTitulo = new JLabel("Recipe Realm");
 		lblTitulo.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
@@ -170,6 +179,8 @@ public class PantallaRegistro extends JFrame {
 				String pseudonimo = inputNombreUsuario.getText();
 				String correo = inputCorreo.getText();
 				String contrasena = new String(inputContrasena.getPassword());
+				String descripcion= inputDescripcion.getText();
+                boolean verificado = rdbtnChef.isSelected();
 
 				if (nombre.isEmpty()) {
 					lblErrorNombre.setText("El nombre no puede estar vacío");
@@ -200,7 +211,7 @@ public class PantallaRegistro extends JFrame {
 					JOptionPane.showMessageDialog(null, "Por favor, revise los campos marcados en rojo", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-//Guardar en BDD
+					//guardar bdd
 				}
 			}
 		});
