@@ -1,10 +1,7 @@
 package Modelos;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import javax.swing.JOptionPane;
-
 import Controladores.CursoControlador;
 
 public class Cursos {

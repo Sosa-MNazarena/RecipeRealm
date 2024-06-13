@@ -1,4 +1,5 @@
 package Vistas;
+
 import javax.swing.ButtonGroup;
 
 import java.awt.Color;
@@ -30,9 +31,10 @@ public class PantallaRegistro extends JFrame {
 	private JPasswordField inputContrasena;
 	private JTextField inputNombreUsuario;
 	private JTextField inputNombre;
-	private JTextField inputCorreo;private JRadioButton rdbtnChef;
-    private JRadioButton rdbtnAficionado;
-    private ButtonGroup groupRol;
+	private JTextField inputCorreo;
+	private JRadioButton rdbtnChef;
+	private JRadioButton rdbtnAficionado;
+	private ButtonGroup groupRol;
 
 	/**
 	 * Launch the application.
@@ -111,21 +113,20 @@ public class PantallaRegistro extends JFrame {
 		lblProfesional.setBounds(71, 563, 276, 22);
 		contentPane.add(lblProfesional);
 
-        rdbtnChef = new JRadioButton("Chef");
-        rdbtnChef.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
-        rdbtnChef.setBounds(76, 596, 109, 23);
-        contentPane.add(rdbtnChef);
+		rdbtnChef = new JRadioButton("Chef");
+		rdbtnChef.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
+		rdbtnChef.setBounds(76, 596, 109, 23);
+		contentPane.add(rdbtnChef);
 
-        rdbtnAficionado = new JRadioButton("Aficionado");
-        rdbtnAficionado.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
-        rdbtnAficionado.setBounds(212, 596, 109, 23);
-        contentPane.add(rdbtnAficionado);
+		rdbtnAficionado = new JRadioButton("Aficionado");
+		rdbtnAficionado.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
+		rdbtnAficionado.setBounds(212, 596, 109, 23);
+		contentPane.add(rdbtnAficionado);
 
-        // Crear el grupo y agregar los botones
-        groupRol = new ButtonGroup();
-        groupRol.add(rdbtnChef);
-        groupRol.add(rdbtnAficionado);
-        
+		// Crear el grupo y agregar los botones
+		groupRol = new ButtonGroup();
+		groupRol.add(rdbtnChef);
+		groupRol.add(rdbtnAficionado);
 
 		JLabel lblTitulo = new JLabel("Recipe Realm");
 		lblTitulo.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
@@ -166,18 +167,18 @@ public class PantallaRegistro extends JFrame {
 		lblErrorContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		lblErrorContrasena.setBounds(71, 530, 356, 14);
 		contentPane.add(lblErrorContrasena);
-		
+
 		JLabel lblExito = new JLabel("");
 		lblExito.setForeground(new Color(0, 128, 0));
 		lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		lblExito.setBounds(489, 621, 356, 22);
 		contentPane.add(lblExito);
-		
+
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		horizontalBox.setBounds(489, 241, 356, 288);
 		contentPane.add(horizontalBox);
-		
+
 		JTextArea inputDescripcion = new JTextArea();
 		inputDescripcion.setLineWrap(true);
 		inputDescripcion.setWrapStyleWord(true);
@@ -186,28 +187,30 @@ public class PantallaRegistro extends JFrame {
 		horizontalBox.add(inputDescripcion);
 
 		btnRegistrarse.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				boolean verificado=false;
-		        if (rdbtnChef.isSelected()) {
-		        	verificado=true;
+				boolean verificado = false;
+				if (rdbtnChef.isSelected()) {
+					verificado = true;
 				}
-		        if (rdbtnAficionado.isSelected()) {
-		        	verificado=false;
+				if (rdbtnAficionado.isSelected()) {
+					verificado = false;
 				}
-				String respuesta = Perfil.RegistrarPerfil(inputNombre.getText(),inputNombreUsuario.getText(), inputCorreo.getText(),inputContrasena.getText(), inputDescripcion.getText(),verificado);
-				if(respuesta.equals("Perfil creado exitosamente")) {
+				String respuesta = Perfil.RegistrarPerfil(inputNombre.getText(), inputNombreUsuario.getText(),
+						inputCorreo.getText(), inputContrasena.getText(), inputDescripcion.getText(), verificado);
+				if (respuesta.equals("Perfil creado exitosamente")) {
 					lblExito.setText(respuesta);
 					lblExito.setVisible(true);
 					PantallaInicioSesion iniciarSesion = new PantallaInicioSesion();
 					iniciarSesion.setVisible(true);
 					dispose();
-				}else {
+				} else {
 					if (respuesta.equals("¡Error! Todos los campos son obligatorios")) {
 						lblErrorNombre.setText("El nombre no puede estar vacío");
 						lblErrorNombre.setVisible(true);
-					} 
-					if (respuesta.equals("La contraseña no cumple con los requisitos: Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.")) {
+					}
+					if (respuesta.equals(
+							"La contraseña no cumple con los requisitos: Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.")) {
 						lblErrorContrasena.setText(respuesta);
 						lblErrorContrasena.setVisible(true);
 					}
@@ -215,41 +218,34 @@ public class PantallaRegistro extends JFrame {
 						lblErrorContrasena.setText(respuesta);
 						lblErrorContrasena.setVisible(true);
 					}
-				
-			}
-                
 
-				/*if (inputNombreUsuario.isEmpty()) {
-					lblErrorNombre.setText("El nombre no puede estar vacío");
-				} else {
-					lblErrorNombre.setText("");
 				}
 
-				if (pseudonimo.isEmpty()) {
-					lblErrorNombreUsuario.setText("El nombre de usuario no puede estar vacío");
-				} else {
-					lblErrorNombreUsuario.setText("");
-				}
-
-				if (correo.isEmpty() || !correo.contains("@")) {
-					lblErrorCorreo.setText("Correo electrónico inválido");
-				} else {
-					lblErrorCorreo.setText("");
-				}
-
-				if (contrasena.isEmpty()) {
-					lblErrorContrasena.setText("La contraseña no puede estar vacía");
-				} else {
-					lblErrorContrasena.setText("");
-				}
-
-				if (!lblErrorNombre.getText().isEmpty() || !lblErrorNombreUsuario.getText().isEmpty()
-						|| !lblErrorCorreo.getText().isEmpty() || !lblErrorContrasena.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Por favor, revise los campos marcados en rojo", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					//guardar bdd
-				}*/
+				/*
+				 * if (inputNombreUsuario.isEmpty()) {
+				 * lblErrorNombre.setText("El nombre no puede estar vacío"); } else {
+				 * lblErrorNombre.setText(""); }
+				 * 
+				 * if (pseudonimo.isEmpty()) {
+				 * lblErrorNombreUsuario.setText("El nombre de usuario no puede estar vacío"); }
+				 * else { lblErrorNombreUsuario.setText(""); }
+				 * 
+				 * if (correo.isEmpty() || !correo.contains("@")) {
+				 * lblErrorCorreo.setText("Correo electrónico inválido"); } else {
+				 * lblErrorCorreo.setText(""); }
+				 * 
+				 * if (contrasena.isEmpty()) {
+				 * lblErrorContrasena.setText("La contraseña no puede estar vacía"); } else {
+				 * lblErrorContrasena.setText(""); }
+				 * 
+				 * if (!lblErrorNombre.getText().isEmpty() ||
+				 * !lblErrorNombreUsuario.getText().isEmpty() ||
+				 * !lblErrorCorreo.getText().isEmpty() ||
+				 * !lblErrorContrasena.getText().isEmpty()) {
+				 * JOptionPane.showMessageDialog(null,
+				 * "Por favor, revise los campos marcados en rojo", "Error",
+				 * JOptionPane.ERROR_MESSAGE); } else { //guardar bdd }
+				 */
 			}
 		});
 

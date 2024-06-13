@@ -5,12 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelos.Perfil;
+import Modelos.Receta;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,6 @@ public class PantallaSubirReceta extends JFrame {
     
     private JTextField textFieldTitulo; 
     private JTextArea inputProcedimiento; 
-    private JTextField textFieldFecha; 
     private JTextField textFieldCategoria;
 
     public static void main(String[] args) {
@@ -90,19 +94,19 @@ public class PantallaSubirReceta extends JFrame {
         lblFecha.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
         lblFecha.setBounds(363, 410, 60, 20);
         contentPane.add(lblFecha);
-        
-        textFieldFecha = new JTextField();
-        textFieldFecha.setColumns(10);
-        textFieldFecha.setBounds(363, 433, 85, 33);
-        contentPane.add(textFieldFecha);
+
         
         JButton btnPublicarReceta = new JButton("Publicar Receta");
         btnPublicarReceta.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
         btnPublicarReceta.setBounds(363, 489, 354, 29);
         contentPane.add(btnPublicarReceta);
+        
+        
         btnPublicarReceta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                publicarReceta();
+                LocalDate fecha = LocalDate.now();
+
+    			String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),fecha);
             }
         });
         
@@ -170,22 +174,5 @@ public class PantallaSubirReceta extends JFrame {
 
         inputNombreIngrediente.setText("");
         inputCantidadIngrediente.setText("");
-    }
-    
-    private void publicarReceta() {
-        String titulo = textFieldTitulo.getText();
-        String procedimiento = inputProcedimiento.getText();
-        String fecha = textFieldFecha.getText();
-        String categoria = textFieldCategoria.getText();
-
-        System.out.println("Título: " + titulo);
-        System.out.println("Procedimiento: " + procedimiento);
-        System.out.println("Fecha: " + fecha);
-        System.out.println("Categoría: " + categoria);
-
-        System.out.println("Ingredientes:");
-        for (String ingrediente : listaIngredientes) {
-            System.out.println(ingrediente);
-        }
     }
 }

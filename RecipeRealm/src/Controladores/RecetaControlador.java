@@ -1,11 +1,14 @@
 package Controladores;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Date;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import Modelos.Categoria;
@@ -41,8 +44,7 @@ public class RecetaControlador implements RecetaRepository {
 				ArrayList<Ingrediente> ingredientes = getIngredientesByRecetaId(idReceta);
 				ArrayList<Categoria> categorias = getCategoriasByRecetaId(idReceta);
 
-				Receta receta = new Receta(idReceta, titulo, procedimiento, null, nroIngredientes, 0, null, null, null,
-						null, fecha, ingredientes, categorias);
+				Receta receta = new Receta(idReceta, titulo, procedimiento, null);
 				RecetaSingleton.getInstance().addReceta(receta);
 			}
 		} catch (SQLException e) {
@@ -124,9 +126,6 @@ public class RecetaControlador implements RecetaRepository {
 		if (receta.getProcedimiento() == null || receta.getProcedimiento().length() < 20) {
 			return false;
 		}
-		if (receta.getnroIngredientes() < 1) {
-			return false;
-		}
 		return true;
 	}
 
@@ -134,105 +133,24 @@ public class RecetaControlador implements RecetaRepository {
 		reiniciarRecetas();
 		recetaAgregada = false;
 
-		if (!validarReceta(receta)) {
+		/*if (!validarReceta(receta)) {
 			System.out.println("La receta no es válida y no se puede agregar.");
 			return;
-		}
+		}*/
 
-		String sqlReceta = "INSERT INTO receta (titulo, procedimiento, nro_ingredientes, fecha) VALUES (?, ?, ?, ?)";
-		String sqlIngrediente = "INSERT INTO ingrediente (nombre) VALUES (?) ON DUPLICATE KEY UPDATE id_ingrediente=LAST_INSERT_ID(id_ingrediente)";
-		String sqlRecetaIngrediente = "INSERT INTO receta_ingrediente (id_receta, id_ingrediente, cantidad) VALUES (?, ?, ?)";
-		String sqlRecetaCategoria = "INSERT INTO receta_categoria (id_receta, id_categoria) VALUES (?, ?)";
-		String sqlBuscarCategoria = "SELECT id_categoria FROM categoria WHERE nombre_categoria = ?";
-		String sqlInsertarCategoria = "INSERT INTO categoria (nombre_categoria) VALUES (?) ON DUPLICATE KEY UPDATE id_categoria=LAST_INSERT_ID(id_categoria)";
+		try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO receta (titulo, procedimiento, fecha) VALUES (?, ?, ?)");
+            statement.setString(1, receta.getTitulo());
+            statement.setString(2, receta.getProcedimiento());
+            statement.setDate(3, Date.valueOf(receta.getFecha()));
 
-		try (PreparedStatement pstmtReceta = connection.prepareStatement(sqlReceta,
-				PreparedStatement.RETURN_GENERATED_KEYS);
-				PreparedStatement pstmtIngrediente = connection.prepareStatement(sqlIngrediente,
-						PreparedStatement.RETURN_GENERATED_KEYS);
-				PreparedStatement pstmtRecetaIngrediente = connection.prepareStatement(sqlRecetaIngrediente);
-				PreparedStatement pstmtRecetaCategoria = connection.prepareStatement(sqlRecetaCategoria);
-				PreparedStatement pstmtBuscarCategoria = connection.prepareStatement(sqlBuscarCategoria);
-				PreparedStatement pstmtInsertarCategoria = connection.prepareStatement(sqlInsertarCategoria,
-						PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-			// Insertar la receta
-			pstmtReceta.setString(1, receta.getTitulo());
-			pstmtReceta.setString(2, receta.getProcedimiento());
-			pstmtReceta.setInt(3, receta.getnroIngredientes());
-			pstmtReceta.setDate(4, new java.sql.Date(receta.getFecha().getTime()));
-			int affectedRows = pstmtReceta.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException("Hubo un fallo al insertar la receta");
-			}
-
-			try (ResultSet generatedKeys = pstmtReceta.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					int idReceta = generatedKeys.getInt(1);
-
-					// Insertar los ingredientes de la receta y las relaciones en la tabla
-					// receta_ingrediente
-					for (Ingrediente ingrediente : receta.getIngredientes()) {
-						pstmtIngrediente.setString(1, ingrediente.getNombre());
-						pstmtIngrediente.executeUpdate();
-
-						ResultSet rsIngrediente = pstmtIngrediente.getGeneratedKeys();
-						int idIngrediente;
-						if (rsIngrediente.next()) {
-							idIngrediente = rsIngrediente.getInt(1);
-						} else {
-							throw new SQLException("Hubo un fallo al insertar el ingrediente");
-						}
-
-						pstmtRecetaIngrediente.setInt(1, idReceta);
-						pstmtRecetaIngrediente.setInt(2, idIngrediente);
-						pstmtRecetaIngrediente.setDouble(3, ingrediente.getCantidad());
-						pstmtRecetaIngrediente.executeUpdate();
-					}
-
-					// Insertar las relaciones entre la receta y las categorías en la tabla
-					// receta_categoria
-					for (Categoria categoria : receta.getCategorias()) {
-						// Verificar si la categoría ya existe en la base de datos
-						pstmtBuscarCategoria.setString(1, categoria.getNombreCategoria());
-						ResultSet rsBuscarCategoria = pstmtBuscarCategoria.executeQuery();
-
-						int idCategoria;
-						if (rsBuscarCategoria.next()) {
-							idCategoria = rsBuscarCategoria.getInt("id_categoria");
-						} else {
-							// Insertar la nueva categoría en la base de datos
-							pstmtInsertarCategoria.setString(1, categoria.getNombreCategoria());
-							pstmtInsertarCategoria.executeUpdate();
-
-							ResultSet rsInsertarCategoria = pstmtInsertarCategoria.getGeneratedKeys();
-							if (rsInsertarCategoria.next()) {
-								idCategoria = rsInsertarCategoria.getInt(1);
-							} else {
-								throw new SQLException("Hubo un fallo al insertar la categoría");
-							}
-						}
-
-						// Insertar la relación en la tabla receta_categoria
-						pstmtRecetaCategoria.setInt(1, idReceta);
-						pstmtRecetaCategoria.setInt(2, idCategoria);
-						pstmtRecetaCategoria.executeUpdate();
-					}
-
-					// Agregar la receta a la lista de recetas
-					receta.setIdReceta(idReceta);
-					RecetaSingleton.getInstance().addReceta(receta);
-					recetaAgregada = true;
-					JOptionPane.showMessageDialog(null, "Receta agregada exitosamente.");
-				} else {
-					throw new SQLException("Hubo un fallo al insertar la receta, no se obtuvo el ID.");
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Hubo un fallo al agregar la receta: " + e.getMessage());
-		}
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "Receta cargada exitosamente");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 
 	public boolean isRecetaAgregada() {
