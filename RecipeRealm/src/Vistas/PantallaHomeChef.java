@@ -38,6 +38,12 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(lblBienvenidoChef);
 		
 		JButton btnSubirReceta = new JButton("Subir Receta");
+		btnSubirReceta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaSubirReceta subirReceta = new PantallaSubirReceta();
+				dispose();
+			}
+		});
 		btnSubirReceta.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\recipe.png"));
 		btnSubirReceta.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
 		btnSubirReceta.setBackground(Color.LIGHT_GRAY);
