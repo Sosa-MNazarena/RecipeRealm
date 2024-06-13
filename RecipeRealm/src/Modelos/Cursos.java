@@ -103,7 +103,7 @@ public class Cursos {
     
     public static String publicarCurso(String titulo, String lugar, LocalDate dia, int cupo, Double precio, LocalTime horario) {
         if (titulo.isEmpty() || titulo.length() < 3) {
-            return "Título inválido, más de 3 caracteres.";
+            return "Título inválido, debe tener más de 3 caracteres.";
         }
 
         if (lugar.isEmpty() || lugar.length() < 5) {

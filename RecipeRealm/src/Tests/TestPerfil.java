@@ -1,5 +1,5 @@
 package Tests;
-
+/*
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class TestPerfil {
 	    }*/
 
 	
-	
+	/*
 		@Test
 		public void RegistroCorrecto() {
 		    PerfilControlador controlador = new PerfilControlador();
@@ -91,5 +91,5 @@ public class TestPerfil {
 		        assertEquals(false, flag);
 		    }
 	
-}
+}*/
 

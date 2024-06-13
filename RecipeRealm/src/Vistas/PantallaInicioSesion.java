@@ -134,6 +134,8 @@ public class PantallaInicioSesion extends JFrame {
 		btnRegistrarse.setBackground(new Color(192, 192, 192));
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				PantallaRegistro registrarse = new PantallaRegistro();
+				dispose();
 			}
 		});
 		btnRegistrarse.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));

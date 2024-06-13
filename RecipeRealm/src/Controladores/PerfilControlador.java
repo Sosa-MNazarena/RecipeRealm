@@ -73,9 +73,7 @@ public class PerfilControlador implements PerfilRepository {
     }
 
     @Override
-    public boolean addPerfil(Perfil perfil) {
-        if (perfil.RegistrarPerfil(perfil.getNombre(), perfil.getPseudonimo(), perfil.getCorreo(), perfil.getContrasena(), perfil.getDescripcion()) 
-            && perfil.caracteresMaxDescripcion(perfil.getDescripcion())) {
+    public void addPerfil(Perfil perfil) {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO usuario (nombre, pseudonimo, correo, contrasena, descripcion, verificado) VALUES (?, ?, ?, ?, ?, ?)"
@@ -89,13 +87,13 @@ public class PerfilControlador implements PerfilRepository {
                 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    return true; //correcto
+                	JOptionPane.showMessageDialog(null, "Perfil cargado exitosamente");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        return false; //incorrecto
+        
+    
     }
     
     public Perfil autenticar(String correo, String contrasena) {

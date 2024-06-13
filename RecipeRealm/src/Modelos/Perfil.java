@@ -110,34 +110,48 @@ public class Perfil {
 
 	}
 
-	public boolean RegistrarPerfil(String nombre, String pseudonimo, String correo, String contrasena,
-			String descripcion) {
+	public static String RegistrarPerfil(String nombre, String pseudonimo, String correo, String contrasena,
+			String descripcion, boolean verificado) {
 		if (nombre.isEmpty() || pseudonimo.isEmpty() || correo.isEmpty() || contrasena.isEmpty()
 				|| descripcion.isEmpty()) {
-			// Error, todos los campos son obilgatorios
-			return false;
+			return " ¡Error! Todos los campos son obligatorios";
 		}
 
 		if (!esContrasenaValida(contrasena)) {
-			// La contraseña no cumple con los requisitos
-			return false;
+			return "La contraseña no cumple con los requisitos: Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.";
 		}
-		return verificado;
+		
+		if (caracteresMaxDescripcion(descripcion)) {
+			return "Se excede el límite de 100 caracteres.";
+		}
+		
+		 Perfil perfil = new Perfil(0, nombre,pseudonimo,correo,contrasena,descripcion,verificado);
+	        perfil.setNombre(nombre);
+	        perfil.setPseudonimo(pseudonimo);
+	        perfil.setCorreo(correo);
+	        perfil.setContrasena(contrasena);
+	        perfil.setDescripcion(descripcion);
+	        perfil.setVerificado(verificado);
+
+	       	PerfilControlador perfilControlar = new PerfilControlador();
+	        try {
+	            perfilControlar.addPerfil(perfil);
+	            return "Perfil creado exitosamente";
+	        } catch (Exception e) {
+	            return "No se ha podido crear el perfil. Inténtelo más tarde.";
+	        }
+	
 	}
 
-	public boolean caracteresMaxDescripcion(String descripcion) {
-		if (descripcion.length() > 200) {
-			// La descripcion excede el limite de caracteres
-			return false;
-		} else {
+	public static boolean caracteresMaxDescripcion(String descripcion) {
+		if (descripcion.length() > 100) {
 			return true;
 		}
+		return false;
+		
 	}
 
 	public static boolean esContrasenaValida(String contrasena) {
-		if (contrasena.length() < 1) {
-			return false;
-		}
 		boolean tieneMayuscula = false;
 		boolean tieneMinuscula = false;
 		boolean tieneDigito = false;
@@ -156,54 +170,6 @@ public class Perfil {
 		return tieneMayuscula && tieneMinuscula && tieneDigito && tieneCaracterEspecial;
 	}
 
-	// Menues
-		public void menuRecetas() {
-			String[] opcionesRecetas = { "Mis recetas", "Recetas", "Volver" };
-			int opcionElegida = 0;
-			do {
-				opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
-						opcionesRecetas, opcionesRecetas[0]);
-				switch (opcionElegida) {
-				case 0:
-					Receta.menuMisRecetas();
-					break;
-				case 1:
-
-					// Funcionalidades para recetas que no son propias
-					break;
-				case 2:
-					JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
-					break;
-				}
-			} while (opcionElegida != 2);
-		}
-
-
-		public static void menuPrincipalPerfil() {
-
-			        String[] opciones = { "Perfil", "Recetas", "Favoritos", "Cursos", "Salir" };
-			        int opcionElegida = 0;
-			        do {
-			            opcionElegida = JOptionPane.showOptionDialog(null, "Elija una opción", "Menú Principal", 0, 0, null, opciones, opciones[0]);
-			            switch (opcionElegida) {
-			                case 0:
-			                    //menuPerfil();
-			                    break;
-			                case 1:
-			                    Receta.menuMisRecetas();
-			                    break;
-			                case 2:
-			                    //menuFavoritos();
-			                    break;
-			                case 3:
-			                    //menuCursos();
-			                    break;
-			                case 4:
-			                    JOptionPane.showMessageDialog(null, "¡Hasta luego!");
-			                    break;
-			            }
-			        } while (opcionElegida != 4);
-			    }		
-	 
+	
 	 
 }
