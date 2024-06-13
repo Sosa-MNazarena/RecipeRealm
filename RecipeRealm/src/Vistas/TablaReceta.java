@@ -60,7 +60,7 @@ public class TablaReceta extends JFrame {
 	public TablaReceta() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 829, 300);
+		setBounds(100, 100, 894, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,7 +72,7 @@ public class TablaReceta extends JFrame {
 
 		
 		//tabla y modelito
-		String[] columnNames = { "ID", "Título", "Procedimiento", "Nroingredientes", "IdUsiario", "IdResena", "Fecha" };
+		String[] columnNames = { "ID", "Título", "Procedimiento", "Nro ingredientes", "Id Usuario", "Id Reseña", "Fecha" };
 		model = new DefaultTableModel(columnNames, 0);
 		table = new JTable(model);
 		actualizarTabla(); 
@@ -113,7 +113,7 @@ public class TablaReceta extends JFrame {
 			menuBar.setBounds(15, 220, 101, 22);
 			contentPane.add(menuBar);
 			
-			JLabel lblNewLabel = new JLabel("Cursos disponibles");
+			JLabel lblNewLabel = new JLabel("Recetas");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 			lblNewLabel.setBounds(292, 11, 277, 38);
