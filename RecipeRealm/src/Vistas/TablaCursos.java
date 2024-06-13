@@ -38,7 +38,6 @@ public class TablaCursos extends JFrame {
 	private CursoControlador controlador;
 	private JLabel elemento;
 	private Cursos seleccionado;
-	private JButton Editar;
 
 	/**
 	 * Launch the application.
@@ -60,8 +59,9 @@ public class TablaCursos extends JFrame {
 	 * Create the frame.
 	 */
 	public TablaCursos() {
+		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 909, 452);
+		setBounds(100, 100, 926, 459);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,8 +91,9 @@ public class TablaCursos extends JFrame {
 
 		// Crear el botón de eliminar
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setForeground(new Color(0, 0, 0));
-		btnEliminar.setBackground(new Color(255, 255, 255));
+		btnEliminar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnEliminar.setForeground(new Color(255, 255, 255));
+		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (seleccionado.getIdCurso() != 0) {
@@ -104,28 +105,8 @@ public class TablaCursos extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(523, 290, 187, 58);
+		btnEliminar.setBounds(515, 304, 356, 37);
 	    contentPane.add(btnEliminar);
-		
-		// Crear el botón de editar
-		Editar = new JButton("Editar");
-		Editar.setForeground(new Color(0, 0, 0));
-		Editar.setBackground(new Color(255, 255, 255));
-		Editar.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        if (seleccionado.getIdCurso() != 0) {
-		            // Crear el formulario de edición y pasar los datos del curso seleccionado
-		        	
-		        	// Falta resolver  ---
-		            // EditarCurso editarCurso = new EditarCurso(seleccionado);
-		            dispose(); 
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Seleccione un curso");
-		        }
-		    }
-		});
-		Editar.setBounds(172, 290, 166, 58);
-		contentPane.add(Editar);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(15, 220, 101, 22);
@@ -133,9 +114,20 @@ public class TablaCursos extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Cursos disponibles");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Leelawadee UI", Font.BOLD, 17));
+		lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 		lblNewLabel.setBounds(292, 11, 277, 38);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnEditar.setBackground(Color.BLACK);
+		btnEditar.setBounds(15, 304, 356, 37);
+		contentPane.add(btnEditar);
 
 		// Configurar el modelo de selección
 		ListSelectionModel selectionModel = table.getSelectionModel();

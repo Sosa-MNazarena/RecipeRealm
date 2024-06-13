@@ -58,6 +58,12 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(btnMenuRecetas);
 		
 		JButton btnMenuCursos = new JButton("Cursos");
+		btnMenuCursos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaCursos tablaCursos = new TablaCursos();
+				dispose();
+			}
+		});
 		btnMenuCursos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		btnMenuCursos.setBackground(Color.LIGHT_GRAY);
 		btnMenuCursos.setBounds(272, 546, 480, 63);
