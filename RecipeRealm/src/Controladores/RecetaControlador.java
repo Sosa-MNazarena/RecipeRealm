@@ -31,9 +31,9 @@ public class RecetaControlador implements RecetaRepository {
 		this.connection = DatabaseConnection.getInstance().getConnection();
 		this.recetas = new ArrayList<>();
 
-	//	cargarRecetasDesdeBaseDeDatos();
+		cargarRecetasDesdeBaseDeDatos();
 	}
-/*
+
 	private void cargarRecetasDesdeBaseDeDatos() { // cargar las recetas al singleton
 		String sql = "SELECT id_receta, titulo, procedimiento, nro_ingredientes, fecha FROM receta";
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
@@ -54,7 +54,7 @@ public class RecetaControlador implements RecetaRepository {
 			e.printStackTrace();
 			System.out.println("Error al cargar las recetas desde la base de datos: " + e.getMessage());
 		}
-	}*/
+	}
 
 	@Override
 	public List<Receta> getAllRecetas() {
