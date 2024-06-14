@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controladores.CursoControlador;
 import Modelos.Cursos;
+import Modelos.Perfil;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -37,6 +38,7 @@ public class TablaCursos extends JFrame {
 	private DefaultTableModel model;
 	private CursoControlador controlador;
 	private JLabel elemento;
+	private Perfil perfilActual;
 	private Cursos seleccionado;
 
 	/**
@@ -46,6 +48,7 @@ public class TablaCursos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					 Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña", "Descripción", true);
 					TablaCursos frame = new TablaCursos();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -88,6 +91,20 @@ public class TablaCursos extends JFrame {
 		elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
 		elemento.setBounds(15, 52, 911, 14);
 		contentPane.add(elemento);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaHomeChef homeChef = new PantallaHomeChef(perfilActual);
+				homeChef.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(192, 192, 192));
+		btnVolver.setBounds(15, 11, 87, 37);
+		contentPane.add(btnVolver);
 
 		// Crear el botón de eliminar
 		JButton btnEliminar = new JButton("Eliminar");

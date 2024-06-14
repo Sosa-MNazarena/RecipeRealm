@@ -87,7 +87,7 @@ public class Receta {
 			return "Procedimiento inválido, debe tener más de 5 caracteres.";
 		}
 
-		// Creación de una instancia de Receta con los datos recibidos
+	
 		Receta receta = new Receta(0, titulo, procedimiento, fecha);
 		RecetaControlador recetaControlador = new RecetaControlador();
 
@@ -99,14 +99,13 @@ public class Receta {
 				return "La receta no se ha subido exitosamente.";
 			}
 
-			// Recorrer la lista de ingredientes y agregarlos a la receta en la base de
-			// datos
+			
 			for (String nombreIngrediente : listaIngredientes) {
 				Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
 				recetaControlador.insertarIngredienteReceta(idRecetaAgregada, ingrediente);
 			}
 
-			// Recorrer la lista de categorías y agregarlas a la receta en la base de datos
+		
 			for (String nombreCategoria : listaCategorias) {
 				receta.agregarCategoria(nombreCategoria);
 				Categoria categoria = new Categoria(idRecetaAgregada, nombreCategoria);

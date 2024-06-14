@@ -178,7 +178,7 @@ public class RecetaControlador implements RecetaRepository {
 					idRecetaGenerado = generatedKeys.getInt(1);
 				}
 
-				// Insertar los ingredientes asociados a la receta
+				
 				insertarIngredientesReceta(idRecetaGenerado, receta.getIngredientes());
 			}
 		} catch (SQLException e) {
@@ -209,7 +209,6 @@ public class RecetaControlador implements RecetaRepository {
 			if (rs.next()) {
 				idIngrediente = rs.getInt("id_ingrediente");
 			} else {
-				// Insertar el nuevo ingrediente si no existe
 				idIngrediente = insertarNuevoIngrediente(nombreIngrediente);
 			}
 		}
@@ -290,7 +289,7 @@ public class RecetaControlador implements RecetaRepository {
 			for (String categoria : categorias) {
 				int idCategoria = obtenerIdCategoria(categoria);
 
-				// Insertar en la relacin entre receta-categoría
+				
 				pstmt.setInt(1, idReceta);
 				pstmt.setInt(2, idCategoria);
 				pstmt.executeUpdate();

@@ -63,7 +63,7 @@ public class TablaReceta extends JFrame {
 	public TablaReceta(Perfil perfil) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 439);
+		setBounds(100, 100, 927, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -87,12 +87,12 @@ public class TablaReceta extends JFrame {
 
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(15, 73, 856, 190);
+        scrollPane.setBounds(15, 131, 856, 190);
         contentPane.add(scrollPane);
 
         elemento = new JLabel("Seleccionado:");
         elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
-        elemento.setBounds(15, 52, 911, 14);
+        elemento.setBounds(15, 95, 911, 14);
         contentPane.add(elemento);
 
 
@@ -111,7 +111,7 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(647, 304, 224, 37);
+        btnEliminar.setBounds(647, 363, 224, 37);
         contentPane.add(btnEliminar);
         
         JMenuBar menuBar = new JMenuBar();
@@ -126,12 +126,12 @@ public class TablaReceta extends JFrame {
         btnEditar.setForeground(Color.WHITE);
         btnEditar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
         btnEditar.setBackground(Color.BLACK);
-        btnEditar.setBounds(15, 304, 233, 37);
+        btnEditar.setBounds(10, 363, 233, 37);
         contentPane.add(btnEditar);
         
         JLabel lblRecetas = new JLabel("Recetas");
         lblRecetas.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
-        lblRecetas.setBounds(380, 11, 101, 44);
+        lblRecetas.setBounds(380, 29, 101, 44);
         contentPane.add(lblRecetas);
         
 		
@@ -150,8 +150,22 @@ public class TablaReceta extends JFrame {
 		btnAddFavorito.setForeground(Color.WHITE);
 		btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnAddFavorito.setBackground(Color.BLACK);
-		btnAddFavorito.setBounds(333, 304, 233, 37);
+		btnAddFavorito.setBounds(336, 363, 233, 37);
 		contentPane.add(btnAddFavorito);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+				homeChef.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(192, 192, 192));
+		btnVolver.setBounds(15, 11, 87, 37);
+		contentPane.add(btnVolver);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -177,7 +191,7 @@ public class TablaReceta extends JFrame {
                         seleccionado.setIdReceta(id);
                         seleccionado.setTitulo(titulo);
                         seleccionado.setProcedimiento(procedimiento);
-                        // Handle categorias and ingredientes if needed
+                        
                     }
                 }
             }
@@ -189,7 +203,6 @@ public class TablaReceta extends JFrame {
         List<Receta> recetas = controlador.getAllRecetas();
 
         for (Receta receta : recetas) {
-            // Construir la cadena de ingredientes con sus cantidades
             StringBuilder ingredientes = new StringBuilder();
             for (Ingrediente ingrediente : receta.getIngredientes()) {
                 if (ingredientes.length() > 0) {
@@ -214,6 +227,4 @@ public class TablaReceta extends JFrame {
             model.addRow(fila);
         }
     }
-
-
 }

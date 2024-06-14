@@ -69,6 +69,20 @@ public class TablaFavoritos extends JFrame {
         lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
         lblNewLabel.setBounds(389, 56, 277, 38);
         contentPane.add(lblNewLabel);
+        
+        JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+				homeChef.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(192, 192, 192));
+		btnVolver.setBounds(15, 11, 87, 37);
+		contentPane.add(btnVolver);
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
