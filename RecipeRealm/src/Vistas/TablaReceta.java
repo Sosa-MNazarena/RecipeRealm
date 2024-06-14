@@ -63,7 +63,7 @@ public class TablaReceta extends JFrame {
 	public TablaReceta(Perfil perfil) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 894, 422);
+		setBounds(100, 100, 900, 439);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,7 +111,7 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(515, 304, 356, 37);
+        btnEliminar.setBounds(647, 304, 224, 37);
         contentPane.add(btnEliminar);
         
         JMenuBar menuBar = new JMenuBar();
@@ -126,7 +126,7 @@ public class TablaReceta extends JFrame {
         btnEditar.setForeground(Color.WHITE);
         btnEditar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
         btnEditar.setBackground(Color.BLACK);
-        btnEditar.setBounds(15, 304, 356, 37);
+        btnEditar.setBounds(15, 304, 233, 37);
         contentPane.add(btnEditar);
         
         JLabel lblRecetas = new JLabel("Recetas");
@@ -150,7 +150,7 @@ public class TablaReceta extends JFrame {
 		btnAddFavorito.setForeground(Color.WHITE);
 		btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnAddFavorito.setBackground(Color.BLACK);
-		btnAddFavorito.setBounds(354, 304, 180, 37);
+		btnAddFavorito.setBounds(333, 304, 233, 37);
 		contentPane.add(btnAddFavorito);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
