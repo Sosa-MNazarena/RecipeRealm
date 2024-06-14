@@ -35,8 +35,10 @@ public class RecetaControlador implements RecetaRepository {
 		cargarRecetasDesdeBaseDeDatos();
 	}
 
+
 	private void cargarRecetasDesdeBaseDeDatos() {
 		String sql = "SELECT id_receta, titulo, procedimiento, fecha FROM receta";
+
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				int idReceta = rs.getInt("id_receta");

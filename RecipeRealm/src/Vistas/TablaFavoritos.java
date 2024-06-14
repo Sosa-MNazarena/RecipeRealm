@@ -56,26 +56,19 @@ public class TablaFavoritos extends JFrame {
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(15, 73, 856, 190);
+        scrollPane.setBounds(106, 186, 856, 190);
         contentPane.add(scrollPane);
 
         elemento = new JLabel("Seleccionado:");
         elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
-        elemento.setBounds(102, 211, 911, 14);
+        elemento.setBounds(106, 128, 911, 14);
         contentPane.add(elemento);
 
         JLabel lblNewLabel = new JLabel("Mis Favoritos");
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-        lblNewLabel.setBounds(379, 170, 277, 38);
+        lblNewLabel.setBounds(389, 56, 277, 38);
         contentPane.add(lblNewLabel);
-
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setForeground(Color.WHITE);
-        btnEditar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnEditar.setBackground(Color.BLACK);
-        btnEditar.setBounds(102, 463, 356, 37);
-        contentPane.add(btnEditar);
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
@@ -96,7 +89,7 @@ public class TablaFavoritos extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(602, 463, 356, 37);
+        btnEliminar.setBounds(606, 463, 356, 37);
         contentPane.add(btnEliminar);
 
         JMenuBar menuBar = new JMenuBar();
