@@ -20,9 +20,10 @@ public class PantallaHomeChef extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Perfil perfil;
 
 	
-	public PantallaHomeChef() {
+	public PantallaHomeChef(Perfil perfil) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1058, 845);
@@ -51,6 +52,13 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(btnSubirReceta);
 		
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
+		btnMisFavoritos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaFavoritos tablaFav = new TablaFavoritos(perfil);
+				dispose();
+				
+			}
+		});
 		btnMisFavoritos.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\opinion-del-cliente (2).png"));
 		btnMisFavoritos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
 		btnMisFavoritos.setBackground(Color.LIGHT_GRAY);
@@ -58,6 +66,12 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(btnMisFavoritos);
 		
 		JButton btnMenuRecetas = new JButton("Recetas");
+		btnMenuRecetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaReceta tablaRecetas = new TablaReceta(perfil);
+				dispose();
+			}
+		});
 		btnMenuRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		btnMenuRecetas.setBackground(Color.LIGHT_GRAY);
 		btnMenuRecetas.setBounds(272, 453, 480, 63);

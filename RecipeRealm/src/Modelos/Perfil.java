@@ -3,6 +3,7 @@ package Modelos;
 
 import java.util.List;
 import Controladores.PerfilControlador;
+import Controladores.FavoritoControlador;
 import javax.swing.JOptionPane;
 
 public class Perfil {
@@ -170,6 +171,21 @@ public class Perfil {
 		return tieneMayuscula && tieneMinuscula && tieneDigito && tieneCaracterEspecial;
 	}
 
-	
+	public List<Receta> getFavoritos() {
+        FavoritoControlador favoritosControlador = new FavoritoControlador();
+        return favoritosControlador.getFavoritosByUsuario(this.idUsuario);
+    }
+
+
+    public void addFavorito(Receta receta) {
+        FavoritoControlador favoritosControlador = new FavoritoControlador();
+        favoritosControlador.addFavorito(this.idUsuario, receta.getIdReceta());
+    }
+
+ 
+    public void removeFavorito(Receta receta) {
+        FavoritoControlador favoritosControlador = new FavoritoControlador();
+        favoritosControlador.removeFavorito(this.idUsuario, receta.getIdReceta());
+    }
 	 
 }

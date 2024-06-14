@@ -29,6 +29,7 @@ public class PantallaInicioSesion extends JFrame {
 	private JPanel contentPane;
 	private JTextField inputCorreo;
 	private JPasswordField inputContrasena;
+	private Perfil perfil;
 
 	/**
 	 * Launch the application.
@@ -37,7 +38,8 @@ public class PantallaInicioSesion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PantallaInicioSesion frame = new PantallaInicioSesion();
+					Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña", "Descripción", true);
+					PantallaInicioSesion frame = new PantallaInicioSesion(perfil);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +51,7 @@ public class PantallaInicioSesion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PantallaInicioSesion() {
+	public PantallaInicioSesion(Perfil perfil) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 940, 772);
 		contentPane = new JPanel();
@@ -112,7 +114,7 @@ public class PantallaInicioSesion extends JFrame {
 					PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado();
 					dispose();
 				}else if(respuesta.equals("rol:true")) {
-					PantallaHomeChef homeChef = new PantallaHomeChef();
+					PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
 					dispose();
 				}else {
 					if (respuesta.equals("Contraseña inválida. Inténtelo nuevamente")) {
