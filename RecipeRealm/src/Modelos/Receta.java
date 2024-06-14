@@ -1,4 +1,5 @@
 package Modelos;
+
 import java.util.List;
 import javax.swing.JOptionPane;
 import Controladores.RecetaControlador;
@@ -6,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Receta {
-
 	private int idReceta;
 	private String titulo;
 	private String procedimiento;
@@ -20,10 +20,8 @@ public class Receta {
 		this.procedimiento = procedimiento;
 		this.ingredientes = new ArrayList<>();
 		this.categorias = new ArrayList<>();
-
 		this.fecha = fecha;
 	}
-
 
 	public int getIdReceta() {
 		return idReceta;
@@ -65,7 +63,9 @@ public class Receta {
 		this.ingredientes = ingredientes;
 	}
 
-	
+	public List<String> getCategorias() {
+		return categorias;
+	}
 
 	public void setCategorias(List<String> categorias) {
 		this.categorias = categorias;
@@ -77,7 +77,7 @@ public class Receta {
 
 	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha,
 			List<String> listaIngredientes, List<String> listaCategorias) {
-		//fecha = LocalDate.now();
+		// fecha = LocalDate.now();
 		// Validación de los campos título y procedimiento
 		if (titulo.isEmpty() || titulo.length() < 3) {
 			return "Título inválido, debe tener más de 3 caracteres.";
@@ -99,18 +99,19 @@ public class Receta {
 				return "La receta no se ha subido exitosamente.";
 			}
 
-			// Recorrer la lista de ingredientes y agregarlos a la receta en la base de datos
+			// Recorrer la lista de ingredientes y agregarlos a la receta en la base de
+			// datos
 			for (String nombreIngrediente : listaIngredientes) {
 				Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
 				recetaControlador.insertarIngredienteReceta(idRecetaAgregada, ingrediente);
 			}
 
 			// Recorrer la lista de categorías y agregarlas a la receta en la base de datos
-			  for (String nombreCategoria : listaCategorias) {
-	                receta.agregarCategoria(nombreCategoria);
-	                Categoria categoria = new Categoria(idRecetaAgregada, nombreCategoria); 
-	                recetaControlador.insertarCategoriasReceta(idRecetaAgregada, listaCategorias);
-	            }
+			for (String nombreCategoria : listaCategorias) {
+				receta.agregarCategoria(nombreCategoria);
+				Categoria categoria = new Categoria(idRecetaAgregada, nombreCategoria);
+				recetaControlador.insertarCategoriasReceta(idRecetaAgregada, listaCategorias);
+			}
 
 			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
 			return "La receta se ha subido exitosamente.";
@@ -120,60 +121,15 @@ public class Receta {
 			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
 			return "La receta no se ha subido exitosamente.";
 		}
-	}public void agregarCategoria(String categoria) {
-	    categorias.add(categoria);
 	}
 
-	/*
-	 * // ------------------------------------ Ver una receta //
-	 * -------------------------------------------- private static void verReceta()
-	 * { RecetaControlador RecetaControlador = new RecetaControlador(); List<String>
-	 * titulosRecetas = RecetaControlador.getTitulosRecetas();
-	 * 
-	 * // dar un mennsaje al usuario si no se encuentra ninguna receta creada if
-	 * (titulosRecetas.isEmpty()) { JOptionPane.showMessageDialog(null,
-	 * "No se encontraron recetas disponibles."); return; // Salir del método si no
-	 * hay recetas disponibles } // Mostrar los titulos para que el usuario
-	 * seleccione una receta String recetaSeleccionada = (String)
-	 * JOptionPane.showInputDialog(null, "Seleccione la receta a ver:",
-	 * "Ver Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas.toArray(),
-	 * titulosRecetas.get(0));
-	 * 
-	 * if (recetaSeleccionada != null) { Receta receta =
-	 * RecetaControlador.getRecetaByTitulo(recetaSeleccionada); if (receta != null)
-	 * { // Se muestran los detalles de la receta seleccionada StringBuilder
-	 * detalles = new StringBuilder();
-	 * detalles.append("Título: ").append(receta.getTitulo()).append("\n");
-	 * detalles.append("Procedimiento: ").append(receta.getProcedimiento()).append(
-	 * "\n"); detalles.append("Fecha: ").append(receta.getFecha()).append("\n");
-	 * detalles.append("Ingredientes:\n"); for (Ingrediente ing :
-	 * receta.getIngredientes()) {
-	 * detalles.append("- ").append(ing.getNombre()).append(" - Cantidad: ").append(
-	 * ing.getCantidad()) .append("\n"); } detalles.append("Categorías:\n"); for
-	 * (Categoria cat : receta.getCategorias()) {
-	 * detalles.append("- ").append(cat.getNombreCategoria()).append("\n"); }
-	 * 
-	 * String[] opciones = { "Eliminar Receta", "Volver" }; int opcionSeleccionada =
-	 * JOptionPane.showOptionDialog(null, detalles.toString(),
-	 * "Detalles de la Receta", JOptionPane.DEFAULT_OPTION,
-	 * JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
-	 * 
-	 * switch (opcionSeleccionada) { case 0: // Eliminar receta int confirmacion =
-	 * JOptionPane.showConfirmDialog(null,
-	 * "¿Estás seguro de que quieres eliminar la receta \"" + recetaSeleccionada +
-	 * "\"?", "Eliminar Receta", JOptionPane.YES_NO_OPTION); if (confirmacion ==
-	 * JOptionPane.YES_OPTION) {
-	 * RecetaControlador.deleteReceta(receta.getIdReceta());
-	 * JOptionPane.showMessageDialog(null, "La receta \"" + recetaSeleccionada +
-	 * "\" ha sido eliminada."); } break;
-	 * 
-	 * case 1: // Volver break; default: break; } } else {
-	 * JOptionPane.showMessageDialog(null,
-	 * "No se encontró la receta seleccionada."); } } else {
-	 * JOptionPane.showMessageDialog(null,
-	 * "No se seleccionó ninguna receta para ver."); } }
-	 */
+	public void agregarCategoria(String categoria) {
+		categorias.add(categoria);
+	}
 
-	
-	
+	public void agregarIngrediente(Ingrediente ingrediente) {
+		this.ingredientes.add(ingrediente);
+	}
+
+
 }

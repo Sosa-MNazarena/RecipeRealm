@@ -1,4 +1,5 @@
 package Controladores;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -8,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,7 +19,6 @@ import com.mysql.jdbc.Statement;
 import Modelos.Categoria;
 import Modelos.Ingrediente;
 import Modelos.Receta;
-import Modelos.RecetaSingleton;
 import interfaces.RecetaRepository;
 
 public class RecetaControlador implements RecetaRepository {
@@ -34,21 +35,23 @@ public class RecetaControlador implements RecetaRepository {
 		cargarRecetasDesdeBaseDeDatos();
 	}
 
-	private void cargarRecetasDesdeBaseDeDatos() { // cargar las recetas al singleton
-		String sql = "SELECT id_receta, titulo, procedimiento, nro_ingredientes, fecha FROM receta";
+	private void cargarRecetasDesdeBaseDeDatos() {
+		String sql = "SELECT id_receta, titulo, procedimiento, fecha FROM receta";
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				int idReceta = rs.getInt("id_receta");
 				String titulo = rs.getString("titulo");
 				String procedimiento = rs.getString("procedimiento");
-				int nroIngredientes = rs.getInt("nro_ingredientes");
-				Date fecha = new Date(rs.getDate("fecha").getTime());
+				LocalDate fecha = rs.getDate("fecha").toLocalDate();
 
 				ArrayList<Ingrediente> ingredientes = getIngredientesByRecetaId(idReceta);
 				ArrayList<Categoria> categorias = getCategoriasByRecetaId(idReceta);
 
-				Receta receta = new Receta(idReceta, titulo, procedimiento, null);
-				RecetaSingleton.getInstance().addReceta(receta);
+				Receta receta = new Receta(idReceta, titulo, procedimiento, fecha);
+				receta.setIngredientes(ingredientes);
+				receta.setCategorias(categorias.stream().map(Categoria::getNombreCategoria).toList());
+
+				recetas.add(receta);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,14 +61,7 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public List<Receta> getAllRecetas() {
-		// try catch como validacion
-		try {
-			return RecetaSingleton.getInstance().getRecetas();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error al obtener todas las recetas: " + e.getMessage());
-			return new ArrayList<>();
-		}
+		return recetas;
 	}
 
 	private ArrayList<Ingrediente> getIngredientesByRecetaId(int idReceta) {
@@ -136,29 +132,32 @@ public class RecetaControlador implements RecetaRepository {
 		reiniciarRecetas();
 		recetaAgregada = false;
 
-		/*if (!validarReceta(receta)) {
-			System.out.println("La receta no es válida y no se puede agregar.");
-			return;
-		}*/
+		/*
+		 * if (!validarReceta(receta)) {
+		 * System.out.println("La receta no es válida y no se puede agregar."); return;
+		 * }
+		 */
 
 		try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO receta (titulo, procedimiento, fecha) VALUES (?, ?, ?)");
-            statement.setString(1, receta.getTitulo());
-            statement.setString(2, receta.getProcedimiento());
-            statement.setDate(3, Date.valueOf(receta.getFecha()));
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO receta (titulo, procedimiento, fecha) VALUES (?, ?, ?)");
+			statement.setString(1, receta.getTitulo());
+			statement.setString(2, receta.getProcedimiento());
+			statement.setDate(3, Date.valueOf(receta.getFecha()));
 
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Receta cargada exitosamente");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				JOptionPane.showMessageDialog(null, "Receta cargada exitosamente");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isRecetaAgregada() {
 		return recetaAgregada;
 	}
+
 	public int addRecetaSegunId(Receta receta) throws SQLException {
 		int idRecetaGenerado = 0;
 		try {
@@ -176,6 +175,9 @@ public class RecetaControlador implements RecetaRepository {
 				if (generatedKeys.next()) {
 					idRecetaGenerado = generatedKeys.getInt(1);
 				}
+
+				// Insertar los ingredientes asociados a la receta
+				insertarIngredientesReceta(idRecetaGenerado, receta.getIngredientes());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -183,14 +185,56 @@ public class RecetaControlador implements RecetaRepository {
 		}
 		return idRecetaGenerado;
 	}
+
+	private void insertarIngredientesReceta(int idReceta, List<Ingrediente> ingredientes) throws SQLException {
+		String sql = "INSERT INTO receta_ingrediente (id_receta, id_ingrediente, cantidad) VALUES (?, ?, ?)";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+			for (Ingrediente ingrediente : ingredientes) {
+				pstmt.setInt(1, idReceta);
+				pstmt.setInt(2, obtenerIdIngrediente(ingrediente.getNombre()));
+				pstmt.setDouble(3, ingrediente.getCantidad());
+				pstmt.executeUpdate();
+			}
+		}
+	}
+
+	private int obtenerIdIngrediente(String nombreIngrediente) throws SQLException {
+		int idIngrediente = 0;
+		String sql = "SELECT id_ingrediente FROM ingrediente WHERE nombre = ?";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+			pstmt.setString(1, nombreIngrediente);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				idIngrediente = rs.getInt("id_ingrediente");
+			} else {
+				// Insertar el nuevo ingrediente si no existe
+				idIngrediente = insertarNuevoIngrediente(nombreIngrediente);
+			}
+		}
+		return idIngrediente;
+	}
+
+	private int insertarNuevoIngrediente(String nombreIngrediente) throws SQLException {
+		int idIngredienteGenerado = 0;
+		String sql = "INSERT INTO ingrediente (nombre) VALUES (?)";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			pstmt.setString(1, nombreIngrediente);
+			pstmt.executeUpdate();
+			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				idIngredienteGenerado = generatedKeys.getInt(1);
+			}
+		}
+		return idIngredienteGenerado;
+	}
+
 	@Override
 	public void deleteReceta(int idReceta) {
 		String sqlDeleteRecetaCategoria = "DELETE FROM receta_categoria WHERE id_receta = ?";
 		String sqlDeleteRecetaIngrediente = "DELETE FROM receta_ingrediente WHERE id_receta = ?";
 		String sqlDeleteReceta = "DELETE FROM receta WHERE id_receta = ?";
 
-		try (Connection connection = DatabaseConnection.getInstance().getConnection();
-				PreparedStatement pstmtDeleteRecetaCategoria = connection.prepareStatement(sqlDeleteRecetaCategoria);
+		try (PreparedStatement pstmtDeleteRecetaCategoria = connection.prepareStatement(sqlDeleteRecetaCategoria);
 				PreparedStatement pstmtDeleteRecetaIngrediente = connection
 						.prepareStatement(sqlDeleteRecetaIngrediente);
 				PreparedStatement pstmtDeleteReceta = connection.prepareStatement(sqlDeleteReceta)) {
@@ -208,19 +252,7 @@ public class RecetaControlador implements RecetaRepository {
 
 			if (affectedRows > 0) {
 				JOptionPane.showMessageDialog(null, "La receta se eliminó exitosamente");
-
-				// eliminar la receta del singleton
-				Receta recetaAEliminar = null;
-				for (Receta receta : RecetaSingleton.getInstance().getRecetas()) {
-					if (receta.getIdReceta() == idReceta) {
-						recetaAEliminar = receta;
-						break;
-					}
-				}
-
-				if (recetaAEliminar != null) {
-					RecetaSingleton.getInstance().removeReceta(recetaAEliminar);
-				}
+				recetas.removeIf(receta -> receta.getIdReceta() == idReceta);
 			} else {
 				System.out.println("No se encontró ninguna receta con ID " + idReceta + ".");
 			}
@@ -238,60 +270,61 @@ public class RecetaControlador implements RecetaRepository {
 		}
 		return titulosRecetas;
 	}
+
+	// Hacer lo mismo con categorias
+
 	public void insertarCategoriasReceta(int idReceta, List<String> categorias) {
-	    try {
-	        insertarCategoriasRecetaEnBD(idReceta, categorias);
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        System.out.println("Error al insertar las categorías de la receta en la base de datos: " + e.getMessage());
-	    }
+		try {
+			insertarCategoriasRecetaEnBD(idReceta, categorias);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error al insertar las categorías de la receta en la base de datos: " + e.getMessage());
+		}
 	}
 
 	private void insertarCategoriasRecetaEnBD(int idReceta, List<String> categorias) throws SQLException {
-	    String sql = "INSERT INTO receta_categoria (id_receta, id_categoria) VALUES (?, ?)";
-	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-	        for (String categoria : categorias) {
-	            int idCategoria = obtenerIdCategoria(categoria);
+		String sql = "INSERT INTO receta_categoria (id_receta, id_categoria) VALUES (?, ?)";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+			for (String categoria : categorias) {
+				int idCategoria = obtenerIdCategoria(categoria);
 
-	            // Insertar en la relacin entre receta-categoría
-	            pstmt.setInt(1, idReceta);
-	            pstmt.setInt(2, idCategoria);
-	            pstmt.executeUpdate();
-	        }
-	    }
+				// Insertar en la relacin entre receta-categoría
+				pstmt.setInt(1, idReceta);
+				pstmt.setInt(2, idCategoria);
+				pstmt.executeUpdate();
+			}
+		}
 	}
 
 	private int obtenerIdCategoria(String nombreCategoria) throws SQLException {
-	    int idCategoria = 0;
-	    String sql = "SELECT id_categoria FROM categoria WHERE nombre_categoria = ?";
-	    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-	        pstmt.setString(1, nombreCategoria);
-	        ResultSet rs = pstmt.executeQuery();
-	        if (rs.next()) {
-	            idCategoria = rs.getInt("id_categoria");
-	        } else {
-	            // Insertar la nueva categoría si no existe
-	            idCategoria = insertarNuevaCategoria(nombreCategoria);
-	        }
-	    }
-	    return idCategoria;
+		int idCategoria = 0;
+		String sql = "SELECT id_categoria FROM categoria WHERE nombre_categoria = ?";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+			pstmt.setString(1, nombreCategoria);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				idCategoria = rs.getInt("id_categoria");
+			} else {
+				// Insertar la nueva categoría si no existe
+				idCategoria = insertarNuevaCategoria(nombreCategoria);
+			}
+		}
+		return idCategoria;
 	}
 
 	private int insertarNuevaCategoria(String nombreCategoria) throws SQLException {
-	    int idCategoriaGenerado = 0;
-	    String sql = "INSERT INTO categoria (nombre_categoria) VALUES (?)";
-	    try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-	        pstmt.setString(1, nombreCategoria);
-	        pstmt.executeUpdate();
-	        ResultSet generatedKeys = pstmt.getGeneratedKeys();
-	        if (generatedKeys.next()) {
-	            idCategoriaGenerado = generatedKeys.getInt(1);
-	        }
-	    }
-	    return idCategoriaGenerado;
+		int idCategoriaGenerado = 0;
+		String sql = "INSERT INTO categoria (nombre_categoria) VALUES (?)";
+		try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			pstmt.setString(1, nombreCategoria);
+			pstmt.executeUpdate();
+			ResultSet generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				idCategoriaGenerado = generatedKeys.getInt(1);
+			}
+		}
+		return idCategoriaGenerado;
 	}
-
-
 
 	@Override
 	public Receta getRecetaByUsuario(int id) {
@@ -308,7 +341,6 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	public Receta getRecetaByTitulo(String titulo) {
-		List<Receta> recetas = RecetaSingleton.getInstance().getRecetas();
 		for (Receta receta : recetas) {
 			if (receta.getTitulo().equals(titulo)) {
 				return receta;
@@ -318,15 +350,14 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	public void reiniciarRecetas() {
-		RecetaSingleton.getInstance().getRecetas().clear();
-		recetaAgregada = false;
+		recetas.clear();
+
 	}
 
 	@Override
 	public void insertarIngredienteReceta(int idReceta, Ingrediente ingrediente) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
