@@ -9,7 +9,11 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public int getIdCategoria() {
+    public Categoria(Categoria categoria) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getIdCategoria() {
         return idCategoria;
     }
 

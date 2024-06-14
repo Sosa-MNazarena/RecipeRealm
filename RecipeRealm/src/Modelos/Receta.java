@@ -3,24 +3,26 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import Controladores.RecetaControlador;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
 
 public class Receta {
 
 	private int idReceta;
 	private String titulo;
 	private String procedimiento;
-	private LocalDate fecha;
 	private List<Ingrediente> ingredientes;
-
+	private LocalDate fecha;
+	private List<String> categorias;
 
 	public Receta(int idReceta, String titulo, String procedimiento, LocalDate fecha) {
 		this.idReceta = idReceta;
 		this.titulo = titulo;
 		this.procedimiento = procedimiento;
+		this.ingredientes = new ArrayList<>();
+		this.categorias = new ArrayList<>();
+
 		this.fecha = fecha;
 	}
-
 
 	public int getIdReceta() {
 		return idReceta;
@@ -62,64 +64,64 @@ public class Receta {
 		this.ingredientes = ingredientes;
 	}
 
+	
 
-
-	// Menu Mis Recetas
-	public static void menuMisRecetas() {
-		String[] opcionesRecetas = { "Subir receta", "Ver mis recetas creadas", "Eliminar receta", "Volver" };
-		int opcionElegida = 0;
-		do {
-			opcionElegida = JOptionPane.showOptionDialog(null, "Elija qué desea hacer", "Menú de Recetas", 0, 0, null,
-					opcionesRecetas, opcionesRecetas[0]);
-			switch (opcionElegida) {
-			case 0:
-				// subirReceta();
-				break;
-			case 1:
-				/* verReceta(); */
-				break;
-			case 2:
-				eliminarReceta(opcionElegida);
-				break;
-			case 3:
-				JOptionPane.showMessageDialog(null, "Volviendo al menú principal");
-				break;
-			}
-		} while (opcionElegida != 3);
+	public void setCategorias(List<String> categorias) {
+		this.categorias = categorias;
 	}
-
 	// Metodos de las recetas
 
 	// ----------------------------------- Subir una receta
 	// -------------------------------------
 
-	 public static String subirReceta(String titulo, String procedimiento, LocalDate fecha) {
-	        if (titulo.isEmpty() || titulo.length() < 3) {
-	            return "Título inválido, debe tener más de 3 caracteres.";
-	        }
+	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha,
+			List<String> listaIngredientes, List<String> listaCategorias) {
+		// Validación de los campos título y procedimiento
+		if (titulo.isEmpty() || titulo.length() < 3) {
+			return "Título inválido, debe tener más de 3 caracteres.";
+		}
 
-	        if (procedimiento.isEmpty() || procedimiento.length() < 5) {
-	            return "Procedimiento inválido, debe tener más de 5 caracteres.";
-	        }
+		if (procedimiento.isEmpty() || procedimiento.length() < 5) {
+			return "Procedimiento inválido, debe tener más de 5 caracteres.";
+		}
 
-	        Receta receta = new Receta(0, titulo, procedimiento, fecha); 
+		// Creación de una instancia de Receta con los datos recibidos
+		Receta receta = new Receta(0, titulo, procedimiento, fecha);
+		RecetaControlador recetaControlador = new RecetaControlador();
 
-	        RecetaControlador recetaControlador = new RecetaControlador();
-	        try {
-	            recetaControlador.addReceta(receta);
-	            JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
-	            return "La receta se ha subido exitosamente.";
+		try {
+			int idRecetaAgregada = recetaControlador.addRecetaSegunId(receta);
 
-	        } catch (Exception e) {
-	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
-	            return "La receta no se ha subido exitosamente.";
-	        }
-	    }
-	 public static void main(String[] args) {
-	    
-	        String resultado = subirReceta("Torta de Chocolate", "Batir los ingredientes y hornear", LocalDate.now());
-	        System.out.println(resultado); // Imprimir el resultado
-	    }
+			if (idRecetaAgregada <= 0) {
+				JOptionPane.showMessageDialog(null, "No se pudo agregar la receta.");
+				return "La receta no se ha subido exitosamente.";
+			}
+
+			// Recorrer la lista de ingredientes y agregarlos a la receta en la base de datos
+			for (String nombreIngrediente : listaIngredientes) {
+				Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
+				recetaControlador.insertarIngredienteReceta(idRecetaAgregada, ingrediente);
+			}
+
+			// Recorrer la lista de categorías y agregarlas a la receta en la base de datos
+			  for (String nombreCategoria : listaCategorias) {
+	                receta.agregarCategoria(nombreCategoria);
+	                Categoria categoria = new Categoria(idRecetaAgregada, nombreCategoria); 
+	                recetaControlador.insertarCategoriasReceta(idRecetaAgregada, listaCategorias);
+	            }
+
+			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
+			return "La receta se ha subido exitosamente.";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
+			return "La receta no se ha subido exitosamente.";
+		}
+	}public void agregarCategoria(String categoria) {
+	    categorias.add(categoria);
+	}
+
 	/*
 	 * // ------------------------------------ Ver una receta //
 	 * -------------------------------------------- private static void verReceta()
@@ -170,35 +172,6 @@ public class Receta {
 	 * "No se seleccionó ninguna receta para ver."); } }
 	 */
 
-	// ------------------------------- Eliminar una receta
-	// --------------------------------------
-	private static void eliminarReceta(int opcionElegida) {
-		// recetas disponibles
-		RecetaControlador recetaControlador = new RecetaControlador();
-		List<Receta> recetas = recetaControlador.getAllRecetas();
-
-		// array de strings con los títulos de las recetas
-		String[] titulosRecetas = new String[recetas.size()];
-		for (int i = 0; i < recetas.size(); i++) {
-			titulosRecetas[i] = recetas.get(i).getTitulo();
-		}
-
-		// mostrar titulos de las recetas para que el usuario elija cual eliminar
-		String recetaSeleccionada = (String) JOptionPane.showInputDialog(null, "Seleccione la receta a eliminar:",
-				"Eliminar Receta", JOptionPane.QUESTION_MESSAGE, null, titulosRecetas, titulosRecetas[0]);
-
-		// verificar si el usuario seleccionó una receta y eliminarla del sistema
-		if (recetaSeleccionada != null) {
-			for (Receta receta : recetas) {
-				if (receta.getTitulo().equals(recetaSeleccionada)) {
-					recetaControlador.deleteReceta(receta.getIdReceta());
-					JOptionPane.showMessageDialog(null, "La receta \"" + recetaSeleccionada + "\" ha sido eliminada.");
-					break;
-				}
-			}
-		} else {
-			JOptionPane.showMessageDialog(null, "No se seleccionó ninguna receta para eliminar.");
-		}
-	}
-
+	
+	
 }

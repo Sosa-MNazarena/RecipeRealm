@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Modelos.Perfil;
 import Modelos.Receta;
 
 import javax.swing.JLabel;
@@ -22,157 +21,177 @@ import java.util.List;
 
 public class PantallaSubirReceta extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
-    private JTextField inputNombreIngrediente;
-    private JTextField inputCantidadIngrediente;
-    private List<String> listaIngredientes;
-    private JPanel panelIngredientes;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    
-    
-    private JTextField textFieldTitulo; 
-    private JTextArea inputProcedimiento; 
-    private JTextField textFieldCategoria;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField inputNombreIngrediente;
+	private JTextField inputCantidadIngrediente;
+	private List<String> listaIngredientes;
+	private List<String> listaCategorias;
+	private JPanel panelIngredientes;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    PantallaSubirReceta frame = new PantallaSubirReceta();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	private JTextField textFieldTitulo;
+	private JTextArea inputProcedimiento;
+	private JTextField textFieldCategoria;
+	private JTextField inputCategoria;
 
-    public PantallaSubirReceta() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-        
-        panelIngredientes = new JPanel();
-        panelIngredientes.setBounds(43, 262, 301, 258);
-        contentPane.add(panelIngredientes);
-        panelIngredientes.setLayout(null);
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PantallaSubirReceta frame = new PantallaSubirReceta();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-        JLabel lblNewLabel = new JLabel("Subí tu Receta acá");
-        lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 23));
-        lblNewLabel.setBounds(298, 11, 188, 35);
-        contentPane.add(lblNewLabel);
-        
-        JLabel lblTitulo = new JLabel("Título");
-        lblTitulo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        lblTitulo.setBounds(43, 68, 108, 20);
-        contentPane.add(lblTitulo);
-        
-        textFieldTitulo = new JTextField();
-        textFieldTitulo.setColumns(10);
-        textFieldTitulo.setBounds(44, 100, 272, 33);
-        contentPane.add(textFieldTitulo);
-        
-        inputProcedimiento = new JTextArea();
-        inputProcedimiento.setWrapStyleWord(true);
-        inputProcedimiento.setLineWrap(true);
-        inputProcedimiento.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-        inputProcedimiento.setBounds(363, 102, 354, 286);
-        contentPane.add(inputProcedimiento);
-        
-        JLabel lblProcedimiento = new JLabel("Procedimiento");
-        lblProcedimiento.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-        lblProcedimiento.setBounds(368, 67, 337, 22);
-        contentPane.add(lblProcedimiento);
-        
-        JLabel lblFecha = new JLabel("Fecha");
-        lblFecha.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        lblFecha.setBounds(363, 410, 60, 20);
-        contentPane.add(lblFecha);
+	public PantallaSubirReceta() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
-        
-        JButton btnPublicarReceta = new JButton("Publicar Receta");
-        btnPublicarReceta.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-        btnPublicarReceta.setBounds(363, 489, 354, 29);
-        contentPane.add(btnPublicarReceta);
-        
-        
-        btnPublicarReceta.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                LocalDate fecha = LocalDate.now();
+		panelIngredientes = new JPanel();
+		panelIngredientes.setBounds(43, 262, 301, 258);
+		contentPane.add(panelIngredientes);
+		panelIngredientes.setLayout(null);
 
-    			String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),fecha);
-            }
-        });
-        
-        textFieldCategoria = new JTextField();
-        textFieldCategoria.setColumns(10);
-        textFieldCategoria.setBounds(479, 433, 238, 33);
-        contentPane.add(textFieldCategoria);
-        
-        JLabel lblCategoria = new JLabel("Categoria");
-        lblCategoria.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        lblCategoria.setBounds(479, 410, 238, 20);
-        contentPane.add(lblCategoria);
+		JLabel lblCategoria = new JLabel("Categorías");
+		lblCategoria.setBounds(0, 11, 238, 20);
+		panelIngredientes.add(lblCategoria);
+		lblCategoria.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
 
-        inputNombreIngrediente = new JTextField();
-        inputNombreIngrediente.setBounds(43, 189, 205, 26);
-        contentPane.add(inputNombreIngrediente);
-        inputNombreIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        inputNombreIngrediente.setColumns(10);
-        
-        JLabel lblNombreIngrediente = new JLabel("Nombre del Ingrediente");
-        lblNombreIngrediente.setBounds(47, 158, 179, 20);
-        contentPane.add(lblNombreIngrediente);
-        lblNombreIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        
-        JButton btnAgregarIngrediente = new JButton("Agregar");
-        btnAgregarIngrediente.setBounds(47, 226, 92, 29);
-        contentPane.add(btnAgregarIngrediente);
-        btnAgregarIngrediente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                agregarIngrediente();
-            }
-        });
-        
-        btnAgregarIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-        
-        JLabel lblCantidadIngrediente = new JLabel("Cantidad");
-        lblCantidadIngrediente.setBounds(261, 158, 67, 20);
-        contentPane.add(lblCantidadIngrediente);
-        lblCantidadIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        
-        inputCantidadIngrediente = new JTextField();
-        inputCantidadIngrediente.setBounds(258, 189, 67, 26);
-        contentPane.add(inputCantidadIngrediente);
-        inputCantidadIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        inputCantidadIngrediente.setColumns(10);
+		textFieldCategoria = new JTextField();
+		textFieldCategoria.setBounds(0, 42, 291, 33);
+		panelIngredientes.add(textFieldCategoria);
+		textFieldCategoria.setColumns(10);
 
-        listaIngredientes = new ArrayList<>();
-    }
+		JButton btnAgregarCategoria = new JButton("Agregar categoría");
+		btnAgregarCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarCategoria();
 
-    private void agregarIngrediente() {
-        String nombreIngrediente = inputNombreIngrediente.getText();
-        String cantidadIngrediente = inputCantidadIngrediente.getText();
-        String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngrediente;
+			}
+		});
+		btnAgregarCategoria.setBounds(0, 80, 170, 23);
+		panelIngredientes.add(btnAgregarCategoria);
+		btnAgregarCategoria.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
 
-        JLabel labelIngrediente = new JLabel(nuevoIngrediente);
-        labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelIngrediente.setBounds(10, 10 + listaIngredientes.size() * 30, 400, 20);
-        panelIngredientes.add(labelIngrediente);
+		JLabel lblNewLabel = new JLabel("Subí tu Receta acá");
+		lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 23));
+		lblNewLabel.setBounds(298, 11, 188, 35);
+		contentPane.add(lblNewLabel);
 
-        listaIngredientes.add(nuevoIngrediente);
+		JLabel lblTitulo = new JLabel("Título");
+		lblTitulo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+		lblTitulo.setBounds(43, 68, 108, 20);
+		contentPane.add(lblTitulo);
 
-        panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaIngredientes.size() + 1) * 30));
-        panelIngredientes.revalidate();
-        panelIngredientes.repaint();
+		textFieldTitulo = new JTextField();
+		textFieldTitulo.setColumns(10);
+		textFieldTitulo.setBounds(43, 99, 284, 33);
+		contentPane.add(textFieldTitulo);
 
-        inputNombreIngrediente.setText("");
-        inputCantidadIngrediente.setText("");
-    }
+		inputProcedimiento = new JTextArea();
+		inputProcedimiento.setWrapStyleWord(true);
+		inputProcedimiento.setLineWrap(true);
+		inputProcedimiento.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
+		inputProcedimiento.setBounds(363, 102, 354, 370);
+		contentPane.add(inputProcedimiento);
+
+		JLabel lblProcedimiento = new JLabel("Procedimiento");
+		lblProcedimiento.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblProcedimiento.setBounds(368, 67, 337, 22);
+		contentPane.add(lblProcedimiento);
+
+		JButton btnPublicarReceta = new JButton("Publicar Receta");
+		btnPublicarReceta.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
+		btnPublicarReceta.setBounds(363, 489, 354, 29);
+		contentPane.add(btnPublicarReceta);
+
+		btnPublicarReceta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LocalDate fecha = LocalDate.now();
+
+				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(), fecha,
+						listaIngredientes, listaCategorias);
+			}
+		});
+
+		inputNombreIngrediente = new JTextField();
+		inputNombreIngrediente.setBounds(43, 189, 205, 26);
+		contentPane.add(inputNombreIngrediente);
+		inputNombreIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
+		inputNombreIngrediente.setColumns(10);
+
+		JLabel lblNombreIngrediente = new JLabel("Nombre del Ingrediente");
+		lblNombreIngrediente.setBounds(45, 158, 179, 20);
+		contentPane.add(lblNombreIngrediente);
+		lblNombreIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+
+		JButton btnAgregarIngrediente = new JButton("Agregar");
+		btnAgregarIngrediente.setBounds(43, 226, 92, 29);
+		contentPane.add(btnAgregarIngrediente);
+		btnAgregarIngrediente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarIngrediente();
+			}
+		});
+
+		btnAgregarIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
+
+		JLabel lblCantidadIngrediente = new JLabel("Cantidad");
+		lblCantidadIngrediente.setBounds(261, 158, 67, 20);
+		contentPane.add(lblCantidadIngrediente);
+		lblCantidadIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+
+		inputCantidadIngrediente = new JTextField();
+		inputCantidadIngrediente.setBounds(258, 189, 67, 26);
+		contentPane.add(inputCantidadIngrediente);
+		inputCantidadIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
+		inputCantidadIngrediente.setColumns(10);
+
+		listaIngredientes = new ArrayList<>();
+		listaCategorias = new ArrayList<>();
+	}
+
+	private void agregarIngrediente() {
+		String nombreIngrediente = inputNombreIngrediente.getText();
+		String cantidadIngrediente = inputCantidadIngrediente.getText();
+		String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngrediente;
+
+		JLabel labelIngrediente = new JLabel(nuevoIngrediente);
+		labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelIngrediente.setBounds(10, 10 + listaIngredientes.size() * 30, 400, 20);
+		panelIngredientes.add(labelIngrediente);
+
+		listaIngredientes.add(nuevoIngrediente);
+
+		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaIngredientes.size() + 1) * 30));
+		panelIngredientes.revalidate();
+		panelIngredientes.repaint();
+
+		inputNombreIngrediente.setText("");
+		inputCantidadIngrediente.setText("");
+	}
+
+	private void agregarCategoria() {
+		String nuevaCategoria = textFieldCategoria.getText();
+		listaCategorias.add(nuevaCategoria);
+
+		JLabel labelCategoria = new JLabel(nuevaCategoria);
+		labelCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelCategoria.setBounds(0, 80 + listaCategorias.size() * 30, 400, 20);
+		panelIngredientes.add(labelCategoria);
+
+		textFieldCategoria.setText("");
+
+		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaCategorias.size() + 1) * 30));
+		panelIngredientes.revalidate();
+		panelIngredientes.repaint();
+	}
 }
