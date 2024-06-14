@@ -6,9 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,24 +21,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import Controladores.RecetaControlador;
 import Modelos.Receta;
 
 public class TablaReceta extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private DefaultTableModel model;
-	private RecetaControlador controlador;
-	private JLabel elemento;
-	private Receta seleccionado;
-
-
-	/**
-	 * Launch the application.
-	 */
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTable table;
+    private DefaultTableModel model;
+    private RecetaControlador controlador;
+    private JLabel elemento;
+    private Receta seleccionado;
+    
+    
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,19 +53,22 @@ public class TablaReceta extends JFrame {
 	public TablaReceta() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 894, 300);
+		setBounds(100, 100, 894, 422);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		
 		//inicializar controlador
 		controlador = new RecetaControlador();
-		seleccionado = new Receta(1, "Ejemplo de Receta", "Procedimiento ejemplo", null, 0, 0, null, null, null, null, new java.util.Date(), null, null);
-
+		seleccionado = new Receta(0, "", "", LocalDate.now());
 		
 		//tabla y modelito
-		String[] columnNames = { "ID", "Título", "Procedimiento", "Nro ingredientes", "Id Usuario", "Id Reseña", "Fecha" };
+		String[] columnNames = { "ID", "Título", "Procedimiento"
+				//,  "Fecha" 
+				};
 		model = new DefaultTableModel(columnNames, 0);
 		table = new JTable(model);
 		actualizarTabla(); 
@@ -113,12 +109,6 @@ public class TablaReceta extends JFrame {
 			menuBar.setBounds(15, 220, 101, 22);
 			contentPane.add(menuBar);
 			
-			JLabel lblNewLabel = new JLabel("Recetas");
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-			lblNewLabel.setBounds(292, 11, 277, 38);
-			contentPane.add(lblNewLabel);
-			
 			JButton btnEditar = new JButton("Editar");
 			btnEditar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -129,6 +119,11 @@ public class TablaReceta extends JFrame {
 			btnEditar.setBackground(Color.BLACK);
 			btnEditar.setBounds(15, 304, 356, 37);
 			contentPane.add(btnEditar);
+			
+			JLabel lblRecetas = new JLabel("Recetas");
+			lblRecetas.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
+			lblRecetas.setBounds(380, 11, 101, 44);
+			contentPane.add(lblRecetas);
 
 			// Configurar el modelo de selección
 			ListSelectionModel selectionModel = table.getSelectionModel();
@@ -144,23 +139,20 @@ public class TablaReceta extends JFrame {
 							int id = (int) table.getValueAt(selectedRow, 0);
 				            String titulo = (String) table.getValueAt(selectedRow, 1);
 				            String procedimiento = (String) table.getValueAt(selectedRow, 2);
-				            int nroIngredientes = (int) table.getValueAt(selectedRow, 3);
-				            int idUsuario = (int) table.getValueAt(selectedRow, 4);
-				            int idResena = (int) table.getValueAt(selectedRow, 5);
-				            String fecha = (String) table.getValueAt(selectedRow, 6);
+				          //  String fecha = (String) table.getValueAt(selectedRow, 3);
 
 
-							 elemento.setText("Seleccionado: ID=" + id + ", Título=" + titulo + ", Procedimiento=" + procedimiento +
-		                                ", NroIngredientes=" + nroIngredientes + ", IdUsuario=" + idUsuario + ", IdResena=" + idResena +
-		                                ", Fecha=" + fecha);
+							 elemento.setText
+							 ("Seleccionado: ID=" + id + 
+									 ", Título=" + titulo + 
+									 ", Procedimiento=" + procedimiento// +
+									// ", Fecha=" + fecha
+									 );
 							
 							 seleccionado.setIdReceta(id);
 		                        seleccionado.setTitulo(titulo);
 		                        seleccionado.setProcedimiento(procedimiento);
-		                        seleccionado.setnroIngredientes(nroIngredientes);
-		                        seleccionado.setIdUsuario(null);
-		                        seleccionado.setIdResena(null);
-		                        seleccionado.setFecha(LocalDate.parse(fecha)); 
+		                       // seleccionado.setFecha(LocalDate.parse(fecha)); 
 		                    }
 					}
 				}
@@ -171,20 +163,17 @@ public class TablaReceta extends JFrame {
 		model.setRowCount(0);
 				
 		// lista nueva
-		List<Receta> receta = controlador.getAllRecetas();
+		List<Receta> recetas = controlador.getAllRecetas();
 
 		// agrega datos
 		for (Receta receta : recetas) {
-		    model.addRow(new Object[]{
-		        receta.getIdReceta(), 
-		        receta.getTitulo(), 
+		    Object[] fila = {
+		        receta.getIdReceta(),
+		        receta.getTitulo(),
 		        receta.getProcedimiento(),
-		        receta.getnroIngredientes(), 
-		        receta.getIdUsuario(), 
-		        receta.getIdResena(), 
-		        receta.getFecha().toString()
-		    });
+		     //  receta.getFecha().toString() 
+		    };
+		    model.addRow(fila);
 		}
 	}
-
 }

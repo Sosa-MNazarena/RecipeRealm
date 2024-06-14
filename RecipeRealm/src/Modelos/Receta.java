@@ -24,6 +24,7 @@ public class Receta {
 		this.fecha = fecha;
 	}
 
+
 	public int getIdReceta() {
 		return idReceta;
 	}
@@ -76,6 +77,7 @@ public class Receta {
 
 	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha,
 			List<String> listaIngredientes, List<String> listaCategorias) {
+		//fecha = LocalDate.now();
 		// Validación de los campos título y procedimiento
 		if (titulo.isEmpty() || titulo.length() < 3) {
 			return "Título inválido, debe tener más de 3 caracteres.";
