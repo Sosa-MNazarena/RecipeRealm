@@ -1,5 +1,4 @@
 package Vistas;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.time.LocalDate;
@@ -27,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import java.awt.Font;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 
@@ -40,6 +40,7 @@ public class TablaCursos extends JFrame {
 	private JLabel elemento;
 	private Perfil perfilActual;
 	private Cursos seleccionado;
+	private JTextField txtBusqueda;
 
 	/**
 	 * Launch the application.
@@ -48,8 +49,9 @@ public class TablaCursos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña", "Descripción", true);
-					TablaCursos frame = new TablaCursos();
+					Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
+							"Descripción", true);
+					TablaCursos frame = new TablaCursos(perfil);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,8 +63,9 @@ public class TablaCursos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TablaCursos() {
+	public TablaCursos(Perfil perfil) {
 		this.setVisible(true);
+		this.perfilActual = perfil;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 926, 459);
 		contentPane = new JPanel();
@@ -91,7 +94,8 @@ public class TablaCursos extends JFrame {
 		elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
 		elemento.setBounds(15, 52, 911, 14);
 		contentPane.add(elemento);
-		
+
+		// Crear el botón de volver
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,28 +127,26 @@ public class TablaCursos extends JFrame {
 			}
 		});
 		btnEliminar.setBounds(515, 304, 356, 37);
-	    contentPane.add(btnEliminar);
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(15, 220, 101, 22);
-		contentPane.add(menuBar);
-		
-		JLabel lblNewLabel = new JLabel("Cursos disponibles");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-		lblNewLabel.setBounds(292, 11, 277, 38);
-		contentPane.add(lblNewLabel);
-		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
+		contentPane.add(btnEliminar);
+
+		// Campo de búsqueda y botón de búsqueda
+		txtBusqueda = new JTextField();
+		txtBusqueda.setBounds(15, 304, 250, 37);
+		contentPane.add(txtBusqueda);
+		txtBusqueda.setColumns(10);
+
+		JButton btnBuscar = new JButton("Buscar por Título");
+		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String criterio = txtBusqueda.getText();
+				buscarCurso(criterio);
 			}
 		});
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnEditar.setBackground(Color.BLACK);
-		btnEditar.setBounds(15, 304, 356, 37);
-		contentPane.add(btnEditar);
+		btnBuscar.setForeground(Color.WHITE);
+		btnBuscar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnBuscar.setBackground(Color.BLACK);
+		btnBuscar.setBounds(275, 304, 230, 37);
+		contentPane.add(btnBuscar);
 
 		// Configurar el modelo de selección
 		ListSelectionModel selectionModel = table.getSelectionModel();
@@ -193,6 +195,24 @@ public class TablaCursos extends JFrame {
 		for (Cursos curso : cursos) {
 			model.addRow(new Object[] { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(),
 					curso.getDia().toString(), curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() });
+		}
+	}
+
+	private void buscarCurso(String criterio) {
+		// Limpiar el modelo de la tabla
+		model.setRowCount(0);
+
+		// Obtener la lista de cursos filtrados por título
+		List<Cursos> cursos = controlador.getAllCursos();
+
+		// Agregar los datos al modelo
+		for (Cursos curso : cursos) {
+			if (curso.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
+				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
+						curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
+				model.addRow(fila);
+
+			}
 		}
 	}
 }
