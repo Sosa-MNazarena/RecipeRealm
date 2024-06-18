@@ -126,7 +126,7 @@ public class PantallaInicioSesion extends JFrame {
                         homeChef.setVisible(true);
                         dispose();
                     } else {
-                        PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado();
+                        PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
                         homeAficionado.setVisible(true);
                         dispose();
                     }

@@ -8,18 +8,24 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
+import Modelos.Perfil;
+import Vistas.PantallaEditarPerfilChef;
+
 public class PantallaHomeAficionado extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Perfil perfil;
 
 	
-	public PantallaHomeAficionado() {
+	public PantallaHomeAficionado(Perfil perfil) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 856);
@@ -48,6 +54,13 @@ public class PantallaHomeAficionado extends JFrame {
 		btnEditarPerfil.setBackground(new Color(128, 128, 128));
 		btnEditarPerfil.setBounds(250, 631, 205, 54);
 		contentPane.add(btnEditarPerfil);
+		
+		btnEditarPerfil.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            PantallaEditarPerfilChef editarPerfil = new PantallaEditarPerfilChef(perfil);
+	            editarPerfil.setVisible(true);
+	        }
+	    });
 		
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
 		btnMisFavoritos.setBackground(new Color(192, 192, 192));
