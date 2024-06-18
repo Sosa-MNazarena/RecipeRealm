@@ -50,6 +50,7 @@ public class PantallaSubirReceta extends JFrame {
 	}
 
 	public PantallaSubirReceta() {
+		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();

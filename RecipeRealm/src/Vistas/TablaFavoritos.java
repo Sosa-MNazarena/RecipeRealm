@@ -32,16 +32,16 @@ public class TablaFavoritos extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private FavoritoControlador controlador;
-    private Perfil perfilActual;
+    private Perfil perfil;
     private JLabel elemento;
     private Receta seleccionado;
 
     
     public TablaFavoritos(Perfil perfil) {
     	this.setVisible(true);
-        this.perfilActual = perfil;
+        this.perfil = perfil;
         controlador = new FavoritoControlador();
-        seleccionado = new Receta(0, "", "", LocalDate.now());
+        seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1095, 704);
@@ -93,9 +93,9 @@ public class TablaFavoritos extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     int idReceta = (int) table.getValueAt(selectedRow, 0);
-                    Receta recetaSeleccionada = new Receta(idReceta, "Titulo", "Procedimiento", LocalDate.now());
+                    Receta recetaSeleccionada = new Receta(idReceta, "Titulo", "Procedimiento", "Categorias", "Ingredientes", LocalDate.now());
                     recetaSeleccionada.setIdReceta(idReceta);
-                    perfilActual.removeFavorito(recetaSeleccionada);
+                    controlador.removeFavorito(perfil, idReceta);
                     JOptionPane.showMessageDialog(null, "Receta eliminada de favoritos.");
                     actualizarTabla();
                 } else {
@@ -137,7 +137,7 @@ public class TablaFavoritos extends JFrame {
 
     private void actualizarTabla() {
         model.setRowCount(0);
-        List<Receta> favoritos = controlador.getFavoritosByUsuario(perfilActual.getIdUsuario());
+        List<Receta> favoritos = controlador.getFavoritosByUsuario(perfil);
 
         for (Receta receta : favoritos) {
             Object[] fila = {

@@ -34,7 +34,7 @@ public class TablaReceta extends JFrame {
 	private DefaultTableModel model;
 	private RecetaControlador controlador;
 	private FavoritoControlador favControlador;
-	private Perfil perfilActual;
+	private Perfil perfil;
 	private JLabel elemento;
 	private Receta seleccionado;
 
@@ -60,6 +60,7 @@ public class TablaReceta extends JFrame {
 	 */
 	public TablaReceta(Perfil perfil) {
 		this.setVisible(true);
+		this.perfil = perfil;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 927, 490);
 		contentPane = new JPanel();
@@ -68,7 +69,6 @@ public class TablaReceta extends JFrame {
 		contentPane.setLayout(null);
 
 		// inicializar controlador
-		this.perfilActual = perfil;
 		controlador = new RecetaControlador();
 		favControlador = new FavoritoControlador();
 		seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
@@ -130,7 +130,7 @@ public class TablaReceta extends JFrame {
 		btnAddFavorito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (seleccionado.getIdReceta() != 0) {
-					favControlador.addFavorito(perfilActual.getIdUsuario(), seleccionado.getIdReceta());
+					favControlador.addFavorito(perfil, seleccionado.getIdReceta());
 					JOptionPane.showMessageDialog(null, "Agregado a favoritos");
 					actualizarTabla();
 				} else {
