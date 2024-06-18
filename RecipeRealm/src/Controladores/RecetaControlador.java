@@ -32,12 +32,11 @@ public class RecetaControlador implements RecetaRepository {
 				int idReceta = rs.getInt("id_receta");
 				String titulo = rs.getString("titulo");
 				String procedimiento = rs.getString("procedimiento");
-				LocalDate fecha = rs.getDate("fecha").toLocalDate();
 				String categorias = rs.getString("categorias");
 				String ingredientes = rs.getString("ingredientes");
+				LocalDate fecha = rs.getDate("fecha").toLocalDate();
 
 				Receta receta = new Receta(idReceta, titulo, procedimiento, categorias, ingredientes, fecha);
-				// Puedes cargar los ingredientes y categorías aquí si es necesario
 				recetas.add(receta);
 			}
 		} catch (SQLException e) {
@@ -50,13 +49,13 @@ public class RecetaControlador implements RecetaRepository {
 		int idRecetaGenerado = 0;
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO receta (titulo, procedimiento, fecha, categorias, ingredientes) VALUES (?, ?, ?, ?, ?)",
+					"INSERT INTO receta (titulo, procedimiento, categorias, ingredientes, fecha) VALUES (?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, receta.getTitulo());
 			statement.setString(2, receta.getProcedimiento());
-			statement.setDate(3, Date.valueOf(receta.getFecha()));
-			statement.setString(4, receta.getCategorias());
-			statement.setString(5, receta.getIngredientes());
+			statement.setString(3, receta.getCategorias());
+			statement.setString(4, receta.getIngredientes());
+			statement.setDate(5, Date.valueOf(receta.getFecha()));
 
 			int rowsInserted = statement.executeUpdate();
 

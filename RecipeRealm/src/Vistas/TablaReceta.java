@@ -192,8 +192,8 @@ public class TablaReceta extends JFrame {
 		List<Receta> recetas = controlador.getAllRecetas();
 
 		for (Receta receta : recetas) {
-			String categorias = String.join(", ", receta.getCategorias());
-			Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(), categorias,
+
+			Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(), receta.getCategorias(), receta.getIngredientes(),
 					receta.getFecha() };
 			model.addRow(fila);
 		}

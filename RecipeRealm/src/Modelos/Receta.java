@@ -20,8 +20,9 @@ public class Receta {
 		this.titulo = titulo;
 		this.procedimiento = procedimiento;
 		this.categorias = categorias;
+		this.ingredientes = ingredientes;
 		this.fecha = fecha;
-		this.categorias = categorias;
+
 	}
 
 	public int getIdReceta() {
@@ -73,41 +74,42 @@ public class Receta {
 	}
 
 	// Metodos de las recetas
-	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha, String categorias,
-	        String ingredientes) {
-	    // Validación de los campos título, procedimiento y ingredientes
-	    if (titulo.isEmpty() || titulo.length() < 3) {
-	        return "Título inválido, debe tener más de 3 caracteres.";
-	    }
+	public static String subirReceta(String titulo, String procedimiento, String categorias, String ingredientes,
+			LocalDate fecha) {
+		// Validación de los campos título, procedimiento y ingredientes
+		if (titulo.isEmpty() || titulo.length() < 3) {
+			return "Título inválido, debe tener más de 3 caracteres.";
+		}
 
-	    if (procedimiento.isEmpty() || procedimiento.length() < 5) {
-	        return "Procedimiento inválido, debe tener más de 5 caracteres.";
-	    }
+		if (procedimiento.isEmpty() || procedimiento.length() < 5) {
+			return "Procedimiento inválido, debe tener más de 5 caracteres.";
+		}
+		if (categorias.isEmpty()) {
+			return "Debe ingresar al menos una categoría.";
+		}
+		if (ingredientes.isEmpty()) {
+			return "Debe ingresar al menos un ingrediente.";
+		}
 
-	    if (ingredientes.isEmpty()) {
-	        return "Debe ingresar al menos un ingrediente.";
-	    }
+		Receta receta = new Receta(0, titulo, procedimiento, categorias, ingredientes, fecha);
+		RecetaControlador recetaControlador = new RecetaControlador();
 
-	    Receta receta = new Receta(0, titulo, procedimiento, categorias, ingredientes, fecha);
-	    RecetaControlador recetaControlador = new RecetaControlador();
+		try {
+			int idRecetaAgregada = recetaControlador.addRecetaSegunId(receta);
 
-	    try {
-	        int idRecetaAgregada = recetaControlador.addRecetaSegunId(receta);
+			if (idRecetaAgregada <= 0) {
+				JOptionPane.showMessageDialog(null, "No se pudo agregar la receta.");
+				return "La receta no se ha subido exitosamente.";
+			}
 
-	        if (idRecetaAgregada <= 0) {
-	            JOptionPane.showMessageDialog(null, "No se pudo agregar la receta.");
-	            return "La receta no se ha subido exitosamente.";
-	        }
+			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
+			return "La receta se ha subido exitosamente.";
 
-	        JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
-	        return "La receta se ha subido exitosamente.";
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
-	        return "La receta no se ha subido exitosamente.";
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
+			return "La receta no se ha subido exitosamente.";
+		}
 	}
-
 
 }

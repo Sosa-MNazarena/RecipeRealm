@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import Modelos.Receta;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -118,8 +120,9 @@ public class PantallaSubirReceta extends JFrame {
 				LocalDate fecha = LocalDate.now();
 				String categorias = String.join(" - ", listaCategorias);
 				String ingredientes = String.join(" | ", listaIngredientes);
-				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(), fecha,
-						categorias, ingredientes);
+				
+				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
+						categorias, ingredientes, fecha);
 
 			}
 		});
@@ -162,22 +165,25 @@ public class PantallaSubirReceta extends JFrame {
 	}
 
 	private void agregarIngrediente() {
-		String nombreIngrediente = inputNombreIngrediente.getText();
-		String cantidadIngrediente = inputCantidadIngrediente.getText();
-		String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngrediente;
+	    String nombreIngrediente = inputNombreIngrediente.getText();
+	    String cantidadIngrediente = inputCantidadIngrediente.getText();
+	    String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngrediente;
 
-		JLabel labelIngrediente = new JLabel(nuevoIngrediente);
-		labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelIngrediente.setBounds(10, 10 + listaIngredientes.size() * 30, 400, 20);
-		panelIngredientes.add(labelIngrediente);
+	    listaIngredientes.add(nuevoIngrediente); // Agregar a la lista de ingredientes
 
-		listaIngredientes.add(nuevoIngrediente);
-		inputNombreIngrediente.setText("");
-		inputCantidadIngrediente.setText("");
-		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaIngredientes.size() + 1) * 30));
-		panelIngredientes.revalidate();
-		panelIngredientes.repaint();
+	    JLabel labelIngrediente = new JLabel(nuevoIngrediente);
+	    labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
+	    int yPosition = 10 + listaIngredientes.size() * 30;
+	    labelIngrediente.setBounds(10, yPosition, 400, 20);
+	    panelIngredientes.add(labelIngrediente);
+
+	    inputNombreIngrediente.setText("");
+	    inputCantidadIngrediente.setText("");
+
+	    panelIngredientes.setPreferredSize(new java.awt.Dimension(301, yPosition + 30));
+	    panelIngredientes.revalidate();
+	    panelIngredientes.repaint();
 	}
 
 	private void agregarCategoria() {
