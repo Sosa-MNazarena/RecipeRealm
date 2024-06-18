@@ -114,21 +114,19 @@ public class PantallaEditarPerfilChef extends JFrame {
 		
 		btnGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (inputCorreo.getText().equals(perfil.getCorreo())) {
-                    JOptionPane.showMessageDialog(null, "Debe poner un correo distinto");
-                } else {
-                    perfil.setNombre(inputNombre.getText());
-                    perfil.setPseudonimo(inputPseudonimo.getText());
-                    perfil.setCorreo(inputCorreo.getText());
-                    perfil.setContrasena(new String(inputContrasena.getPassword()));
-                    perfil.setDescripcion(inputDescripcion.getText());
+                perfil.setNombre(inputNombre.getText());
+                perfil.setPseudonimo(inputPseudonimo.getText());
+                perfil.setCorreo(inputCorreo.getText());
+                perfil.setContrasena(new String(inputContrasena.getPassword()));
+                perfil.setDescripcion(inputDescripcion.getText());
 
-                    if (controlador.updatePerfil(perfil)) {
-                        JOptionPane.showMessageDialog(null, "Perfil actualizado correctamente");
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Error al actualizar el perfil");
-                    }
+                if (controlador.updatePerfil(perfil)) {
+                    JOptionPane.showMessageDialog(null, "Perfil actualizado correctamente");
+                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+                    homeChef.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el perfil");
                 }
             }
         });
