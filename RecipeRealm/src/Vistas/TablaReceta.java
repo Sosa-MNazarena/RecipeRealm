@@ -63,7 +63,7 @@ public class TablaReceta extends JFrame {
 		this.setVisible(true);
 		this.perfil = perfil;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 927, 490);
+		setBounds(100, 100, 927, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -124,7 +124,7 @@ public class TablaReceta extends JFrame {
 		btnAddFavorito.setForeground(Color.WHITE);
 		btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnAddFavorito.setBackground(Color.BLACK);
-		btnAddFavorito.setBounds(336, 363, 233, 37);
+		btnAddFavorito.setBounds(638, 382, 233, 37);
 		contentPane.add(btnAddFavorito);
 
 		JButton btnVolver = new JButton("Volver");
