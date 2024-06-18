@@ -35,6 +35,7 @@ public class PantallaRegistro extends JFrame {
 	private JRadioButton rdbtnChef;
 	private JRadioButton rdbtnAficionado;
 	private ButtonGroup groupRol;
+	private Perfil perfil;
 
 	/**
 	 * Launch the application.
@@ -201,7 +202,7 @@ public class PantallaRegistro extends JFrame {
 				if (respuesta.equals("Perfil creado exitosamente")) {
 					lblExito.setText(respuesta);
 					lblExito.setVisible(true);
-					PantallaInicioSesion iniciarSesion = new PantallaInicioSesion();
+					PantallaInicioSesion iniciarSesion = new PantallaInicioSesion(perfil);
 					iniciarSesion.setVisible(true);
 					dispose();
 				} else {
