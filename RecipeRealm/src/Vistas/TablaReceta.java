@@ -38,7 +38,8 @@ public class TablaReceta extends JFrame {
     private Perfil perfilActual;
     private JLabel elemento;
     private Receta seleccionado;
-    private JTextField txtBusqueda;
+    private JTextField txtBusqueda;	private Perfil perfil;
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -55,34 +56,32 @@ public class TablaReceta extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
-    public TablaReceta(Perfil perfil) {
-        this.setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 927, 619);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
-
-        // inicializar controlador
-        this.perfilActual = perfil;
-        controlador = new RecetaControlador();
-        favControlador = new FavoritoControlador();
-        seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
-
-        // tabla y modelito
-        String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha" };
-        model = new DefaultTableModel(columnNames, 0);
-        table = new JTable(model);
-        actualizarTabla();
+	/**
+	 * Create the frame.
+	 */
+	public TablaReceta(Perfil perfil) {
+		this.setVisible(true);
+		this.perfil = perfil;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 927, 490);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(15, 131, 856, 190);
         contentPane.add(scrollPane);
 
+		// inicializar controlador
+		controlador = new RecetaControlador();
+		favControlador = new FavoritoControlador();
+		seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
+    // tabla y modelito
+        String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha" };
+        model = new DefaultTableModel(columnNames, 0);
+        table = new JTable(model);
+        actualizarTabla();
         elemento = new JLabel("Seleccionado:");
         elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
         elemento.setBounds(15, 95, 911, 14);
@@ -110,38 +109,33 @@ public class TablaReceta extends JFrame {
         lblRecetas.setFont(new Font("Leelawadee UI", Font.BOLD, 28));
         lblRecetas.setBounds(380, 29, 101, 44);
         contentPane.add(lblRecetas);
-
         JButton btnAddFavorito = new JButton("Agregar a favorito");
-        btnAddFavorito.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (seleccionado.getIdReceta() != 0) {
-                    favControlador.addFavorito(perfilActual.getIdUsuario(), seleccionado.getIdReceta());
-                    JOptionPane.showMessageDialog(null, "Agregado a favoritos");
-                    actualizarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione una receta");
-                }
-            }
-        });
-        btnAddFavorito.setForeground(Color.WHITE);
-        btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnAddFavorito.setBackground(Color.BLACK);
-        btnAddFavorito.setBounds(638, 382, 233, 37);
-        contentPane.add(btnAddFavorito);
+		btnAddFavorito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (seleccionado.getIdReceta() != 0) {
+					favControlador.addFavorito(perfil, seleccionado.getIdReceta());
+					JOptionPane.showMessageDialog(null, "Agregado a favoritos");
+					actualizarTabla();
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione una receta");
+				}
+			}
+		});
+		btnAddFavorito.setForeground(Color.WHITE);
+		btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnAddFavorito.setBackground(Color.BLACK);
+		btnAddFavorito.setBounds(336, 363, 233, 37);
+		contentPane.add(btnAddFavorito);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
-                homeChef.setVisible(true);
-                dispose();
-            }
-        });
-        btnVolver.setForeground(new Color(255, 255, 255));
-        btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnVolver.setBackground(new Color(192, 192, 192));
-        btnVolver.setBounds(15, 11, 87, 37);
-        contentPane.add(btnVolver);
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+				homeChef.setVisible(true);
+				dispose();
+			}
+		});
+
 
         // campo de búsqueda y botón de búsqueda
         txtBusqueda = new JTextField();
@@ -161,10 +155,11 @@ public class TablaReceta extends JFrame {
         });
         btnBuscar.setBounds(312, 382, 169, 37);
         contentPane.add(btnBuscar);
-
-        // Configurar el modelo de selección
+       // Configurar el modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
 
         // escuchador de selección
         selectionModel.addListSelectionListener(new ListSelectionListener() {

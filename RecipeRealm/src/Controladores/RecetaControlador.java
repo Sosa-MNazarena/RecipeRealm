@@ -71,15 +71,7 @@ public class RecetaControlador implements RecetaRepository {
 		}
 		return idRecetaGenerado;
 	}
-	public List<Receta> buscarRecetasPorTitulo(String titulo) {
-        List<Receta> resultados = new ArrayList<>();
-        for (Receta receta : recetas) {
-            if (receta.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
-                resultados.add(receta);
-            }
-        }
-        return resultados;
-    }
+
 	@Override
 	public Receta getRecetaById(int id) {
 		// TODO Auto-generated method stub
