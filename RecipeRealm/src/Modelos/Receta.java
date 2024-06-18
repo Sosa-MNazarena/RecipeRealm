@@ -10,17 +10,18 @@ public class Receta {
 	private int idReceta;
 	private String titulo;
 	private String procedimiento;
-	private List<Ingrediente> ingredientes;
 	private LocalDate fecha;
-	private List<String> categorias;
+	private String categorias;
+	private String ingredientes;
 
-	public Receta(int idReceta, String titulo, String procedimiento, LocalDate fecha) {
+	public Receta(int idReceta, String titulo, String procedimiento, String categorias, String ingredientes,
+			LocalDate fecha) {
 		this.idReceta = idReceta;
 		this.titulo = titulo;
 		this.procedimiento = procedimiento;
-		this.ingredientes = new ArrayList<>();
-		this.categorias = new ArrayList<>();
+		this.categorias = categorias;
 		this.fecha = fecha;
+		this.categorias = categorias;
 	}
 
 	public int getIdReceta() {
@@ -55,79 +56,57 @@ public class Receta {
 		this.fecha = fecha;
 	}
 
-	public List<Ingrediente> getIngredientes() {
-		return ingredientes;
-	}
-
-	public void setIngredientes(List<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
-	}
-
-	public List<String> getCategorias() {
+	public String getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<String> categorias) {
+	public void setCategorias(String categorias) {
 		this.categorias = categorias;
 	}
+
+	public String getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(String ingredientes) {
+		this.ingredientes = ingredientes;
+	}
+
 	// Metodos de las recetas
+	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha, String categorias,
+	        String ingredientes) {
+	    // Validación de los campos título, procedimiento y ingredientes
+	    if (titulo.isEmpty() || titulo.length() < 3) {
+	        return "Título inválido, debe tener más de 3 caracteres.";
+	    }
 
-	// ----------------------------------- Subir una receta
-	// -------------------------------------
+	    if (procedimiento.isEmpty() || procedimiento.length() < 5) {
+	        return "Procedimiento inválido, debe tener más de 5 caracteres.";
+	    }
 
-	public static String subirReceta(String titulo, String procedimiento, LocalDate fecha,
-			List<String> listaIngredientes, List<String> listaCategorias) {
-		// fecha = LocalDate.now();
-		// Validación de los campos título y procedimiento
-		if (titulo.isEmpty() || titulo.length() < 3) {
-			return "Título inválido, debe tener más de 3 caracteres.";
-		}
+	    if (ingredientes.isEmpty()) {
+	        return "Debe ingresar al menos un ingrediente.";
+	    }
 
-		if (procedimiento.isEmpty() || procedimiento.length() < 5) {
-			return "Procedimiento inválido, debe tener más de 5 caracteres.";
-		}
+	    Receta receta = new Receta(0, titulo, procedimiento, categorias, ingredientes, fecha);
+	    RecetaControlador recetaControlador = new RecetaControlador();
 
-	
-		Receta receta = new Receta(0, titulo, procedimiento, fecha);
-		RecetaControlador recetaControlador = new RecetaControlador();
+	    try {
+	        int idRecetaAgregada = recetaControlador.addRecetaSegunId(receta);
 
-		try {
-			int idRecetaAgregada = recetaControlador.addRecetaSegunId(receta);
+	        if (idRecetaAgregada <= 0) {
+	            JOptionPane.showMessageDialog(null, "No se pudo agregar la receta.");
+	            return "La receta no se ha subido exitosamente.";
+	        }
 
-			if (idRecetaAgregada <= 0) {
-				JOptionPane.showMessageDialog(null, "No se pudo agregar la receta.");
-				return "La receta no se ha subido exitosamente.";
-			}
+	        JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
+	        return "La receta se ha subido exitosamente.";
 
-			
-			for (String nombreIngrediente : listaIngredientes) {
-				Ingrediente ingrediente = new Ingrediente(nombreIngrediente);
-				recetaControlador.insertarIngredienteReceta(idRecetaAgregada, ingrediente);
-			}
-
-		
-			for (String nombreCategoria : listaCategorias) {
-				receta.agregarCategoria(nombreCategoria);
-				Categoria categoria = new Categoria(idRecetaAgregada, nombreCategoria);
-				recetaControlador.insertarCategoriasReceta(idRecetaAgregada, listaCategorias);
-			}
-
-			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
-			return "La receta se ha subido exitosamente.";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
-			return "La receta no se ha subido exitosamente.";
-		}
-	}
-
-	public void agregarCategoria(String categoria) {
-		categorias.add(categoria);
-	}
-
-	public void agregarIngrediente(Ingrediente ingrediente) {
-		this.ingredientes.add(ingrediente);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al subir la receta: " + e.getMessage());
+	        return "La receta no se ha subido exitosamente.";
+	    }
 	}
 
 

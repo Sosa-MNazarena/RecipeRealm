@@ -18,5 +18,4 @@ public interface RecetaRepository {
 
 	Receta getRecetaByUsuario(int id);
 
-	void insertarIngredienteReceta(int idReceta, Ingrediente ingrediente);
 }

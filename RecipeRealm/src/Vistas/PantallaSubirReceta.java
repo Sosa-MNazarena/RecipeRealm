@@ -116,9 +116,11 @@ public class PantallaSubirReceta extends JFrame {
 		btnPublicarReceta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LocalDate fecha = LocalDate.now();
-
+				String categorias = String.join(" - ", listaCategorias);
+				String ingredientes = String.join(" | ", listaIngredientes);
 				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(), fecha,
-						listaIngredientes, listaCategorias);
+						categorias, ingredientes);
+
 			}
 		});
 
@@ -170,13 +172,12 @@ public class PantallaSubirReceta extends JFrame {
 		panelIngredientes.add(labelIngrediente);
 
 		listaIngredientes.add(nuevoIngrediente);
-
+		inputNombreIngrediente.setText("");
+		inputCantidadIngrediente.setText("");
 		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaIngredientes.size() + 1) * 30));
 		panelIngredientes.revalidate();
 		panelIngredientes.repaint();
 
-		inputNombreIngrediente.setText("");
-		inputCantidadIngrediente.setText("");
 	}
 
 	private void agregarCategoria() {
