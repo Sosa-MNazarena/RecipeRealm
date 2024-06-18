@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JPasswordField;
+import Controladores.PerfilControlador;
 
 public class PantallaInicioSesion extends JFrame {
 
@@ -30,6 +31,7 @@ public class PantallaInicioSesion extends JFrame {
 	private JTextField inputCorreo;
 	private JPasswordField inputContrasena;
 	private Perfil perfil;
+	private PerfilControlador perfilControlador;
 
 	/**
 	 * Launch the application.
@@ -52,6 +54,7 @@ public class PantallaInicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaInicioSesion(Perfil perfil) {
+		 this.perfilControlador = new PerfilControlador();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 940, 772);
 		contentPane = new JPanel();
@@ -109,13 +112,24 @@ public class PantallaInicioSesion extends JFrame {
 		btnIniciarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = Perfil.IniciarSesion(inputCorreo.getText(), inputContrasena.getText());
-				if(respuesta.equals("rol:false")) {
-					PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado();
-					dispose();
-				}else if(respuesta.equals("rol:true")) {
-					PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
-					dispose();
+				String correo = inputCorreo.getText();
+			    String contrasena = new String(inputContrasena.getPassword());
+			    lblErrorCorreo.setVisible(false);
+			    lblErrorContrasena.setVisible(false);
+			    
+			    Perfil perfil = perfilControlador.iniciarSesion(correo, contrasena);
+			    String respuesta = Perfil.IniciarSesion(inputCorreo.getText(), inputContrasena.getText());
+			        
+			    if (perfil != null) {
+                    if (perfil.isVerificado()) {
+                        PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+                        homeChef.setVisible(true);
+                        dispose();
+                    } else {
+                        PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado();
+                        homeAficionado.setVisible(true);
+                        dispose();
+                    }
 				}else {
 					if (respuesta.equals("Contraseña inválida. Inténtelo nuevamente")) {
 						lblErrorContrasena.setText(respuesta);
@@ -130,7 +144,9 @@ public class PantallaInicioSesion extends JFrame {
 		btnIniciarSesion.setBounds(284, 403, 356, 37);
 		contentPane.add(btnIniciarSesion);
 		
-		
+		//imprimir en pantalla
+		System.out.println("Perfil actual: " + perfil);
+
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setBackground(new Color(192, 192, 192));
