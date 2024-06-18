@@ -15,6 +15,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Vistas.PantallaEditarPerfilChef;
 
 public class PantallaHomeChef extends JFrame {
 
@@ -90,6 +91,13 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(btnMenuCursos);
 		
 		JButton btnEditarPerfil = new JButton("Editar Perfil");
+		btnEditarPerfil.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            PantallaEditarPerfilChef editarPerfil = new PantallaEditarPerfilChef(perfil);
+	            editarPerfil.setVisible(true);
+	        }
+	    });
+		
 		btnEditarPerfil.setForeground(Color.WHITE);
 		btnEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 		btnEditarPerfil.setBackground(Color.GRAY);
