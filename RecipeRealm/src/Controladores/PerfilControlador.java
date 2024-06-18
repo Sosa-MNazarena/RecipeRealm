@@ -122,7 +122,8 @@ public class PerfilControlador implements PerfilRepository {
     }
 
     @Override
-    public void updatePerfil(Perfil perfil) {
+    public boolean updatePerfil(Perfil perfil) {
+        boolean actualizado = false;
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE usuario SET nombre = ?, pseudonimo = ?, correo = ?, contrasena = ?, descripcion = ?, verificado = ? WHERE id_usuario = ?");
             statement.setString(1, perfil.getNombre());
@@ -136,10 +137,12 @@ public class PerfilControlador implements PerfilRepository {
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("El perfil fue actualizado exitosamente!");
+                actualizado = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return actualizado;
     }
     
     @Override
