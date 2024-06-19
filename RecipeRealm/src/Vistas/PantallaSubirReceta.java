@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controladores.PerfilControlador;
+import Modelos.Perfil;
 import Modelos.Receta;
 
 import javax.swing.JLabel;
@@ -20,6 +22,8 @@ import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import Modelos.Perfil;
+import Controladores.PerfilControlador;
 
 public class PantallaSubirReceta extends JFrame {
 
@@ -35,8 +39,10 @@ public class PantallaSubirReceta extends JFrame {
 	private JTextArea inputProcedimiento;
 	private JTextField textFieldCategoria;
 	private JTextField inputCategoria;
+	private Perfil perfil;
+    private PerfilControlador controlador = new PerfilControlador();
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,8 +54,9 @@ public class PantallaSubirReceta extends JFrame {
 			}
 		});
 	}
-
-	public PantallaSubirReceta() {
+*/
+	public PantallaSubirReceta(Perfil perfil) {
+		this.perfil = perfil;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -122,8 +129,15 @@ public class PantallaSubirReceta extends JFrame {
 				String categorias = String.join(" - ", listaCategorias);
 				String ingredientes = String.join(" | ", listaIngredientes);
 				
+				if (perfil == null) {
+		            JOptionPane.showMessageDialog(null, "El perfil no está definido.");
+		            return;
+		        }
+				
+				int idUsuario = perfil.getIdUsuario();
+				
 				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
-						categorias, ingredientes, fecha);
+						categorias, ingredientes, fecha, perfil.getIdUsuario());
 
 			}
 		});

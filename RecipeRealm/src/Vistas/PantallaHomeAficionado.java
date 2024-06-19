@@ -41,6 +41,12 @@ public class PantallaHomeAficionado extends JFrame {
 		btnSubirReceta.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\recipe.png"));
 		btnSubirReceta.setBounds(250, 183, 205, 191);
 		contentPane.add(btnSubirReceta);
+		btnSubirReceta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaSubirReceta subirReceta = new PantallaSubirReceta(perfil);
+				dispose();
+			}
+		});
 		
 		JButton btnMenuRecetas = new JButton("Recetas");
 		btnMenuRecetas.setBackground(new Color(192, 192, 192));

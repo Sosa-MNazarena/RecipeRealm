@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import Controladores.RecetaControlador;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import Modelos.Perfil;
+import Controladores.PerfilControlador;
 
 public class Receta {
 	private int idReceta;
@@ -13,17 +15,27 @@ public class Receta {
 	private LocalDate fecha;
 	private String categorias;
 	private String ingredientes;
+	private int idUsuario;
 
 	public Receta(int idReceta, String titulo, String procedimiento, String categorias, String ingredientes,
-			LocalDate fecha) {
+			LocalDate fecha, int idUsuario) {
 		this.idReceta = idReceta;
 		this.titulo = titulo;
 		this.procedimiento = procedimiento;
 		this.categorias = categorias;
 		this.ingredientes = ingredientes;
 		this.fecha = fecha;
+		this.idUsuario = idUsuario;
 
 	}
+	
+	public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
 	public int getIdReceta() {
 		return idReceta;
@@ -75,7 +87,7 @@ public class Receta {
 
 	// Metodos de las recetas
 	public static String subirReceta(String titulo, String procedimiento, String categorias, String ingredientes,
-			LocalDate fecha) {
+			LocalDate fecha, int idUsuario) {
 		// Validación de los campos título, procedimiento y ingredientes
 		if (titulo.isEmpty() || titulo.length() < 3) {
 			return "Título inválido, debe tener más de 3 caracteres.";
@@ -91,7 +103,7 @@ public class Receta {
 			return "Debe ingresar al menos un ingrediente.";
 		}
 
-		Receta receta = new Receta(0, titulo, procedimiento, categorias, ingredientes, fecha);
+		Receta receta = new Receta(0, titulo, procedimiento, categorias, ingredientes, fecha, idUsuario);
 		RecetaControlador recetaControlador = new RecetaControlador();
 
 		try {

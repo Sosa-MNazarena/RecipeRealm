@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.mysql.jdbc.Statement;
+
+import Modelos.Perfil;
 import Modelos.Receta;
 import interfaces.RecetaRepository;
 
@@ -25,7 +27,7 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	private void cargarRecetasDesdeBaseDeDatos() {
-		String sql = "SELECT id_receta, titulo, procedimiento, categorias, ingredientes, fecha FROM receta";
+		String sql = "SELECT id_receta, titulo, procedimiento, categorias, ingredientes, fecha, id_usuario FROM receta";
 
 		try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
@@ -35,8 +37,9 @@ public class RecetaControlador implements RecetaRepository {
 				String categorias = rs.getString("categorias");
 				String ingredientes = rs.getString("ingredientes");
 				LocalDate fecha = rs.getDate("fecha").toLocalDate();
-
-				Receta receta = new Receta(idReceta, titulo, procedimiento, categorias, ingredientes, fecha);
+				 int idUsuario = rs.getInt("id_usuario");
+				
+				Receta receta = new Receta(idReceta, titulo, procedimiento, categorias, ingredientes, fecha, idUsuario);
 				recetas.add(receta);
 			}
 		} catch (SQLException e) {
@@ -47,15 +50,15 @@ public class RecetaControlador implements RecetaRepository {
 
 	public int addRecetaSegunId(Receta receta) throws SQLException {
 		int idRecetaGenerado = 0;
-		try {
-			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO receta (titulo, procedimiento, categorias, ingredientes, fecha) VALUES (?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+			 String query = "INSERT INTO receta (titulo, procedimiento, categorias, ingredientes, fecha, id_usuario) VALUES (?, ?, ?, ?, ?, ?)";
+		        try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+		           
 			statement.setString(1, receta.getTitulo());
 			statement.setString(2, receta.getProcedimiento());
 			statement.setString(3, receta.getCategorias());
 			statement.setString(4, receta.getIngredientes());
 			statement.setDate(5, Date.valueOf(receta.getFecha()));
+			statement.setInt(6, receta.getIdUsuario());
 
 			int rowsInserted = statement.executeUpdate();
 

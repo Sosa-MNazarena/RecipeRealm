@@ -42,7 +42,7 @@ public class PantallaHomeChef extends JFrame {
 		JButton btnSubirReceta = new JButton("Subir Receta");
 		btnSubirReceta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaSubirReceta subirReceta = new PantallaSubirReceta();
+				PantallaSubirReceta subirReceta = new PantallaSubirReceta(perfil);
 				dispose();
 			}
 		});
