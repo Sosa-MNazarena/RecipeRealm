@@ -41,7 +41,7 @@ public class TablaFavoritos extends JFrame {
     	this.setVisible(true);
         this.perfil = perfil;
         controlador = new FavoritoControlador();
-        seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
+        seleccionado = new Receta(0, "", "", "", "", LocalDate.now(), 0);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1095, 704);
@@ -93,7 +93,7 @@ public class TablaFavoritos extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     int idReceta = (int) table.getValueAt(selectedRow, 0);
-                    Receta recetaSeleccionada = new Receta(idReceta, "Titulo", "Procedimiento", "Categorias", "Ingredientes", LocalDate.now());
+                    Receta recetaSeleccionada = new Receta(idReceta, "Titulo", "Procedimiento", "Categorias", "Ingredientes", LocalDate.now(), 0);
                     recetaSeleccionada.setIdReceta(idReceta);
                     controlador.removeFavorito(perfil, idReceta);
                     JOptionPane.showMessageDialog(null, "Receta eliminada de favoritos.");

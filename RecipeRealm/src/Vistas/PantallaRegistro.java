@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 
 public class PantallaRegistro extends JFrame {
 
@@ -59,69 +60,78 @@ public class PantallaRegistro extends JFrame {
 	public PantallaRegistro() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 940, 772);
+		setBounds(100, 100, 940, 733);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+				JLabel lblExito = new JLabel("");
+				lblExito.setForeground(new Color(0, 128, 0));
+				lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
+				lblExito.setBounds(468, 561, 356, 22);
+				contentPane.add(lblExito);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblNombre.setBounds(71, 201, 337, 22);
+		lblNombre.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblNombre.setBounds(71, 144, 337, 22);
 		contentPane.add(lblNombre);
 
 		inputNombre = new JTextField();
-		inputNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-		inputNombre.setBounds(71, 234, 356, 31);
+		inputNombre.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		inputNombre.setBounds(71, 177, 356, 31);
 		inputNombre.setBorder(new LineBorder(Color.GRAY, 2, true));
 		contentPane.add(inputNombre);
 
 		JLabel lblNombreUsuario = new JLabel("Nombre de usuario o pseudónimo");
-		lblNombreUsuario.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblNombreUsuario.setBounds(71, 289, 337, 22);
+		lblNombreUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblNombreUsuario.setBounds(71, 232, 337, 22);
 		contentPane.add(lblNombreUsuario);
 
 		inputNombreUsuario = new JTextField();
-		inputNombreUsuario.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-		inputNombreUsuario.setBounds(71, 322, 356, 31);
+		inputNombreUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		inputNombreUsuario.setBounds(71, 265, 356, 31);
 		inputNombreUsuario.setBorder(new LineBorder(Color.GRAY, 2, true));
 		contentPane.add(inputNombreUsuario);
 
 		JLabel lblCorreo = new JLabel("Correo Electrónico");
-		lblCorreo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblCorreo.setBounds(71, 377, 337, 22);
+		lblCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblCorreo.setBounds(71, 320, 337, 22);
 		contentPane.add(lblCorreo);
 
 		inputCorreo = new JTextField();
-		inputCorreo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-		inputCorreo.setBounds(71, 410, 356, 31);
+		inputCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		inputCorreo.setBounds(71, 353, 356, 31);
 		inputCorreo.setBorder(new LineBorder(Color.GRAY, 2, true));
 		contentPane.add(inputCorreo);
 
 		JLabel lblContrasena = new JLabel("Contraseña");
-		lblContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblContrasena.setBounds(71, 465, 337, 22);
+		lblContrasena.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblContrasena.setBounds(71, 408, 337, 22);
 		contentPane.add(lblContrasena);
 
 		inputContrasena = new JPasswordField();
-		inputContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-		inputContrasena.setBounds(71, 498, 356, 31);
+		inputContrasena.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		inputContrasena.setBounds(71, 441, 356, 31);
 		inputContrasena.setBorder(new LineBorder(Color.GRAY, 2, true));
 		contentPane.add(inputContrasena);
 
 		JLabel lblProfesional = new JLabel("¿Eres un chef profesional?");
-		lblProfesional.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblProfesional.setBounds(71, 563, 276, 22);
+		lblProfesional.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblProfesional.setBounds(71, 506, 276, 22);
 		contentPane.add(lblProfesional);
 
 		rdbtnChef = new JRadioButton("Chef");
-		rdbtnChef.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
-		rdbtnChef.setBounds(76, 596, 109, 23);
+		rdbtnChef.setBackground(new Color(255, 204, 102));
+		rdbtnChef.setFont(new Font("Lucida Console", Font.BOLD, 13));
+		rdbtnChef.setBounds(76, 539, 60, 23);
 		contentPane.add(rdbtnChef);
 
 		rdbtnAficionado = new JRadioButton("Aficionado");
-		rdbtnAficionado.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
-		rdbtnAficionado.setBounds(212, 596, 109, 23);
+		rdbtnAficionado.setBackground(new Color(255, 204, 51));
+		rdbtnAficionado.setFont(new Font("Lucida Console", Font.BOLD, 13));
+		rdbtnAficionado.setBounds(212, 539, 114, 23);
 		contentPane.add(rdbtnAficionado);
 
 		// Crear el grupo y agregar los botones
@@ -129,63 +139,74 @@ public class PantallaRegistro extends JFrame {
 		groupRol.add(rdbtnChef);
 		groupRol.add(rdbtnAficionado);
 
-		JLabel lblTitulo = new JLabel("Recipe Realm");
-		lblTitulo.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
-		lblTitulo.setBounds(356, 119, 176, 44);
-		contentPane.add(lblTitulo);
-
 		JLabel lblDescripcion = new JLabel("Cuéntanos algo de ti...");
-		lblDescripcion.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
-		lblDescripcion.setBounds(489, 201, 337, 22);
+		lblDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 15));
+		lblDescripcion.setBounds(468, 144, 337, 22);
 		contentPane.add(lblDescripcion);
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.setForeground(new Color(255, 255, 255));
-		btnRegistrarse.setBackground(new Color(0, 0, 0));
-		btnRegistrarse.setFont(new Font("Leelawadee UI", Font.PLAIN, 15));
-		btnRegistrarse.setBounds(489, 563, 356, 44);
+		btnRegistrarse.setBackground(new Color(205, 92, 92));
+		btnRegistrarse.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnRegistrarse.setBounds(468, 506, 356, 44);
 		contentPane.add(btnRegistrarse);
 
 		JLabel lblErrorNombre = new JLabel("");
 		lblErrorNombre.setForeground(Color.RED);
 		lblErrorNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorNombre.setBounds(71, 268, 356, 14);
+		lblErrorNombre.setBounds(71, 208, 356, 14);
 		contentPane.add(lblErrorNombre);
 
 		JLabel lblErrorNombreUsuario = new JLabel("");
 		lblErrorNombreUsuario.setForeground(Color.RED);
 		lblErrorNombreUsuario.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorNombreUsuario.setBounds(71, 353, 356, 14);
+		lblErrorNombreUsuario.setBounds(71, 295, 356, 14);
 		contentPane.add(lblErrorNombreUsuario);
 
 		JLabel lblErrorCorreo = new JLabel("");
 		lblErrorCorreo.setForeground(Color.RED);
 		lblErrorCorreo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorCorreo.setBounds(71, 441, 356, 14);
+		lblErrorCorreo.setBounds(71, 383, 356, 14);
 		contentPane.add(lblErrorCorreo);
 
 		JLabel lblErrorContrasena = new JLabel("");
 		lblErrorContrasena.setForeground(Color.RED);
 		lblErrorContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorContrasena.setBounds(71, 530, 356, 14);
+		lblErrorContrasena.setBounds(71, 470, 356, 37);
 		contentPane.add(lblErrorContrasena);
-
-		JLabel lblExito = new JLabel("");
-		lblExito.setForeground(new Color(0, 128, 0));
-		lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblExito.setBounds(489, 621, 356, 22);
-		contentPane.add(lblExito);
 
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		horizontalBox.setBounds(489, 241, 356, 288);
+		horizontalBox.setBounds(468, 184, 356, 288);
 		contentPane.add(horizontalBox);
 
 		JTextArea inputDescripcion = new JTextArea();
 		inputDescripcion.setLineWrap(true);
 		inputDescripcion.setWrapStyleWord(true);
 		inputDescripcion.setRows(5);
-		inputDescripcion.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
+		inputDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		horizontalBox.add(inputDescripcion);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setBounds(478, 519, 356, 44);
+		contentPane.add(panel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
+		panel.setBackground(new Color(255, 255, 204));
+		panel.setBounds(49, 52, 813, 563);
+		contentPane.add(panel);
+		
+				JLabel lblTitulo = new JLabel("Recipe Realm");
+				panel.add(lblTitulo);
+				lblTitulo.setFont(new Font("Lucida Console", Font.BOLD, 28));
+				
+				JPanel panel_2 = new JPanel();
+				panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
+				panel_2.setBackground(new Color(255, 204, 102));
+				panel_2.setBounds(81, 85, 813, 564);
+				contentPane.add(panel_2);
 
 		btnRegistrarse.addActionListener(new ActionListener() {
 

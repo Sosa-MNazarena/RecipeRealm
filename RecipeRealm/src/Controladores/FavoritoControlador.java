@@ -34,9 +34,10 @@ public class FavoritoControlador {
                     String categorias = rs.getString("categorias");
     				String ingredientes = rs.getString("ingredientes");
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                    int idUsuario = rs.getInt("id_usuario");
 
 
-                    Receta receta = new Receta(idReceta, titulo, procedimiento, categorias, ingredientes, fecha);
+                    Receta receta = new Receta(idReceta, titulo, procedimiento, categorias, ingredientes, fecha, idUsuario);
                     favoritos.add(receta);
                 }
             }
