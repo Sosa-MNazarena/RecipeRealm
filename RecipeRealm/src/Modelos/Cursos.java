@@ -7,18 +7,18 @@ import Controladores.CursoControlador;
 public class Cursos {
     private int idCurso;
     private String titulo;
-    private Perfil instructor;
+    private int idUsuario;
     private String lugar;
     private LocalDate dia;
     private int cupo;
     private double precio;
     private LocalTime horario;
 
-    public Cursos(int idCurso, String titulo, Perfil instructor, String lugar, LocalDate dia, int cupo,
+    public Cursos(int idCurso, String titulo, int idUsuario, String lugar, LocalDate dia, int cupo,
                   double precio, LocalTime horario) {
         this.idCurso = idCurso;
         this.titulo = titulo;
-        this.instructor = instructor;
+        this.idUsuario = idUsuario;
         this.lugar = lugar;
         this.dia = dia;
         this.cupo = cupo;
@@ -27,7 +27,7 @@ public class Cursos {
     }
 
 
-    public int getIdCurso() {
+	public int getIdCurso() {
         return idCurso;
     }
 
@@ -43,12 +43,12 @@ public class Cursos {
         this.titulo = titulo;
     }
 
-    public Perfil getInstructor() {
-        return instructor;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setInstructor(Perfil instructor) {
-        this.instructor = instructor;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getLugar() {
@@ -93,12 +93,12 @@ public class Cursos {
 
     @Override
     public String toString() {
-        return "Cursos [idCurso=" + idCurso + ", titulo=" + titulo + ", instructor=" + instructor +
+        return "Cursos [idCurso=" + idCurso + ", titulo=" + titulo + ", idUsuario=" + idUsuario +
                 ", lugar=" + lugar + ", dia=" + dia + ", cupo=" + cupo + ", precio=" + precio + ", horario=" + horario
                 + "]\n";
     }
     
-    public static String publicarCurso(String titulo, String lugar, LocalDate dia, int cupo, Double precio, LocalTime horario) {
+    public static String publicarCurso(String titulo, String lugar,int idUsuario, LocalDate dia, int cupo, Double precio, LocalTime horario) {
         if (titulo.isEmpty() || titulo.length() < 3) {
             return "Título inválido, debe tener más de 3 caracteres.";
         }
@@ -116,7 +116,7 @@ public class Cursos {
         }
 
 
-        Cursos curso = new Cursos(0, titulo, null, lugar, dia, cupo, precio, horario);
+        Cursos curso = new Cursos(0, titulo, idUsuario, lugar, dia, cupo, precio, horario);
         curso.setTitulo(titulo);
         curso.setLugar(lugar);
         curso.setDia(dia);

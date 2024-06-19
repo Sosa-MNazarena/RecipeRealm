@@ -40,8 +40,9 @@ public class CursoControlador implements CursoRepositorio {
                 int cupo = resultSet.getInt("cupo");
                 double precio = resultSet.getDouble("precio");
                 LocalTime horario = resultSet.getTime("horario").toLocalTime();
+                int idUsuario = resultSet.getInt("id_usuario");
 
-                Cursos cursito = new Cursos(idCurso, titulo, null, lugar, dia, cupo, precio, horario);
+                Cursos cursito = new Cursos(idCurso, titulo, idUsuario, lugar, dia, cupo, precio, horario);
                 curso.add(cursito);
             }
         } catch (SQLException e) {
@@ -67,7 +68,8 @@ public class CursoControlador implements CursoRepositorio {
                 int cupo = resultSet.getInt("cupo");
                 double precio = resultSet.getDouble("precio");
                 LocalTime horario = resultSet.getTime("horario").toLocalTime();
-                cursito = new Cursos(idCurso, titulo, null, lugar, dia, cupo, precio, horario);
+                int idUsuario = resultSet.getInt("id_usuario");
+                cursito = new Cursos(idCurso, titulo, idUsuario, lugar, dia, cupo, precio, horario);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,13 +80,14 @@ public class CursoControlador implements CursoRepositorio {
     @Override
     public void addCurso(Cursos curso) {
     		try {
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario) VALUES (?, ?, ?, ?, ?, ?)");
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO cursos (titulo, lugar, dia, cupo, precio, horario, id_usuario) VALUES (?, ?, ?, ?, ?, ?,?)");
                 statement.setString(1, curso.getTitulo());
                 statement.setString(2, curso.getLugar());
                 statement.setDate(3, Date.valueOf(curso.getDia()));
                 statement.setInt(4, curso.getCupo());
                 statement.setDouble(5, curso.getPrecio());
                 statement.setTime(6, Time.valueOf(curso.getHorario()));
+                statement.setInt(7, curso.getIdUsuario());
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {

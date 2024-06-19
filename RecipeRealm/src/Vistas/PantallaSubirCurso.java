@@ -9,8 +9,10 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
-
+import Controladores.CursoControlador;
+import Controladores.PerfilControlador;
 import Modelos.Cursos;
+import Modelos.Perfil;
 
 import java.awt.Color;
 import javax.swing.JSpinner;
@@ -32,21 +34,30 @@ public class PantallaSubirCurso extends JFrame {
 	private JTextField inputCupos;
 	private JTextField inputFecha;
 	private JTextField inputHorario;
+	private Perfil perfil;
+	private PerfilControlador controlador = new PerfilControlador();
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaSubirCurso frame = new PantallaSubirCurso();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	 public static void main(String[] args) {
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                    Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
+					LocalTime.now());
 
-	public PantallaSubirCurso() {
+	                    Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
+	                            "Descripción", true);
+	                    PantallaSubirCurso frame = new PantallaSubirCurso(perfil);
+	                    frame.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+	    }
+
+	public PantallaSubirCurso(Perfil perfil) {
+		
+		this.perfil=perfil;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 915, 724);
@@ -185,7 +196,8 @@ public class PantallaSubirCurso extends JFrame {
 		JButton btnPublicar = new JButton("Publicar");
 		btnPublicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),
+				int idUsuario = perfil.getIdUsuario();
+				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),perfil.getIdUsuario(),
 						LocalDate.parse(inputFecha.getText()), Integer.parseInt(inputCupos.getText()),
 						Double.parseDouble(inputPrecio.getText()), LocalTime.parse(inputHorario.getText()));
 				if (respuesta.equals("El curso se ha subido exitosamente.")) {
@@ -223,4 +235,7 @@ public class PantallaSubirCurso extends JFrame {
 		contentPane.add(lblNewLabel);
 
 	}
+
+
+
 }

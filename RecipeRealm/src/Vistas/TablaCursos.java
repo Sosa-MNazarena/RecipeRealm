@@ -75,7 +75,7 @@ public class TablaCursos extends JFrame {
 
 		// Inicializar controlador y curso seleccionado
 		controlador = new CursoControlador();
-		seleccionado = new Cursos(1, "Título del Curso", null, "Lugar del Curso", LocalDate.now(), 20, 100.0,
+		seleccionado = new Cursos(1, "Título del Curso", 0, "Lugar del Curso", LocalDate.now(), 20, 100.0,
 				LocalTime.now());
 
 		// Crear la tabla y el modelo
@@ -185,13 +185,10 @@ public class TablaCursos extends JFrame {
 	}
 
 	private void actualizarTabla() {
-		// Limpiar el modelo de la tabla
 		model.setRowCount(0);
 
-		// Obtener la lista actualizada de cursos
 		List<Cursos> cursos = controlador.getAllCursos();
 
-		// Agregar los datos al modelo
 		for (Cursos curso : cursos) {
 			model.addRow(new Object[] { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(),
 					curso.getDia().toString(), curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() });
@@ -199,13 +196,10 @@ public class TablaCursos extends JFrame {
 	}
 
 	private void buscarCurso(String criterio) {
-		// Limpiar el modelo de la tabla
 		model.setRowCount(0);
 
-		// Obtener la lista de cursos filtrados por título
 		List<Cursos> cursos = controlador.getAllCursos();
 
-		// Agregar los datos al modelo
 		for (Cursos curso : cursos) {
 			if (curso.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
 				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
