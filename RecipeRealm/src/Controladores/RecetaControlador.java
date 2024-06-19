@@ -1,5 +1,4 @@
 package Controladores;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -9,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.mysql.jdbc.Statement;
-
 import Modelos.Perfil;
 import Modelos.Receta;
 import interfaces.RecetaRepository;
@@ -76,6 +74,26 @@ public class RecetaControlador implements RecetaRepository {
 	}
 
 	@Override
+	public void updateReceta(Receta receta) {
+		String query = "UPDATE receta SET titulo = ?, procedimiento = ?, categorias = ?, ingredientes = ?, fecha = ? WHERE id_receta = ?";
+		try (PreparedStatement statement = connection.prepareStatement(query)) {
+			statement.setString(1, receta.getTitulo());
+			statement.setString(2, receta.getProcedimiento());
+			statement.setString(3, receta.getCategorias());
+			statement.setString(4, receta.getIngredientes());
+			statement.setDate(5, Date.valueOf(receta.getFecha()));
+			statement.setInt(6, receta.getIdReceta());
+			
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("Receta actualizada exitosamente.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error al actualizar la receta en la base de datos: " + e.getMessage());
+		}
+	}
+	@Override
 	public Receta getRecetaById(int id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -92,11 +110,6 @@ public class RecetaControlador implements RecetaRepository {
 
 	}
 
-	@Override
-	public void updateReceta(Receta receta) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void deleteReceta(int id) {

@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import Modelos.Receta;
 import Modelos.Perfil;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import Vistas.PantallaEditarPerfilChef;
 import Vistas.PantallaMisRecetas;
@@ -124,16 +125,18 @@ public class PantallaHomeChef extends JFrame {
 		contentPane.add(btnSubirCurso);
 		JButton btnMisRecetas = new JButton("Prueba de mis recetas");
 		btnMisRecetas.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Receta receta = new Receta(1, "Nombre de la receta", "Descripción de la receta", "Categoría", "Ingredientes", LocalDate.now(), 1);
 
-			public void actionPerformed(ActionEvent e) {
-				PantallaMisRecetas pantallaMisRecetas = new PantallaMisRecetas(perfil);
-				pantallaMisRecetas.setVisible(true);
-				dispose();
-			}
+		        PantallaMisRecetas pantallaMisRecetas = new PantallaMisRecetas(receta, perfil);
+		        pantallaMisRecetas.setVisible(true);
+		        dispose();
+		    }
 		});
 		btnMisRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
 		btnMisRecetas.setBackground(Color.LIGHT_GRAY);
 		btnMisRecetas.setBounds(400, 734, 205, 34);
 		contentPane.add(btnMisRecetas);
+		
 	}
 }
