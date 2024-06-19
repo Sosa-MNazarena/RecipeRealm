@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
-import Vistas.PantallaEditarReceta;
 import Controladores.RecetaControlador;
 import Modelos.Perfil;
 import Modelos.Receta;
@@ -34,7 +33,7 @@ public class PantallaMisRecetas extends JFrame {
 
                     Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
                             "Descripción", true);
-                    PantallaMisRecetas frame = new PantallaMisRecetas(receta, perfil);
+                    PantallaMisRecetas frame = new PantallaMisRecetas(perfil);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -43,7 +42,7 @@ public class PantallaMisRecetas extends JFrame {
         });
     }
 
-    public PantallaMisRecetas(Receta receta, Perfil perfil) {
+    public PantallaMisRecetas(Perfil perfil) {
         this.perfilActual = perfil;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
@@ -63,15 +62,20 @@ public class PantallaMisRecetas extends JFrame {
         JButton btnEditarReceta = new JButton("Editar Receta");
         btnEditarReceta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PantallaEditarReceta pantallaEditarReceta = new PantallaEditarReceta(receta, perfil);
-                pantallaEditarReceta.setVisible(true);
-                dispose();
+                if (seleccionado.getIdReceta() != 0) {
+                    PantallaEditarReceta pantallaEditarReceta = new PantallaEditarReceta(seleccionado, perfilActual);
+                    pantallaEditarReceta.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una receta");
+                }
             }
         });
         btnEditarReceta.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
         btnEditarReceta.setBackground(Color.LIGHT_GRAY);
         btnEditarReceta.setBounds(15, 513, 205, 37);
         contentPane.add(btnEditarReceta);
+
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(15, 131, 756, 350);
@@ -148,12 +152,10 @@ public class PantallaMisRecetas extends JFrame {
             }
         });
 
-        mostrarRecetasDeUsuarioLocal("");
-
-        this.setVisible(true);
+        mostrarRecetasDeUsuarioLocal();
     }
 
-    private void mostrarRecetasDeUsuarioLocal(String criterio) {
+    private void mostrarRecetasDeUsuarioLocal() {
         model.setRowCount(0);
         List<Receta> recetas = controlador.getAllRecetas();
 
@@ -167,6 +169,6 @@ public class PantallaMisRecetas extends JFrame {
     }
 
     private void actualizarTabla() {
-        mostrarRecetasDeUsuarioLocal("");
+        mostrarRecetasDeUsuarioLocal();
     }
 }

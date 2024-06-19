@@ -12,7 +12,7 @@ public interface RecetaRepository {
 
 	void addReceta(Receta receta);
 
-	void updateReceta(Receta receta);
+	boolean updateReceta(Receta receta);
 
 	void deleteReceta(int id);
 

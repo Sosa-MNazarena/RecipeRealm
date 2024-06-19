@@ -128,7 +128,7 @@ public class PantallaHomeChef extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        Receta receta = new Receta(1, "Nombre de la receta", "Descripción de la receta", "Categoría", "Ingredientes", LocalDate.now(), 1);
 
-		        PantallaMisRecetas pantallaMisRecetas = new PantallaMisRecetas(receta, perfil);
+		        PantallaMisRecetas pantallaMisRecetas = new PantallaMisRecetas(perfil);
 		        pantallaMisRecetas.setVisible(true);
 		        dispose();
 		    }
