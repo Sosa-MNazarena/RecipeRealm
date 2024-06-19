@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 import Controladores.PerfilControlador;
+import java.awt.FlowLayout;
 
 public class PantallaInicioSesion extends JFrame {
 
@@ -54,10 +55,12 @@ public class PantallaInicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaInicioSesion(Perfil perfil) {
+		setTitle("Iniciar Sesión");
 		 this.perfilControlador = new PerfilControlador();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 940, 772);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -108,8 +111,8 @@ public class PantallaInicioSesion extends JFrame {
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setSelectedIcon(null);
 		btnIniciarSesion.setForeground(new Color(255, 255, 255));
-		btnIniciarSesion.setBackground(new Color(0, 0, 0));
-		btnIniciarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnIniciarSesion.setBackground(new Color(205, 92, 92));
+		btnIniciarSesion.setFont(new Font("Lucida Console", Font.BOLD, 15));
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String correo = inputCorreo.getText();
@@ -141,7 +144,7 @@ public class PantallaInicioSesion extends JFrame {
 			}
 		}
 		});
-		btnIniciarSesion.setBounds(284, 403, 356, 37);
+		btnIniciarSesion.setBounds(284, 407, 356, 37);
 		contentPane.add(btnIniciarSesion);
 		
 		//imprimir en pantalla
@@ -149,14 +152,14 @@ public class PantallaInicioSesion extends JFrame {
 
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setBackground(new Color(192, 192, 192));
+		btnRegistrarse.setBackground(new Color(255, 255, 204));
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PantallaRegistro registrarse = new PantallaRegistro();
 				dispose();
 			}
 		});
-		btnRegistrarse.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		btnRegistrarse.setFont(new Font("Lucida Console", Font.BOLD, 15));
 		btnRegistrarse.setBounds(284, 489, 356, 37);
 		contentPane.add(btnRegistrarse);
 		
@@ -165,15 +168,35 @@ public class PantallaInicioSesion extends JFrame {
 		horizontalBox_2.setBounds(309, 466, 305, 1);
 		contentPane.add(horizontalBox_2);
 		
-		JLabel lblNewLabel = new JLabel("Recipe Realm");
-		lblNewLabel.setFont(new Font("Leelawadee UI", Font.PLAIN, 28));
-		lblNewLabel.setBounds(374, 118, 176, 44);
+		JLabel lblNewLabel = new JLabel("RECIPE REALM");
+		lblNewLabel.setFont(new Font("Lucida Console", Font.PLAIN, 28));
+		lblNewLabel.setBounds(352, 118, 219, 44);
 		contentPane.add(lblNewLabel);
 		
-		Box horizontalBox_3 = Box.createHorizontalBox();
-		horizontalBox_3.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		horizontalBox_3.setBounds(115, 46, 694, 616);
-		contentPane.add(horizontalBox_3);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBounds(294, 421, 356, 37);
+		contentPane.add(panel_1);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBackground(new Color(255, 204, 0));
+		panel_1_1.setBounds(294, 504, 356, 37);
+		contentPane.add(panel_1_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
+		panel_2.setBackground(new Color(255, 204, 102));
+		panel_2.setBounds(170, 118, 583, 44);
+		contentPane.add(panel_2);
+		
+		JPanel panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
+		panel.setBackground(new Color(255, 255, 204));
+		panel.setBounds(170, 53, 583, 568);
+		contentPane.add(panel);
 		
 		
 	}
