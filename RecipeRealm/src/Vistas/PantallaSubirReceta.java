@@ -137,7 +137,9 @@ public class PantallaSubirReceta extends JFrame {
 				int idUsuario = perfil.getIdUsuario();
 				
 				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
-						categorias, ingredientes, fecha, perfil.getIdUsuario());
+						categorias, ingredientes, fecha, perfil.getIdUsuario());dispose();
+		                PantallaHomeChef pantallaHomeChef = new PantallaHomeChef(perfil);
+		                pantallaHomeChef.setVisible(true);
 
 			}
 		});
@@ -176,7 +178,8 @@ public class PantallaSubirReceta extends JFrame {
 		inputCantidadIngrediente.setColumns(10);
 
 		listaIngredientes = new ArrayList<>();
-		listaCategorias = new ArrayList<>();
+		listaCategorias = new ArrayList<>(); // Botón Volver
+
 	}
 
 	private void agregarIngrediente() {

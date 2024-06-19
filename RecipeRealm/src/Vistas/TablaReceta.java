@@ -69,7 +69,7 @@ public class TablaReceta extends JFrame {
         // inicializar controlador
         controlador = new RecetaControlador();
         favControlador = new FavoritoControlador();
-        seleccionado = new Receta(0, "", "", "", "", LocalDate.now());
+        seleccionado = new Receta(0, "", "", "", "", LocalDate.now(),0);
 
         // tabla y modelo
         String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha" };
