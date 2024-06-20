@@ -53,7 +53,7 @@ public class PantallaHomeChef extends JFrame {
 				dispose();
 			}
 		});
-		btnSubirReceta.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\recipe.png"));
+		btnSubirReceta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIcon.png")));
 		btnSubirReceta.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnSubirReceta.setBackground(new Color(255, 255, 255));
 		btnSubirReceta.setBounds(141, 116, 694, 93);
@@ -67,7 +67,7 @@ public class PantallaHomeChef extends JFrame {
 
 			}
 		});
-		btnMisFavoritos.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\opinion-del-cliente (2).png"));
+		btnMisFavoritos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/corazonIcon.png")));
 		btnMisFavoritos.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMisFavoritos.setBackground(new Color(255, 255, 255));
 		btnMisFavoritos.setBounds(141, 242, 694, 93);
@@ -80,6 +80,7 @@ public class PantallaHomeChef extends JFrame {
 				dispose();
 			}
 		});
+		btnMenuRecetas.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/menuIcon.png")));
 		btnMenuRecetas.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuRecetas.setBackground(new Color(255, 255, 255));
 		btnMenuRecetas.setBounds(138, 482, 694, 93);
@@ -92,6 +93,7 @@ public class PantallaHomeChef extends JFrame {
 				dispose();
 			}
 		});
+		btnMenuCursos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/cerditoIcon.png")));
 		btnMenuCursos.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuCursos.setBackground(new Color(255, 255, 255));
 		btnMenuCursos.setBounds(139, 600, 694, 93);
@@ -104,18 +106,20 @@ public class PantallaHomeChef extends JFrame {
 				editarPerfil.setVisible(true);
 			}
 		});
+		
+		btnEditarPerfil.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/usuarioIconMini.png")));
 
 		btnEditarPerfil.setForeground(Color.WHITE);
 		btnEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 		btnEditarPerfil.setBackground(Color.GRAY);
-		btnEditarPerfil.setBounds(389, 718, 205, 54);
+		btnEditarPerfil.setBounds(141, 718, 338, 54);
 		contentPane.add(btnEditarPerfil);
 
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
 		btnCerrarSesion.setForeground(Color.WHITE);
 		btnCerrarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 		btnCerrarSesion.setBackground(Color.BLACK);
-		btnCerrarSesion.setBounds(861, 348, 205, 54);
+		btnCerrarSesion.setBounds(497, 718, 338, 54);
 		contentPane.add(btnCerrarSesion);
 
 		JButton btnSubirCurso = new JButton("Subir Curso");
@@ -125,7 +129,7 @@ public class PantallaHomeChef extends JFrame {
 				dispose();
 			}
 		});
-		btnSubirCurso.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\revista.png"));
+		btnSubirCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/libroIcon.png")));
 		btnSubirCurso.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnSubirCurso.setBackground(new Color(255, 255, 255));
 		btnSubirCurso.setBounds(140, 362, 694, 93);
@@ -142,7 +146,7 @@ public class PantallaHomeChef extends JFrame {
 		});
 		btnMisRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
 		btnMisRecetas.setBackground(Color.LIGHT_GRAY);
-		btnMisRecetas.setBounds(730, 738, 205, 34);
+		btnMisRecetas.setBounds(861, 583, 205, 34);
 		contentPane.add(btnMisRecetas);
 		
 		JButton btnMisRecetas_1 = new JButton("Prueba de mis cursos");
@@ -158,7 +162,7 @@ public class PantallaHomeChef extends JFrame {
 		});
 		btnMisRecetas_1.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
 		btnMisRecetas_1.setBackground(Color.LIGHT_GRAY);
-		btnMisRecetas_1.setBounds(112, 734, 205, 34);
+		btnMisRecetas_1.setBounds(861, 628, 205, 34);
 		contentPane.add(btnMisRecetas_1);
 		
 		JPanel panel_1_1 = new JPanel();
@@ -193,10 +197,10 @@ public class PantallaHomeChef extends JFrame {
 		
 		JLabel lblParaChefs = new JLabel("para chefs");
 		lblParaChefs.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblParaChefs.setForeground(Color.WHITE);
+		lblParaChefs.setForeground(new Color(255, 255, 102));
 		lblParaChefs.setFont(new Font("Book Antiqua", Font.BOLD, 15));
 		lblParaChefs.setBackground(Color.WHITE);
-		lblParaChefs.setBounds(873, 29, 155, 36);
+		lblParaChefs.setBounds(873, 29, 155, 25);
 		contentPane.add(lblParaChefs);
 		
 	}
