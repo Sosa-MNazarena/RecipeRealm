@@ -69,18 +69,11 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		panelIngredientes = new JPanel();
-		panelIngredientes.setBackground(new Color(255, 51, 51));
-		panelIngredientes.setForeground(Color.WHITE);
-		panelIngredientes.setBounds(43, 240, 150, 196);
-		contentPane.add(panelIngredientes);
-		panelIngredientes.setLayout(null);
 		
 		panelCategorias = new JPanel();
 	    panelCategorias.setBackground(new Color(255, 51, 51));
 	    panelCategorias.setForeground(Color.WHITE);
-	    panelCategorias.setBounds(50, 240, 150, 196);
+	    panelCategorias.setBounds(43, 388, 284, 51);
 	    contentPane.add(panelCategorias);
 	    panelCategorias.setLayout(null);
 
@@ -118,6 +111,7 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.add(lblProcedimiento);
 
 		JButton btnPublicarReceta = new JButton("Publicar Receta");
+		btnPublicarReceta.setBackground(Color.WHITE);
 		btnPublicarReceta.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		btnPublicarReceta.setBounds(363, 489, 354, 29);
 		contentPane.add(btnPublicarReceta);
@@ -156,6 +150,7 @@ public class PantallaSubirReceta extends JFrame {
 		lblNombreIngrediente.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 
 		JButton btnAgregarIngrediente = new JButton("Agregar");
+		btnAgregarIngrediente.setBackground(Color.WHITE);
 		btnAgregarIngrediente.setBounds(43, 207, 92, 29);
 		contentPane.add(btnAgregarIngrediente);
 		btnAgregarIngrediente.addActionListener(new ActionListener() {
@@ -209,6 +204,7 @@ public class PantallaSubirReceta extends JFrame {
 						lblCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 						
 								JButton btnAgregarCategoria = new JButton("Agregar");
+								btnAgregarCategoria.setBackground(Color.WHITE);
 								btnAgregarCategoria.setBounds(43, 492, 92, 29);
 								contentPane.add(btnAgregarCategoria);
 								btnAgregarCategoria.addActionListener(new ActionListener() {
@@ -218,6 +214,13 @@ public class PantallaSubirReceta extends JFrame {
 									}
 								});
 								btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+								
+										panelIngredientes = new JPanel();
+										panelIngredientes.setBounds(43, 240, 284, 144);
+										contentPane.add(panelIngredientes);
+										panelIngredientes.setBackground(new Color(255, 51, 51));
+										panelIngredientes.setForeground(new Color(255, 255, 255));
+										panelIngredientes.setLayout(null);
 
 		listaIngredientes = new ArrayList<>();
 		listaCategorias = new ArrayList<>();

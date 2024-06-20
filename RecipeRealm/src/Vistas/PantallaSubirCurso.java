@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class PantallaSubirCurso extends JFrame {
 
@@ -62,6 +63,7 @@ public class PantallaSubirCurso extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 915, 724);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -122,33 +124,39 @@ public class PantallaSubirCurso extends JFrame {
 		inputHorario.setColumns(10);
 
 		JLabel lblTitulo = new JLabel("Título");
-		lblTitulo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-		lblTitulo.setBounds(109, 183, 108, 20);
+		lblTitulo.setForeground(Color.WHITE);
+		lblTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblTitulo.setBounds(109, 197, 108, 20);
 		contentPane.add(lblTitulo);
 
 		JLabel lblLugar = new JLabel("Lugar");
-		lblLugar.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-		lblLugar.setBounds(109, 267, 108, 33);
+		lblLugar.setForeground(Color.WHITE);
+		lblLugar.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblLugar.setBounds(109, 285, 108, 20);
 		contentPane.add(lblLugar);
 
 		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-		lblPrecio.setBounds(489, 183, 108, 20);
+		lblPrecio.setForeground(Color.WHITE);
+		lblPrecio.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblPrecio.setBounds(489, 197, 108, 20);
 		contentPane.add(lblPrecio);
 
 		JLabel lblCupos = new JLabel("Cupos Disponibles");
-		lblCupos.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-		lblCupos.setBounds(489, 273, 129, 20);
+		lblCupos.setForeground(Color.WHITE);
+		lblCupos.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblCupos.setBounds(488, 285, 179, 20);
 		contentPane.add(lblCupos);
 
 		JLabel lblDa = new JLabel("Día");
-		lblDa.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+		lblDa.setForeground(Color.WHITE);
+		lblDa.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblDa.setBounds(109, 379, 30, 20);
 		contentPane.add(lblDa);
 
 		JLabel lblHorario = new JLabel("Horario");
-		lblHorario.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-		lblHorario.setBounds(235, 379, 57, 20);
+		lblHorario.setForeground(Color.WHITE);
+		lblHorario.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblHorario.setBounds(235, 379, 87, 20);
 		contentPane.add(lblHorario);
 
 		JLabel lblErrorTitulo = new JLabel("");
@@ -224,18 +232,73 @@ public class PantallaSubirCurso extends JFrame {
 			}
 		});
 		btnPublicar.setForeground(Color.WHITE);
-		btnPublicar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnPublicar.setBackground(Color.BLACK);
+		btnPublicar.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnPublicar.setBackground(new Color(255, 153, 153));
 		btnPublicar.setBounds(489, 379, 274, 37);
 		contentPane.add(btnPublicar);
-
-		JLabel lblNewLabel = new JLabel("Subí tu curso acá");
-		lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 23));
-		lblNewLabel.setBounds(350, 109, 188, 35);
-		contentPane.add(lblNewLabel);
+		
+		JLabel lblSubTuCurso = new JLabel("Subí tu curso acá");
+		lblSubTuCurso.setBackground(new Color(153, 0, 0));
+		lblSubTuCurso.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubTuCurso.setForeground(Color.WHITE);
+		lblSubTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 24));
+		lblSubTuCurso.setBounds(0, 94, 901, 44);
+		contentPane.add(lblSubTuCurso);
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1.setBorder(null);
+		panel_1_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1_1.setBounds(0, 94, 901, 44);
+		contentPane.add(panel_1_1_1);
+		
+		JPanel panel_1_1_2 = new JPanel();
+		panel_1_1_2.setForeground(new Color(51, 51, 0));
+		panel_1_1_2.setBackground(new Color(255, 204, 0));
+		panel_1_1_2.setBounds(489, 219, 270, 30);
+		contentPane.add(panel_1_1_2);
+		
+		JPanel panel_1_1_3 = new JPanel();
+		panel_1_1_3.setForeground(new Color(51, 51, 0));
+		panel_1_1_3.setBackground(new Color(255, 204, 0));
+		panel_1_1_3.setBounds(499, 228, 270, 30);
+		contentPane.add(panel_1_1_3);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBackground(new Color(255, 204, 0));
+		panel_1_1.setBounds(119, 316, 270, 30);
+		contentPane.add(panel_1_1);
+		
+		JPanel panel_1_1_4 = new JPanel();
+		panel_1_1_4.setForeground(new Color(51, 51, 0));
+		panel_1_1_4.setBackground(new Color(255, 204, 0));
+		panel_1_1_4.setBounds(499, 316, 270, 30);
+		contentPane.add(panel_1_1_4);
+		
+		JPanel panel_1_1_5 = new JPanel();
+		panel_1_1_5.setForeground(new Color(51, 51, 0));
+		panel_1_1_5.setBackground(new Color(255, 204, 0));
+		panel_1_1_5.setBounds(119, 228, 270, 30);
+		contentPane.add(panel_1_1_5);
+		
+		JPanel panel_1_1_6 = new JPanel();
+		panel_1_1_6.setForeground(new Color(51, 51, 0));
+		panel_1_1_6.setBackground(new Color(255, 204, 0));
+		panel_1_1_6.setBounds(306, 392, 85, 30);
+		contentPane.add(panel_1_1_6);
+		
+		JPanel panel_1_1_6_1 = new JPanel();
+		panel_1_1_6_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_6_1.setBackground(new Color(255, 204, 0));
+		panel_1_1_6_1.setBounds(148, 392, 85, 30);
+		contentPane.add(panel_1_1_6_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setBounds(499, 385, 274, 37);
+		contentPane.add(panel_1);
 
 	}
-
-
-
 }
