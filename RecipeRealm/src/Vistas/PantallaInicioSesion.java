@@ -94,7 +94,7 @@ public class PantallaInicioSesion extends JFrame {
 		
 		JLabel lblCorreo = new JLabel("Correo Electrónico");
 		lblCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 15));
-		lblCorreo.setBounds(284, 217, 163, 14);
+		lblCorreo.setBounds(284, 217, 235, 14);
 		contentPane.add(lblCorreo);
 		
 		JLabel lblErrorCorreo = new JLabel("");

@@ -1,7 +1,5 @@
 package Vistas;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -31,20 +29,24 @@ public class PantallaEditarReceta extends JFrame {
         this.recetaControlador = new RecetaControlador();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        setBounds(100, 100, 800, 560);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(242, 242, 242));
+        contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         JLabel lblEditarReceta = new JLabel("Editar Receta");
-        lblEditarReceta.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 26));
-        lblEditarReceta.setBounds(300, 30, 200, 34);
+        lblEditarReceta.setForeground(new Color(255, 255, 255));
+        lblEditarReceta.setHorizontalAlignment(SwingConstants.CENTER);
+        lblEditarReceta.setFont(new Font("Lucida Console", Font.BOLD, 26));
+        lblEditarReceta.setBounds(0, 20, 786, 44);
         contentPane.add(lblEditarReceta);
+        lblEditarReceta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIconMini.png")));
 
         JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+        lblNombre.setForeground(Color.WHITE);
+        lblNombre.setFont(new Font("Lucida Console", Font.PLAIN, 16));
         lblNombre.setBounds(104, 98, 100, 20);
         contentPane.add(lblNombre);
 
@@ -54,19 +56,22 @@ public class PantallaEditarReceta extends JFrame {
         txtNombre.setColumns(10);
 
         JLabel lblDescripcion = new JLabel("Descripción:");
-        lblDescripcion.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        lblDescripcion.setBounds(104, 148, 100, 20);
+        lblDescripcion.setForeground(Color.WHITE);
+        lblDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+        lblDescripcion.setBounds(104, 148, 111, 20);
         contentPane.add(lblDescripcion);
 
         txtDescripcion = new JTextArea(receta.getProcedimiento());
+        txtDescripcion.setBackground(new Color(255, 255, 204));
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setBounds(214, 149, 460, 100);
         contentPane.add(txtDescripcion);
 
         JLabel lblIngredientes = new JLabel("Ingredientes:");
-        lblIngredientes.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
-        lblIngredientes.setBounds(104, 273, 100, 20);
+        lblIngredientes.setForeground(Color.WHITE);
+        lblIngredientes.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+        lblIngredientes.setBounds(104, 273, 118, 20);
         contentPane.add(lblIngredientes);
 
         txtIngredientes = new JTextField(receta.getIngredientes());
@@ -75,7 +80,8 @@ public class PantallaEditarReceta extends JFrame {
         txtIngredientes.setColumns(10);
 
         JLabel lblCategoria = new JLabel("Categoría:");
-        lblCategoria.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+        lblCategoria.setForeground(Color.WHITE);
+        lblCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         lblCategoria.setBounds(104, 323, 100, 20);
         contentPane.add(lblCategoria);
 
@@ -98,7 +104,7 @@ public class PantallaEditarReceta extends JFrame {
                 dispose();
             }
         });
-        btnGuardar.setBounds(104, 388, 180, 41);
+        btnGuardar.setBounds(379, 387, 295, 41);
         contentPane.add(btnGuardar);
 
         JButton btnCancelar = new JButton("Cancelar");
@@ -111,7 +117,44 @@ public class PantallaEditarReceta extends JFrame {
                 dispose();
             }
         });
-        btnCancelar.setBounds(494, 388, 180, 41);
+        btnCancelar.setBounds(525, 451, 149, 41);
         contentPane.add(btnCancelar);
+        
+        JPanel panel_1_1_1 = new JPanel();
+        panel_1_1_1.setForeground(new Color(51, 51, 0));
+        panel_1_1_1.setBorder(null);
+        panel_1_1_1.setBackground(new Color(153, 0, 0));
+        panel_1_1_1.setBounds(0, 20, 786, 44);
+        contentPane.add(panel_1_1_1);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setForeground(new Color(51, 51, 0));
+        panel_1.setBackground(new Color(128, 0, 0));
+        panel_1.setBounds(389, 392, 290, 44);
+        contentPane.add(panel_1);
+        
+        JPanel panel_1_1 = new JPanel();
+        panel_1_1.setForeground(new Color(51, 51, 0));
+        panel_1_1.setBackground(new Color(255, 204, 0));
+        panel_1_1.setBounds(535, 458, 144, 41);
+        contentPane.add(panel_1_1);
+        
+        JPanel panel_1_1_2 = new JPanel();
+        panel_1_1_2.setForeground(new Color(51, 51, 0));
+        panel_1_1_2.setBackground(new Color(255, 204, 0));
+        panel_1_1_2.setBounds(220, 332, 458, 30);
+        contentPane.add(panel_1_1_2);
+        
+        JPanel panel_1_1_2_1 = new JPanel();
+        panel_1_1_2_1.setForeground(new Color(51, 51, 0));
+        panel_1_1_2_1.setBackground(new Color(255, 204, 0));
+        panel_1_1_2_1.setBounds(220, 278, 458, 30);
+        contentPane.add(panel_1_1_2_1);
+        
+        JPanel panel_1_1_2_2 = new JPanel();
+        panel_1_1_2_2.setForeground(new Color(51, 51, 0));
+        panel_1_1_2_2.setBackground(new Color(255, 204, 0));
+        panel_1_1_2_2.setBounds(220, 102, 458, 30);
+        contentPane.add(panel_1_1_2_2);
     }
 }
