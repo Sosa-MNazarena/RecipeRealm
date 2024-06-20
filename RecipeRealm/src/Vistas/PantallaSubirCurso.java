@@ -62,7 +62,7 @@ public class PantallaSubirCurso extends JFrame {
 		this.perfil=perfil;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 915, 724);
+		setBounds(100, 100, 913, 552);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -233,7 +233,7 @@ public class PantallaSubirCurso extends JFrame {
 			}
 		});
 		btnPublicar.setForeground(Color.WHITE);
-		btnPublicar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnPublicar.setFont(new Font("Lucida Console", Font.BOLD, 15));
 		btnPublicar.setBackground(new Color(255, 153, 153));
 		btnPublicar.setBounds(489, 379, 274, 37);
 		contentPane.add(btnPublicar);

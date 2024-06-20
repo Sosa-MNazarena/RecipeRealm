@@ -110,7 +110,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JButton btnGuardar = new JButton("Guardar cambios");
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnGuardar.setBackground(Color.BLACK);
+		btnGuardar.setBackground(new Color(255, 153, 153));
 		btnGuardar.setBounds(30, 411, 356, 37);
 		contentPane.add(btnGuardar);
 		
@@ -138,7 +138,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnCancelar.setBackground(Color.BLACK);
+		btnCancelar.setBackground(new Color(255, 255, 204));
 		btnCancelar.setBounds(210, 459, 176, 37);
 		contentPane.add(btnCancelar);
 		

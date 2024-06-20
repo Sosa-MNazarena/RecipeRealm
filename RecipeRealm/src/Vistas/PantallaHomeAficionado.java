@@ -38,8 +38,9 @@ public class PantallaHomeAficionado extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnSubirReceta = new JButton("Subir Receta");
+		btnSubirReceta.setForeground(new Color(0, 0, 0));
 		btnSubirReceta.setBackground(Color.WHITE);
-		btnSubirReceta.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
+		btnSubirReceta.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		btnSubirReceta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIcon.png")));
 		btnSubirReceta.setBounds(179, 94, 694, 93);
 		contentPane.add(btnSubirReceta);
@@ -53,14 +54,14 @@ public class PantallaHomeAficionado extends JFrame {
 		
 		JButton btnMenuRecetas = new JButton("Recetas");
 		btnMenuRecetas.setBackground(Color.WHITE);
-		btnMenuRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		btnMenuRecetas.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuRecetas.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/menuIcon.png")));
 		btnMenuRecetas.setBounds(179, 338, 694, 93);
 		contentPane.add(btnMenuRecetas);
 		
 		JButton btnEditarPerfil = new JButton("Editar Perfil");
-		btnEditarPerfil.setForeground(new Color(255, 255, 255));
-		btnEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
+		btnEditarPerfil.setForeground(new Color(0, 0, 0));
+		btnEditarPerfil.setFont(new Font("Lucida Console", Font.BOLD, 17));
 		btnEditarPerfil.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/usuarioIcon.png")));
 		btnEditarPerfil.setBackground(Color.WHITE);
 		btnEditarPerfil.setBounds(179, 580, 694, 93);
@@ -74,23 +75,25 @@ public class PantallaHomeAficionado extends JFrame {
 	    });
 		
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
+		btnMisFavoritos.setForeground(new Color(0, 0, 0));
 		btnMisFavoritos.setBackground(Color.WHITE);
-		btnMisFavoritos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
+		btnMisFavoritos.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		btnMisFavoritos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/corazonIcon.png")));
 		btnMisFavoritos.setBounds(179, 217, 694, 93);
 		contentPane.add(btnMisFavoritos);
 		
 		JButton btnMenuCursos = new JButton("Cursos");
+		btnMenuCursos.setForeground(new Color(0, 0, 0));
 		btnMenuCursos.setBackground(Color.WHITE);
-		btnMenuCursos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		btnMenuCursos.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuCursos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/cerditoIcon.png")));
 		btnMenuCursos.setBounds(179, 462, 694, 93);
 		contentPane.add(btnMenuCursos);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
-		btnCerrarSesion.setBackground(new Color(0, 0, 0));
+		btnCerrarSesion.setBackground(new Color(255, 153, 153));
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
-		btnCerrarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
+		btnCerrarSesion.setFont(new Font("Lucida Console", Font.BOLD, 17));
 		btnCerrarSesion.setBounds(668, 715, 205, 54);
 		contentPane.add(btnCerrarSesion);
 		
@@ -138,5 +141,11 @@ public class PantallaHomeAficionado extends JFrame {
 		panel_1_1_1_1_1_1.setBackground(new Color(153, 0, 0));
 		panel_1_1_1_1_1_1.setBounds(189, 592, 699, 97);
 		contentPane.add(panel_1_1_1_1_1_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setBounds(678, 726, 210, 54);
+		contentPane.add(panel_1);
 	}
 }
