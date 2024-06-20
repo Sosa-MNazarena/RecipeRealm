@@ -17,6 +17,7 @@ import javax.swing.border.LineBorder;
 
 import Modelos.Perfil;
 import Vistas.PantallaEditarPerfilChef;
+import javax.swing.SwingConstants;
 
 public class PantallaHomeAficionado extends JFrame {
 
@@ -30,16 +31,17 @@ public class PantallaHomeAficionado extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 856);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JButton btnSubirReceta = new JButton("Subir Receta");
-		btnSubirReceta.setBackground(new Color(192, 192, 192));
+		btnSubirReceta.setBackground(Color.WHITE);
 		btnSubirReceta.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
-		btnSubirReceta.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\recipe.png"));
-		btnSubirReceta.setBounds(250, 183, 205, 191);
+		btnSubirReceta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIcon.png")));
+		btnSubirReceta.setBounds(179, 94, 694, 93);
 		contentPane.add(btnSubirReceta);
 		btnSubirReceta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -48,17 +50,20 @@ public class PantallaHomeAficionado extends JFrame {
 			}
 		});
 		
+		
 		JButton btnMenuRecetas = new JButton("Recetas");
-		btnMenuRecetas.setBackground(new Color(192, 192, 192));
+		btnMenuRecetas.setBackground(Color.WHITE);
 		btnMenuRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		btnMenuRecetas.setBounds(250, 423, 480, 63);
+		btnMenuRecetas.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/menuIcon.png")));
+		btnMenuRecetas.setBounds(179, 338, 694, 93);
 		contentPane.add(btnMenuRecetas);
 		
 		JButton btnEditarPerfil = new JButton("Editar Perfil");
 		btnEditarPerfil.setForeground(new Color(255, 255, 255));
 		btnEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-		btnEditarPerfil.setBackground(new Color(128, 128, 128));
-		btnEditarPerfil.setBounds(250, 631, 205, 54);
+		btnEditarPerfil.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/usuarioIcon.png")));
+		btnEditarPerfil.setBackground(Color.WHITE);
+		btnEditarPerfil.setBounds(179, 580, 694, 93);
 		contentPane.add(btnEditarPerfil);
 		
 		btnEditarPerfil.addActionListener(new ActionListener() {
@@ -69,33 +74,69 @@ public class PantallaHomeAficionado extends JFrame {
 	    });
 		
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
-		btnMisFavoritos.setBackground(new Color(192, 192, 192));
+		btnMisFavoritos.setBackground(Color.WHITE);
 		btnMisFavoritos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
-		btnMisFavoritos.setIcon(new ImageIcon("D:\\Mis Datos\\Downloads\\opinion-del-cliente (2).png"));
-		btnMisFavoritos.setBounds(525, 183, 205, 191);
+		btnMisFavoritos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/corazonIcon.png")));
+		btnMisFavoritos.setBounds(179, 217, 694, 93);
 		contentPane.add(btnMisFavoritos);
 		
 		JButton btnMenuCursos = new JButton("Cursos");
-		btnMenuCursos.setBackground(new Color(192, 192, 192));
+		btnMenuCursos.setBackground(Color.WHITE);
 		btnMenuCursos.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		btnMenuCursos.setBounds(250, 516, 480, 63);
+		btnMenuCursos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/cerditoIcon.png")));
+		btnMenuCursos.setBounds(179, 462, 694, 93);
 		contentPane.add(btnMenuCursos);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
 		btnCerrarSesion.setBackground(new Color(0, 0, 0));
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
 		btnCerrarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-		btnCerrarSesion.setBounds(525, 631, 205, 54);
+		btnCerrarSesion.setBounds(668, 715, 205, 54);
 		contentPane.add(btnCerrarSesion);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido Aficionado");
-		lblNewLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 26));
-		lblNewLabel.setBounds(361, 100, 263, 34);
-		contentPane.add(lblNewLabel);
+		JLabel lblBienvenidoChef = new JLabel("Recipe Realm");
+		lblBienvenidoChef.setForeground(Color.WHITE);
+		lblBienvenidoChef.setFont(new Font("Lucida Console", Font.BOLD, 20));
+		lblBienvenidoChef.setBackground(Color.WHITE);
+		lblBienvenidoChef.setBounds(841, 11, 155, 36);
+		contentPane.add(lblBienvenidoChef);
 		
-		Box horizontalBox = Box.createHorizontalBox();
-		horizontalBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		horizontalBox.setBounds(116, 51, 746, 704);
-		contentPane.add(horizontalBox);
+		JLabel lblParaChefs = new JLabel("para aficionados");
+		lblParaChefs.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblParaChefs.setForeground(new Color(255, 51, 51));
+		lblParaChefs.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblParaChefs.setBackground(new Color(255, 255, 255));
+		lblParaChefs.setBounds(837, 33, 155, 36);
+		contentPane.add(lblParaChefs);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBackground(new Color(255, 255, 102));
+		panel_1_1.setBounds(189, 109, 699, 97);
+		contentPane.add(panel_1_1);
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1.setBackground(new Color(255, 204, 0));
+		panel_1_1_1.setBounds(189, 230, 699, 97);
+		contentPane.add(panel_1_1_1);
+		
+		JPanel panel_1_1_1_1 = new JPanel();
+		panel_1_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1_1.setBackground(new Color(255, 153, 51));
+		panel_1_1_1_1.setBounds(189, 354, 699, 97);
+		contentPane.add(panel_1_1_1_1);
+		
+		JPanel panel_1_1_1_1_1 = new JPanel();
+		panel_1_1_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1_1_1.setBackground(new Color(255, 102, 0));
+		panel_1_1_1_1_1.setBounds(189, 472, 699, 97);
+		contentPane.add(panel_1_1_1_1_1);
+		
+		JPanel panel_1_1_1_1_1_1 = new JPanel();
+		panel_1_1_1_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1_1_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1_1_1_1_1.setBounds(189, 592, 699, 97);
+		contentPane.add(panel_1_1_1_1_1_1);
 	}
 }
