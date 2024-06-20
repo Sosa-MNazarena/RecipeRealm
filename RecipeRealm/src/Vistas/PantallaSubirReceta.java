@@ -37,6 +37,7 @@ public class PantallaSubirReceta extends JFrame {
 	private List<String> listaIngredientes;
 	private List<String> listaCategorias;
 	private JPanel panelIngredientes;
+	private JPanel panelCategorias;
 
 	private JTextField textFieldTitulo;
 	private JTextArea inputProcedimiento;
@@ -72,9 +73,16 @@ public class PantallaSubirReceta extends JFrame {
 		panelIngredientes = new JPanel();
 		panelIngredientes.setBackground(new Color(255, 51, 51));
 		panelIngredientes.setForeground(Color.WHITE);
-		panelIngredientes.setBounds(43, 243, 301, 196);
+		panelIngredientes.setBounds(43, 240, 150, 196);
 		contentPane.add(panelIngredientes);
 		panelIngredientes.setLayout(null);
+		
+		panelCategorias = new JPanel();
+	    panelCategorias.setBackground(new Color(255, 51, 51));
+	    panelCategorias.setForeground(Color.WHITE);
+	    panelCategorias.setBounds(50, 240, 150, 196);
+	    contentPane.add(panelCategorias);
+	    panelCategorias.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Subí tu Receta acá");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -212,7 +220,7 @@ public class PantallaSubirReceta extends JFrame {
 								btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 
 		listaIngredientes = new ArrayList<>();
-		listaCategorias = new ArrayList<>(); // Botón Volver
+		listaCategorias = new ArrayList<>();
 
 	}
 
@@ -239,18 +247,23 @@ public class PantallaSubirReceta extends JFrame {
 	}
 
 	private void agregarCategoria() {
-		String nuevaCategoria = textFieldCategoria.getText();
-		listaCategorias.add(nuevaCategoria);
+        String nuevaCategoria = textFieldCategoria.getText();
+        listaCategorias.add(nuevaCategoria);
 
-		JLabel labelCategoria = new JLabel(nuevaCategoria);
-		labelCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelCategoria.setBounds(0, 80 + listaCategorias.size() * 30, 400, 20);
-		panelIngredientes.add(labelCategoria);
+        JLabel labelCategoria = new JLabel(nuevaCategoria);
+        labelCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		textFieldCategoria.setText("");
+        int yPosition = 10 + listaCategorias.size() * 30;
+        labelCategoria.setBounds(10, yPosition, 400, 20);
+        panelCategorias.add(labelCategoria);
 
-		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, (listaCategorias.size() + 1) * 30));
-		panelIngredientes.revalidate();
-		panelIngredientes.repaint();
-	}
+        textFieldCategoria.setText("");
+
+        panelCategorias.setPreferredSize(new java.awt.Dimension(354, yPosition + 30));
+        panelCategorias.revalidate();
+        panelCategorias.repaint();
+        
+    }
+	
+	
 }
