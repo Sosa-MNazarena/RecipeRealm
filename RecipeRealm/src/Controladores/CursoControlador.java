@@ -29,7 +29,7 @@ public class CursoControlador implements CursoRepositorio {
     public List<Cursos> getAllCursos() {
         List<Cursos> curso = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT id_curso, titulo, lugar, dia, cupo, precio, horario FROM cursos");
+            PreparedStatement statement = connection.prepareStatement("SELECT id_curso, titulo,id_usuario, lugar, dia, cupo, precio, horario FROM cursos");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

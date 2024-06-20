@@ -60,7 +60,7 @@ public class PantallaRegistro extends JFrame {
 	public PantallaRegistro() {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 940, 733);
+		setBounds(100, 100, 958, 698);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -191,22 +191,30 @@ public class PantallaRegistro extends JFrame {
 		panel_1.setBackground(new Color(128, 0, 0));
 		panel_1.setBounds(478, 519, 356, 44);
 		contentPane.add(panel_1);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
-		panel.setBackground(new Color(255, 255, 204));
-		panel.setBounds(49, 52, 813, 563);
-		contentPane.add(panel);
-		
-				JLabel lblTitulo = new JLabel("Recipe Realm");
-				panel.add(lblTitulo);
-				lblTitulo.setFont(new Font("Lucida Console", Font.BOLD, 28));
 				
-				JPanel panel_2 = new JPanel();
-				panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
-				panel_2.setBackground(new Color(255, 204, 102));
-				panel_2.setBounds(81, 85, 813, 564);
-				contentPane.add(panel_2);
+				JPanel panel_1_1_1 = new JPanel();
+				panel_1_1_1.setForeground(new Color(51, 51, 0));
+				panel_1_1_1.setBorder(null);
+				panel_1_1_1.setBackground(new Color(153, 0, 0));
+				panel_1_1_1.setBounds(56, 66, 813, 44);
+				contentPane.add(panel_1_1_1);
+				
+						JLabel lblTitulo = new JLabel("Recipe Realm");
+						lblTitulo.setForeground(new Color(255, 255, 255));
+						panel_1_1_1.add(lblTitulo);
+						lblTitulo.setFont(new Font("Lucida Console", Font.BOLD, 28));
+						
+						JPanel panel = new JPanel();
+						panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
+						panel.setBackground(new Color(255, 255, 204));
+						panel.setBounds(56, 33, 813, 563);
+						contentPane.add(panel);
+						
+						JPanel panel_2 = new JPanel();
+						panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
+						panel_2.setBackground(new Color(255, 204, 102));
+						panel_2.setBounds(88, 66, 813, 564);
+						contentPane.add(panel_2);
 
 		btnRegistrarse.addActionListener(new ActionListener() {
 

@@ -190,8 +190,9 @@ public class TablaCursos extends JFrame {
 		List<Cursos> cursos = controlador.getAllCursos();
 
 		for (Cursos curso : cursos) {
-			model.addRow(new Object[] { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(),
-					curso.getDia().toString(), curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() });
+			Object[] fila = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(),
+					curso.getDia().toString(), curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
+			model.addRow(fila);
 		}
 	}
 

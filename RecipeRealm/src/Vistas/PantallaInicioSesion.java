@@ -170,6 +170,7 @@ public class PantallaInicioSesion extends JFrame {
 		contentPane.add(horizontalBox_2);
 		
 		JLabel lblNewLabel = new JLabel("RECIPE REALM");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Lucida Console", Font.PLAIN, 28));
 		lblNewLabel.setBounds(352, 118, 219, 44);
 		contentPane.add(lblNewLabel);
@@ -186,17 +187,24 @@ public class PantallaInicioSesion extends JFrame {
 		panel_1_1.setBounds(294, 504, 356, 37);
 		contentPane.add(panel_1_1);
 		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setBorder(null);
+		panel_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1_1.setBounds(169, 118, 583, 44);
+		contentPane.add(panel_1_1_1);
+		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
 		panel.setBackground(new Color(255, 255, 204));
-		panel.setBounds(170, 53, 583, 568);
+		panel.setBounds(169, 37, 583, 568);
 		contentPane.add(panel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
 		panel_2.setBackground(new Color(255, 204, 102));
-		panel_2.setBounds(197, 64, 583, 586);
+		panel_2.setBounds(196, 48, 583, 586);
 		contentPane.add(panel_2);
 		
 		
