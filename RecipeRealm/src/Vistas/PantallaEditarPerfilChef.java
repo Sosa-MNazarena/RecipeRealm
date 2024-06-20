@@ -32,13 +32,15 @@ public class PantallaEditarPerfilChef extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 555);
 		JPanel contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		//Nmbrecito
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblNombre.setForeground(Color.WHITE);
+		lblNombre.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblNombre.setBounds(30, 45, 337, 22);
 		contentPane.add(lblNombre);
 
@@ -50,7 +52,8 @@ public class PantallaEditarPerfilChef extends JFrame {
 		
 		//pseudonimo o nombreUsuario.. ¿por que esta de dos formas?
 		JLabel lblPseudonimo = new JLabel("Nombre de usuario o pseudónimo");
-		lblPseudonimo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblPseudonimo.setForeground(Color.WHITE);
+		lblPseudonimo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblPseudonimo.setBounds(30, 108, 337, 22);
 		contentPane.add(lblPseudonimo);
 
@@ -60,14 +63,10 @@ public class PantallaEditarPerfilChef extends JFrame {
 		inputPseudonimo.setBorder(new LineBorder(Color.GRAY, 2, true));
 		contentPane.add(inputPseudonimo);
 		
-		JLabel lblEditarPerfil = new JLabel("Editar perfil");
-		lblEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 23));
-		lblEditarPerfil.setBounds(156, 11, 150, 35);
-		contentPane.add(lblEditarPerfil);
-		
 		//correo
 		JLabel lblCorreo = new JLabel("Correo Electrónico");
-		lblCorreo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblCorreo.setForeground(Color.WHITE);
+		lblCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblCorreo.setBounds(30, 170, 337, 22);
 		contentPane.add(lblCorreo);
 
@@ -79,7 +78,8 @@ public class PantallaEditarPerfilChef extends JFrame {
 		
 		//contra
 		JLabel lblContrasena = new JLabel("Contraseña");
-		lblContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblContrasena.setForeground(Color.WHITE);
+		lblContrasena.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblContrasena.setBounds(30, 231, 337, 22);
 		contentPane.add(lblContrasena);
 
@@ -91,13 +91,15 @@ public class PantallaEditarPerfilChef extends JFrame {
 		
 		//descrip
 		JLabel lblDescripcion = new JLabel("Cuéntanos algo de ti...");
-        lblDescripcion.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+		lblDescripcion.setForeground(Color.WHITE);
+        lblDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         lblDescripcion.setBounds(30, 293, 356, 31);
         contentPane.add(lblDescripcion);
 
         inputDescripcion = new JTextArea(perfil.getDescripcion());
+        inputDescripcion.setBackground(new Color(255, 255, 204));
         inputDescripcion.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-        inputDescripcion.setBounds(30, 323, 356, 70);
+        inputDescripcion.setBounds(30, 316, 356, 77);
         inputDescripcion.setBorder(new LineBorder(Color.GRAY, 2, true));
         inputDescripcion.setLineWrap(true);
         inputDescripcion.setWrapStyleWord(true);
@@ -139,6 +141,58 @@ public class PantallaEditarPerfilChef extends JFrame {
 		btnCancelar.setBackground(Color.BLACK);
 		btnCancelar.setBounds(210, 459, 176, 37);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblSubTuCurso = new JLabel("Editar perfil");
+		lblSubTuCurso.setBounds(89, 11, 247, 30);
+		contentPane.add(lblSubTuCurso);
+		lblSubTuCurso.setBackground(new Color(153, 0, 0));
+		lblSubTuCurso.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubTuCurso.setForeground(Color.WHITE);
+		lblSubTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 20));
+		lblSubTuCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/usuarioIconMini.png")));
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1.setBorder(null);
+		panel_1_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1_1.setBounds(0, 11, 436, 31);
+		contentPane.add(panel_1_1_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setBounds(40, 422, 352, 32);
+		contentPane.add(panel_1);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBackground(new Color(255, 204, 0));
+		panel_1_1.setBounds(220, 465, 172, 37);
+		contentPane.add(panel_1_1);
+		
+		JPanel panel_1_1_2 = new JPanel();
+		panel_1_1_2.setForeground(new Color(51, 51, 0));
+		panel_1_1_2.setBackground(new Color(255, 204, 0));
+		panel_1_1_2.setBounds(38, 256, 352, 30);
+		contentPane.add(panel_1_1_2);
+		
+		JPanel panel_1_1_2_1 = new JPanel();
+		panel_1_1_2_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_2_1.setBackground(new Color(255, 204, 0));
+		panel_1_1_2_1.setBounds(38, 196, 352, 30);
+		contentPane.add(panel_1_1_2_1);
+		
+		JPanel panel_1_1_2_2 = new JPanel();
+		panel_1_1_2_2.setForeground(new Color(51, 51, 0));
+		panel_1_1_2_2.setBackground(new Color(255, 204, 0));
+		panel_1_1_2_2.setBounds(38, 134, 352, 30);
+		contentPane.add(panel_1_1_2_2);
+		
+		JPanel panel_1_1_2_3 = new JPanel();
+		panel_1_1_2_3.setForeground(new Color(51, 51, 0));
+		panel_1_1_2_3.setBackground(new Color(255, 204, 0));
+		panel_1_1_2_3.setBounds(38, 72, 352, 30);
+		contentPane.add(panel_1_1_2_3);
 		
 		btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

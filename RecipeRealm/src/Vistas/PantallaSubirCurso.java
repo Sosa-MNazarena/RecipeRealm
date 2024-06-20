@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import Controladores.CursoControlador;
 import Controladores.PerfilControlador;
@@ -232,7 +233,7 @@ public class PantallaSubirCurso extends JFrame {
 			}
 		});
 		btnPublicar.setForeground(Color.WHITE);
-		btnPublicar.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnPublicar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnPublicar.setBackground(new Color(255, 153, 153));
 		btnPublicar.setBounds(489, 379, 274, 37);
 		contentPane.add(btnPublicar);
@@ -244,6 +245,7 @@ public class PantallaSubirCurso extends JFrame {
 		lblSubTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 24));
 		lblSubTuCurso.setBounds(0, 94, 901, 44);
 		contentPane.add(lblSubTuCurso);
+		lblSubTuCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/libroIconMini.png")));
 		
 		JPanel panel_1_1_1 = new JPanel();
 		panel_1_1_1.setForeground(new Color(51, 51, 0));
