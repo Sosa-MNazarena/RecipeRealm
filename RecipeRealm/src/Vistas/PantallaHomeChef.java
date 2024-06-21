@@ -141,7 +141,6 @@ public class PantallaHomeChef extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
 						LocalTime.now());
-
 		        PantallaMisCursos pantallaMisCursos = new PantallaMisCursos(perfil);
 		        pantallaMisCursos.setVisible(true);
 		        dispose();
