@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -147,7 +148,7 @@ public class TablaReceta extends JFrame {
         contentPane.add(txtBusqueda);
         txtBusqueda.setColumns(10);
 
-        JButton btnBuscar = new JButton("Buscar por Nombre");
+        JButton btnBuscar = new JButton("Buscar por Título");
         btnBuscar.setBackground(new Color(255, 255, 255));
         btnBuscar.setForeground(new Color(0, 0, 0));
         btnBuscar.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
@@ -157,8 +158,32 @@ public class TablaReceta extends JFrame {
                 buscarReceta(criterio);
             }
         });
-        btnBuscar.setBounds(312, 382, 169, 37);
+        btnBuscar.setBounds(312, 383, 169, 37);
         contentPane.add(btnBuscar);
+        
+        JComboBox comboBox = new JComboBox();
+        comboBox.setBounds(15, 439, 357, 34);
+        contentPane.add(comboBox);
+        comboBox.addItem("Italia");
+        comboBox.addItem("China");
+        comboBox.addItem("México");
+        comboBox.addItem("Argentina");
+        comboBox.addItem("Brasil");
+        comboBox.addItem("Colombia");
+        comboBox.addItem("Dulces");
+        comboBox.addItem("Japón");
+        
+        
+       
+        JButton btnFiltrar = new JButton("Filtrar por categoría");
+        btnFiltrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		actualizarPorFiltro((String)comboBox.getSelectedItem());
+        	}
+        });
+        btnFiltrar.setBounds(381, 438, 169, 37);
+        contentPane.add(btnFiltrar);
 
         // Configurar el modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
@@ -207,6 +232,19 @@ public class TablaReceta extends JFrame {
 
         for (Receta receta : recetas) {
             if (receta.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
+                Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(),
+                        receta.getCategorias(), receta.getIngredientes(), receta.getFecha() };
+                model.addRow(fila);
+            }
+        }
+    }
+    
+    private void actualizarPorFiltro(String categoria) {
+        model.setRowCount(0);
+        List<Receta> recetas = controlador.getAllRecetas();
+
+        for (Receta receta : recetas) {
+            if (receta.getCategorias().toLowerCase().contains(categoria.toLowerCase())) {
                 Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(),
                         receta.getCategorias(), receta.getIngredientes(), receta.getFecha() };
                 model.addRow(fila);

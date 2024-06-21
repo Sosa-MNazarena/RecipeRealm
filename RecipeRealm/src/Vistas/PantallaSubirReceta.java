@@ -17,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class PantallaSubirReceta extends JFrame {
 	private List<String> listaCategorias;
 	private JPanel panelIngredientes;
 	private JPanel panelCategorias;
-
+	private JComboBox<String> comboBox;
 	private JTextField textFieldTitulo;
 	private JTextArea inputProcedimiento;
 	private JTextField textFieldCategoria;
@@ -192,10 +193,20 @@ public class PantallaSubirReceta extends JFrame {
 		panel_1.setBounds(373, 493, 356, 33);
 		contentPane.add(panel_1);
 		
-				textFieldCategoria = new JTextField();
-				textFieldCategoria.setBounds(43, 455, 291, 33);
-				contentPane.add(textFieldCategoria);
-				textFieldCategoria.setColumns(10);
+			comboBox = new JComboBox<>();
+	        comboBox.setBounds(43, 455, 291, 33);
+	        contentPane.add(comboBox);
+	        comboBox.addItem("Italia");
+	        comboBox.addItem("China");
+	        comboBox.addItem("México");
+	        comboBox.addItem("Argentina");
+	        comboBox.addItem("Brasil");
+	        comboBox.addItem("Colombia");
+	        comboBox.addItem("Dulces");
+	        comboBox.addItem("Japón");
+	        
+	        
+	    
 				
 						JLabel lblCategoria = new JLabel("Categorías");
 						lblCategoria.setBounds(43, 437, 238, 20);
@@ -250,7 +261,7 @@ public class PantallaSubirReceta extends JFrame {
 	}
 
 	private void agregarCategoria() {
-        String nuevaCategoria = textFieldCategoria.getText();
+        String nuevaCategoria = (String)comboBox.getSelectedItem();
         listaCategorias.add(nuevaCategoria);
 
         JLabel labelCategoria = new JLabel(nuevaCategoria);
@@ -260,13 +271,14 @@ public class PantallaSubirReceta extends JFrame {
         labelCategoria.setBounds(10, yPosition, 400, 20);
         panelCategorias.add(labelCategoria);
 
-        textFieldCategoria.setText("");
+      
 
         panelCategorias.setPreferredSize(new java.awt.Dimension(354, yPosition + 30));
         panelCategorias.revalidate();
         panelCategorias.repaint();
         
     }
+	
 	
 	
 }

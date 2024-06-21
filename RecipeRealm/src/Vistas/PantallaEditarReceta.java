@@ -90,8 +90,8 @@ public class PantallaEditarReceta extends JFrame {
         contentPane.add(txtCategoria);
 
         JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.setBackground(new Color(255, 255, 255));
-        btnGuardar.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+        btnGuardar.setBackground(new Color(255, 153, 153));
+        btnGuardar.setFont(new Font("Lucida Console", Font.PLAIN, 16));
         btnGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 receta.setTitulo(txtNombre.getText());
@@ -108,8 +108,8 @@ public class PantallaEditarReceta extends JFrame {
         contentPane.add(btnGuardar);
 
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBackground(new Color(255, 255, 255));
-        btnCancelar.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 16));
+        btnCancelar.setBackground(new Color(255, 255, 204));
+        btnCancelar.setFont(new Font("Lucida Console", Font.PLAIN, 16));
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PantallaMisRecetas misRecetas = new PantallaMisRecetas(perfil);
