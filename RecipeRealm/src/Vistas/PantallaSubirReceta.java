@@ -141,7 +141,7 @@ public class PantallaSubirReceta extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				LocalDate fecha = LocalDate.now();
 				String categorias = String.join(" - ", listaCategorias);
-				String ingredientes = String.join(" | ", listaIngredientes);
+				String ingredientes = String.join(" \n ", listaIngredientes);
 				
 				if (perfil == null) {
 		            JOptionPane.showMessageDialog(null, "El perfil no está definido.");
