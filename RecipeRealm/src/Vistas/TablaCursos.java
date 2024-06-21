@@ -174,6 +174,24 @@ public class TablaCursos extends JFrame {
 		contentPane.add(btnFiltrar);
 		
 		
+		//para implementar después la parte de "mis cursos" para el chef, y "incribite" para el aficionado
+		JButton btnNewButton = new JButton("New button");
+		if (perfil.isVerificado()) {
+			
+			btnNewButton.setVisible(true);
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnNewButton.setBounds(561, 368, 198, 41);
+			contentPane.add(btnNewButton);
+        } else {
+        	btnNewButton.setVisible(false);
+        }
+		
+		
+		
+		
 
 		// Configurar el modelo de selección
 		ListSelectionModel selectionModel = table.getSelectionModel();
