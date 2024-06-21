@@ -41,6 +41,7 @@ public class TablaCursos extends JFrame {
 	private Perfil perfilActual;
 	private Cursos seleccionado;
 	private JTextField txtBusqueda;
+	private JTextField txtPrecio;
 
 	/**
 	 * Launch the application.
@@ -131,7 +132,7 @@ public class TablaCursos extends JFrame {
 
 		// Campo de búsqueda y botón de búsqueda
 		txtBusqueda = new JTextField();
-		txtBusqueda.setBounds(15, 304, 250, 37);
+		txtBusqueda.setBounds(15, 348, 250, 37);
 		contentPane.add(txtBusqueda);
 		txtBusqueda.setColumns(10);
 
@@ -145,8 +146,28 @@ public class TablaCursos extends JFrame {
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnBuscar.setBackground(Color.BLACK);
-		btnBuscar.setBounds(275, 304, 230, 37);
+		btnBuscar.setBounds(275, 348, 230, 37);
 		contentPane.add(btnBuscar);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(15, 304, 250, 37);
+		contentPane.add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valor =Integer.parseInt(txtPrecio.getText()) ;
+				buscarCursoPrecio(valor);
+			}
+		});
+		btnFiltrar.setForeground(Color.WHITE);
+		btnFiltrar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnFiltrar.setBackground(Color.BLACK);
+		btnFiltrar.setBounds(275, 304, 230, 37);
+		contentPane.add(btnFiltrar);
+		
+		
 
 		// Configurar el modelo de selección
 		ListSelectionModel selectionModel = table.getSelectionModel();
@@ -203,6 +224,21 @@ public class TablaCursos extends JFrame {
 
 		for (Cursos curso : cursos) {
 			if (curso.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
+				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
+						curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
+				model.addRow(fila);
+
+			}
+		}
+	}
+	
+	private void buscarCursoPrecio(int valor) {
+		model.setRowCount(0);
+
+		List<Cursos> cursos = controlador.getAllCursos();
+
+		for (Cursos curso : cursos) {
+			if (curso.getPrecio()<valor) {
 				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
 						curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
 				model.addRow(fila);
