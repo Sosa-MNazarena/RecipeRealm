@@ -125,7 +125,7 @@ public class TablaReceta extends JFrame {
         btnAddFavorito.setForeground(Color.WHITE);
         btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
         btnAddFavorito.setBackground(Color.BLACK);
-        btnAddFavorito.setBounds(638, 382, 233, 37);
+        btnAddFavorito.setBounds(638, 416, 233, 37);
         contentPane.add(btnAddFavorito);
         
         JButton btnMisRecetas = new JButton("Prueba de mis recetas");
@@ -205,6 +205,25 @@ public class TablaReceta extends JFrame {
         });
         btnFiltrar.setBounds(381, 438, 169, 37);
         contentPane.add(btnFiltrar);
+        
+        JButton btnVer = new JButton("Ver Receta");
+        btnVer.setForeground(Color.WHITE);
+        btnVer.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+        btnVer.setBackground(Color.LIGHT_GRAY);
+        btnVer.setBounds(704, 332, 155, 37);
+        contentPane.add(btnVer);
+        
+        btnVer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getIdReceta() != 0) {
+                    PantallaVerRecetaComentarios verRecetaComentarios = new PantallaVerRecetaComentarios(seleccionado, perfilActual);
+                    verRecetaComentarios.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una receta");
+                }
+            }
+        });
 
         // Configurar el modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
