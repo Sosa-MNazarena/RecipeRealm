@@ -136,7 +136,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setForeground(new Color(0, 0, 0));
 		btnCancelar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
 		btnCancelar.setBackground(new Color(255, 255, 204));
 		btnCancelar.setBounds(210, 459, 176, 37);

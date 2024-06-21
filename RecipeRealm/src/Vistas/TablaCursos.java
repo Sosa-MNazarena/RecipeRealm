@@ -100,9 +100,15 @@ public class TablaCursos extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PantallaHomeChef homeChef = new PantallaHomeChef(perfilActual);
-				homeChef.setVisible(true);
-				dispose();
+				if (perfil.isVerificado()) {
+                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+                    homeChef.setVisible(true);
+                    dispose();
+                } else {
+                    PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
+                    homeAficionado.setVisible(true);
+                    dispose();
+                }
 			}
 		});
 		btnVolver.setForeground(new Color(255, 255, 255));

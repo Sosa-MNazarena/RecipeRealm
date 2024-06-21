@@ -127,13 +127,34 @@ public class TablaReceta extends JFrame {
         btnAddFavorito.setBackground(Color.BLACK);
         btnAddFavorito.setBounds(638, 382, 233, 37);
         contentPane.add(btnAddFavorito);
+        
+        JButton btnMisRecetas = new JButton("Prueba de mis recetas");
+		btnMisRecetas.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Receta receta = new Receta(1, "Nombre de la receta", "Descripción de la receta", "Categoría", "Ingredientes", LocalDate.now(), 1);
+
+		        PantallaMisRecetas pantallaMisRecetas = new PantallaMisRecetas(perfil);
+		        pantallaMisRecetas.setVisible(true);
+		        dispose();
+		    }
+		});
+		btnMisRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
+		btnMisRecetas.setBackground(Color.LIGHT_GRAY);
+		btnMisRecetas.setBounds(861, 583, 205, 34);
+		contentPane.add(btnMisRecetas);
 
         JButton btnVolver = new JButton("Volver");
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                PantallaHomeChef homeChef = new PantallaHomeChef(perfilActual);
-                homeChef.setVisible(true);
-                dispose();
+            	if (perfil.isVerificado()) {
+                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+                    homeChef.setVisible(true);
+                    dispose();
+                } else {
+                    PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
+                    homeAficionado.setVisible(true);
+                    dispose();
+                }
             }
         });
         btnVolver.setForeground(new Color(255, 255, 255));

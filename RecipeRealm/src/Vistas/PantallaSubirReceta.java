@@ -64,7 +64,7 @@ public class PantallaSubirReceta extends JFrame {
 		this.perfil = perfil;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 879, 675);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,6 +77,26 @@ public class PantallaSubirReceta extends JFrame {
 	    panelCategorias.setBounds(43, 388, 284, 51);
 	    contentPane.add(panelCategorias);
 	    panelCategorias.setLayout(null);
+	    
+	    JButton btnVolver = new JButton("Volver");
+        btnVolver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	if (perfil.isVerificado()) {
+                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+                    homeChef.setVisible(true);
+                    dispose();
+                } else {
+                    PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
+                    homeAficionado.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+        btnVolver.setForeground(new Color(255, 255, 255));
+        btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+        btnVolver.setBackground(new Color(192, 192, 192));
+        btnVolver.setBounds(15, 11, 87, 37);
+        contentPane.add(btnVolver);
 
 		JLabel lblNewLabel = new JLabel("Subí tu Receta acá");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
