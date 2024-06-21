@@ -25,8 +25,8 @@ public class PantallaVerRecetaComentarios extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private Receta receta; // CAMBIO: ATRIBUTO PARA ALMACENAR LA RECETA
-    private Perfil perfil; // CAMBIO: ATRIBUTO PARA ALMACENAR EL PERFIL
+    private Receta receta;
+    private Perfil perfil;
 
     private JLabel lblNombre;
     private JTextArea txtIngredientes;
@@ -68,35 +68,38 @@ public class PantallaVerRecetaComentarios extends JFrame {
         contentPane.setLayout(null);
         
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.setForeground(new Color(255, 255, 255));
+        tabbedPane.setBackground(new Color(204, 51, 0));
         tabbedPane.setBounds(39, 42, 769, 508);
         contentPane.add(tabbedPane);
-        
+        //pestaña receta
         JDesktopPane desktopPane = new JDesktopPane();
-        desktopPane.setBackground(new Color(255, 255, 204));
+        desktopPane.setBackground(Color.LIGHT_GRAY);
         tabbedPane.addTab("Receta", null, desktopPane, null);
-                
+        
         txtDescripcion = new JTextArea(receta.getProcedimiento());
         txtDescripcion.setFont(new Font("Courier New", Font.PLAIN, 14));
         txtDescripcion.setWrapStyleWord(true);
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setEditable(false);
-        txtDescripcion.setBackground(new Color(255, 153, 153));
-        txtDescripcion.setBounds(36, 206, 706, 250);
+        txtDescripcion.setBackground(new Color(255, 255, 204));
+        txtDescripcion.setBounds(47, 212, 683, 229);
         desktopPane.add(txtDescripcion);
         
+        JPanel panel_1_2_1 = new JPanel();
+        panel_1_2_1.setForeground(new Color(51, 51, 0));
+        panel_1_2_1.setBackground(new Color(255, 255, 204));
+        panel_1_2_1.setBounds(36, 203, 706, 250);
+        desktopPane.add(panel_1_2_1);
+        
                 txtIngredientes = new JTextArea(receta.getIngredientes());
+                txtIngredientes.setWrapStyleWord(true);
+                txtIngredientes.setLineWrap(true);
                 txtIngredientes.setFont(new Font("Courier New", Font.PLAIN, 12));
-                txtIngredientes.setBackground(new Color(255, 153, 153));
-                txtIngredientes.setBounds(36, 38, 241, 147);
+                txtIngredientes.setBackground(new Color(255, 255, 204));
+                txtIngredientes.setBounds(47, 48, 219, 129);
                 desktopPane.add(txtIngredientes);
                 txtIngredientes.setEditable(false);
-        
-        // titulo
-        JLabel lblTitulo = new JLabel("Título:");
-        lblTitulo.setForeground(new Color(0, 0, 0));
-        lblTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-        lblTitulo.setBounds(306, 21, 118, 20);
-        desktopPane.add(lblTitulo);
 
         // prcedimiento
         JLabel lblDescripcion = new JLabel("Descripción:");
@@ -108,26 +111,13 @@ public class PantallaVerRecetaComentarios extends JFrame {
         
         JPanel panel_1_1 = new JPanel();
 		panel_1_1.setForeground(new Color(51, 51, 0));
-		panel_1_1.setBackground(new Color(204, 0, 0));
+		panel_1_1.setBackground(new Color(255, 204, 51));
 		panel_1_1.setBounds(47, 212, 704, 252);
 		desktopPane.add(panel_1_1);
 		
-		        txtCategoria = new JTextArea(receta.getCategorias());
-		        txtCategoria.setEditable(false);
-		        txtCategoria.setBackground(new Color(255, 255, 204));
-		        txtCategoria.setLineWrap(true);
-		        txtCategoria.setWrapStyleWord(true);
-		        txtCategoria.setBounds(578, 11, 173, 25);
-		        desktopPane.add(txtCategoria);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setForeground(new Color(51, 51, 0));
-		panel_1.setBackground(new Color(128, 0, 0));
-		panel_1.setBounds(47, 48, 241, 147);
-		desktopPane.add(panel_1);
-		
 		        // ingredientes
 		        JLabel lblIngredientes = new JLabel("Ingredientes:");
+		        lblIngredientes.setBackground(Color.WHITE);
 		        lblIngredientes.setBounds(36, 21, 118, 20);
 		        desktopPane.add(lblIngredientes);
 		        lblIngredientes.setForeground(new Color(0, 0, 0));
@@ -137,10 +127,35 @@ public class PantallaVerRecetaComentarios extends JFrame {
 		        lblNombre = new JLabel(receta.getTitulo());
 		        lblNombre.setBackground(new Color(255, 255, 204));
 		        lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		        lblNombre.setBounds(306, 38, 429, 73);
+		        lblNombre.setBounds(306, 38, 429, 118);
 		        desktopPane.add(lblNombre);
-		        lblNombre.setForeground(new Color(204, 0, 0));
+		        lblNombre.setForeground(new Color(204, 51, 0));
 		        lblNombre.setFont(new Font("Lucida Console", Font.BOLD, 24));
+		        
+		        JPanel panel_1_2 = new JPanel();
+		        panel_1_2.setForeground(new Color(51, 51, 0));
+		        panel_1_2.setBackground(new Color(255, 255, 204));
+		        panel_1_2.setBounds(36, 38, 241, 147);
+		        desktopPane.add(panel_1_2);
+		        
+		        JPanel panel_1 = new JPanel();
+		        panel_1.setForeground(new Color(51, 51, 0));
+		        panel_1.setBackground(new Color(255, 204, 0));
+		        panel_1.setBounds(47, 48, 241, 147);
+		        desktopPane.add(panel_1);
+		        
+		        JPanel panel_1_2_2 = new JPanel();
+		        panel_1_2_2.setForeground(new Color(51, 51, 0));
+		        panel_1_2_2.setBackground(new Color(255, 255, 204));
+		        panel_1_2_2.setBounds(578, 11, 173, 25);
+		        desktopPane.add(panel_1_2_2);
+		        
+		                txtCategoria = new JTextArea(receta.getCategorias());
+		                panel_1_2_2.add(txtCategoria);
+		                txtCategoria.setEditable(false);
+		                txtCategoria.setBackground(new Color(255, 255, 204));
+		                txtCategoria.setLineWrap(true);
+		                txtCategoria.setWrapStyleWord(true);
         
         JLabel lblCategoria = new JLabel("Categoría:");
         lblCategoria.setForeground(Color.WHITE);
@@ -148,25 +163,31 @@ public class PantallaVerRecetaComentarios extends JFrame {
         lblCategoria.setBounds(104, 393, 100, 20);
         contentPane.add(lblCategoria);
         
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setBackground(new Color(255, 255, 204));
-        btnVolver.setFont(new Font("Lucida Console", Font.PLAIN, 16));
-        btnVolver.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	TablaReceta tablaReceta = new TablaReceta(perfil);
-                tablaReceta.setVisible(true);
-                dispose();
-            }
-        });
-
-        
+        //pestaña comentarios
         JDesktopPane desktopPane_1 = new JDesktopPane();
         tabbedPane.addTab("Comentarios", null, desktopPane_1, null);
         
         JPanel panel_1_1_1 = new JPanel();
         panel_1_1_1.setForeground(new Color(51, 51, 0));
-        panel_1_1_1.setBackground(new Color(255, 204, 0));
+        panel_1_1_1.setBackground(new Color(204, 0, 0));
         panel_1_1_1.setBounds(49, 79, 770, 480);
         contentPane.add(panel_1_1_1);
+        
+        //fuera de las pestañas
+        //boton volver
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setBackground(new Color(255, 255, 204));
+        btnVolver.setBounds(10, 11, 131, 23);
+        btnVolver.setFont(new Font("Lucida Console", Font.PLAIN, 16));
+        btnVolver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TablaReceta tablaReceta = new TablaReceta(perfil);
+                tablaReceta.setVisible(true);
+                dispose();
+            }
+        });
+        contentPane.add(btnVolver);
+        
+        
     }
 }
