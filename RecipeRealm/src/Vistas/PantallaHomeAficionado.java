@@ -53,6 +53,12 @@ public class PantallaHomeAficionado extends JFrame {
 		
 		
 		JButton btnMenuRecetas = new JButton("Recetas");
+		btnMenuRecetas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaReceta tablaRecetas = new TablaReceta(perfil);
+				dispose();
+			}
+		});
 		btnMenuRecetas.setBackground(Color.WHITE);
 		btnMenuRecetas.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuRecetas.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/menuIcon.png")));
@@ -75,6 +81,12 @@ public class PantallaHomeAficionado extends JFrame {
 	    });
 		
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
+		btnMisFavoritos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaFavoritos tablaFav = new TablaFavoritos(perfil);
+				dispose();
+			}
+		});
 		btnMisFavoritos.setForeground(new Color(0, 0, 0));
 		btnMisFavoritos.setBackground(Color.WHITE);
 		btnMisFavoritos.setFont(new Font("Lucida Console", Font.BOLD, 16));
@@ -83,6 +95,12 @@ public class PantallaHomeAficionado extends JFrame {
 		contentPane.add(btnMisFavoritos);
 		
 		JButton btnMenuCursos = new JButton("Cursos");
+		btnMenuCursos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaCursos tablaCursos = new TablaCursos(perfil);
+				dispose();
+			}
+		});
 		btnMenuCursos.setForeground(new Color(0, 0, 0));
 		btnMenuCursos.setBackground(Color.WHITE);
 		btnMenuCursos.setFont(new Font("Lucida Console", Font.BOLD, 18));
