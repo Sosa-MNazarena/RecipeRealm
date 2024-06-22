@@ -137,7 +137,7 @@ public class TablaCursos extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(757, 558, 155, 37);
+		btnEliminar.setBounds(764, 558, 155, 37);
 		contentPane.add(btnEliminar);
 				
 				JToolBar toolBar = new JToolBar();
@@ -218,20 +218,27 @@ public class TablaCursos extends JFrame {
 		
 		
 		//para implementar después la parte de "mis cursos" para el chef, y "incribite" para el aficionado
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Mis cursos");
+		btnNewButton.setBackground(new Color(255, 255, 204));
+		btnNewButton.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		if (perfil.isVerificado()) {
 			
 			btnNewButton.setVisible(true);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
+							LocalTime.now());
+			        PantallaMisCursos pantallaMisCursos = new PantallaMisCursos(perfil);
+			        pantallaMisCursos.setVisible(true);
+			        dispose();
 				}
 			});
-			btnNewButton.setBounds(561, 368, 198, 41);
-			contentPane.add(btnNewButton);
+			
         } else {
         	btnNewButton.setVisible(false);
         }
-		
+		btnNewButton.setBounds(136, 11, 155, 30);
+		contentPane.add(btnNewButton);
 		
 		
 		
