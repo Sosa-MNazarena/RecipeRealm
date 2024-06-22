@@ -128,7 +128,7 @@ public class TablaReceta extends JFrame {
         btnAddFavorito.setBounds(638, 416, 233, 37);
         contentPane.add(btnAddFavorito);
         
-        JButton btnMisRecetas = new JButton("Prueba de mis recetas");
+        JButton btnMisRecetas = new JButton("Mis recetas");
 		btnMisRecetas.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        Receta receta = new Receta(1, "Nombre de la receta", "Descripción de la receta", "Categoría", "Ingredientes", LocalDate.now(), 1);

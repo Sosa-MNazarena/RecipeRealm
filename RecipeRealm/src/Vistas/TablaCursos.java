@@ -29,6 +29,11 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import javax.swing.JToolBar;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.Box;
+import javax.swing.JTextArea;
 
 public class TablaCursos extends JFrame {
 
@@ -68,8 +73,9 @@ public class TablaCursos extends JFrame {
 		this.setVisible(true);
 		this.perfilActual = perfil;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 926, 459);
+		setBounds(100, 100, 999, 666);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -83,18 +89,15 @@ public class TablaCursos extends JFrame {
 		String[] columnNames = { "ID", "Título", "Lugar", "Fecha", "Cupo", "Precio", "Horario" };
 		model = new DefaultTableModel(columnNames, 0);
 		table = new JTable(model);
+		table.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		table.setBackground(new Color(255, 255, 204));
 		actualizarTabla();
 
 		// Crear el JScrollPane y agregar la tabla
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 73, 856, 190);
+		scrollPane.setBounds(63, 214, 856, 309);
 		contentPane.add(scrollPane);
-
-		// Crear el JLabel para mostrar la selección
-		elemento = new JLabel("Seleccionado:");
-		elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
-		elemento.setBounds(15, 52, 911, 14);
-		contentPane.add(elemento);
 
 		// Crear el botón de volver
 		JButton btnVolver = new JButton("Volver");
@@ -111,17 +114,18 @@ public class TablaCursos extends JFrame {
                 }
 			}
 		});
-		btnVolver.setForeground(new Color(255, 255, 255));
-		btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnVolver.setBackground(new Color(192, 192, 192));
-		btnVolver.setBounds(15, 11, 87, 37);
+		btnVolver.setForeground(new Color(0, 0, 0));
+		btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
+		btnVolver.setBackground(new Color(255, 255, 204));
+		btnVolver.setBounds(15, 11, 116, 30);
 		contentPane.add(btnVolver);
-
+	
+    
 		// Crear el botón de eliminar
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnEliminar.setForeground(new Color(255, 255, 255));
-		btnEliminar.setBackground(new Color(0, 0, 0));
+		btnEliminar.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnEliminar.setForeground(new Color(0, 0, 0));
+		btnEliminar.setBackground(new Color(255, 153, 153));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (seleccionado.getIdCurso() != 0) {
@@ -133,45 +137,84 @@ public class TablaCursos extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(515, 304, 356, 37);
+		btnEliminar.setBounds(757, 558, 155, 37);
 		contentPane.add(btnEliminar);
-
-		// Campo de búsqueda y botón de búsqueda
-		txtBusqueda = new JTextField();
-		txtBusqueda.setBounds(15, 348, 250, 37);
-		contentPane.add(txtBusqueda);
-		txtBusqueda.setColumns(10);
-
-		JButton btnBuscar = new JButton("Buscar por Título");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String criterio = txtBusqueda.getText();
-				buscarCurso(criterio);
-			}
-		});
-		btnBuscar.setForeground(Color.WHITE);
-		btnBuscar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnBuscar.setBackground(Color.BLACK);
-		btnBuscar.setBounds(275, 348, 230, 37);
-		contentPane.add(btnBuscar);
-		
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(15, 304, 250, 37);
-		contentPane.add(txtPrecio);
-		txtPrecio.setColumns(10);
-		
-		JButton btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int valor =Integer.parseInt(txtPrecio.getText()) ;
-				buscarCursoPrecio(valor);
-			}
-		});
-		btnFiltrar.setForeground(Color.WHITE);
-		btnFiltrar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-		btnFiltrar.setBackground(Color.BLACK);
-		btnFiltrar.setBounds(275, 304, 230, 37);
-		contentPane.add(btnFiltrar);
+				
+				JToolBar toolBar = new JToolBar();
+				toolBar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+				toolBar.setBackground(new Color(255, 153, 153));
+				toolBar.setBounds(63, 93, 856, 30);
+				contentPane.add(toolBar);
+				
+				JButton btnFiltrar = new JButton("Precio menor a ");
+				toolBar.add(btnFiltrar);
+				btnFiltrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int valor =Integer.parseInt(txtPrecio.getText()) ;
+						buscarCursoPrecio(valor);
+					}
+				});
+				btnFiltrar.setForeground(Color.WHITE);
+				btnFiltrar.setFont(new Font("Lucida Console", Font.BOLD, 15));
+				btnFiltrar.setBackground(new Color(255, 153, 153));
+				
+				txtPrecio = new JTextField();
+				txtPrecio.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+				txtPrecio.setToolTipText("");
+				toolBar.add(txtPrecio);
+				txtPrecio.setColumns(10);
+				
+				JToolBar toolBar_1 = new JToolBar();
+				toolBar_1.setBackground(new Color(255, 153, 153));
+				toolBar.add(toolBar_1);
+				
+						JButton btnBuscar = new JButton("Buscar por Título");
+						toolBar_1.add(btnBuscar);
+						btnBuscar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								String criterio = txtBusqueda.getText();
+								buscarCurso(criterio);
+							}
+						});
+						btnBuscar.setForeground(Color.WHITE);
+						btnBuscar.setFont(new Font("Lucida Console", Font.BOLD, 15));
+						btnBuscar.setBackground(new Color(255, 153, 153));
+						
+								// Campo de búsqueda y botón de búsqueda
+								txtBusqueda = new JTextField();
+								txtBusqueda.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+								toolBar_1.add(txtBusqueda);
+								txtBusqueda.setColumns(10);
+								
+								JPanel panel_1 = new JPanel();
+								panel_1.setBackground(new Color(204, 0, 51));
+								panel_1.setBounds(73, 102, 853, 30);
+								contentPane.add(panel_1);
+								
+								JPanel panel_2 = new JPanel();
+								panel_2.setBackground(new Color(255, 204, 0));
+								panel_2.setBounds(83, 236, 856, 309);
+								contentPane.add(panel_2);
+										
+										JPanel panel = new JPanel();
+										panel.setBackground(new Color(255, 255, 204));
+										panel.setBounds(63, 152, 853, 46);
+										contentPane.add(panel);
+										
+												// Crear el JLabel para mostrar la selección
+												elemento = new JLabel("Seleccionado:");
+												panel.add(elemento);
+												elemento.setHorizontalAlignment(SwingConstants.CENTER);
+												elemento.setBackground(new Color(255, 255, 204));
+												elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+												
+												JLabel lblCursos = new JLabel("Cursos ");
+												lblCursos.setHorizontalAlignment(SwingConstants.RIGHT);
+												lblCursos.setForeground(Color.WHITE);
+												lblCursos.setFont(new Font("Lucida Console", Font.BOLD, 20));
+												lblCursos.setBackground(Color.WHITE);
+												lblCursos.setBounds(818, 11, 155, 36);
+												contentPane.add(lblCursos);
 		
 		
 		//para implementar después la parte de "mis cursos" para el chef, y "incribite" para el aficionado

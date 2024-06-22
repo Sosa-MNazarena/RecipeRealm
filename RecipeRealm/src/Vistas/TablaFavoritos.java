@@ -50,13 +50,13 @@ public class TablaFavoritos extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        String[] columnNames = { "ID", "Título", "Procedimiento" };
+        String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha"  };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(106, 186, 856, 190);
+        scrollPane.setBounds(106, 178, 856, 190);
         contentPane.add(scrollPane);
 
         elemento = new JLabel("Seleccionado:");
@@ -89,6 +89,25 @@ public class TablaFavoritos extends JFrame {
         btnVolver.setBackground(new Color(192, 192, 192));
         btnVolver.setBounds(15, 11, 87, 37);
         contentPane.add(btnVolver);
+        
+        JButton btnVer = new JButton("Ver Receta");
+        btnVer.setForeground(Color.WHITE);
+        btnVer.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+        btnVer.setBackground(Color.LIGHT_GRAY);
+        btnVer.setBounds(615, 537, 155, 37);
+        contentPane.add(btnVer);
+        
+        btnVer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getIdReceta() != 0) {
+                    PantallaVerRecetaComentarios verRecetaComentarios = new PantallaVerRecetaComentarios(seleccionado, perfil);
+                    verRecetaComentarios.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una receta");
+                }
+            }
+        });
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setForeground(Color.WHITE);
@@ -128,13 +147,16 @@ public class TablaFavoritos extends JFrame {
                         int id = (int) table.getValueAt(selectedRow, 0);
                         String titulo = (String) table.getValueAt(selectedRow, 1);
                         String procedimiento = (String) table.getValueAt(selectedRow, 2);
-
-                        elemento.setText(
-                                "Seleccionado: ID=" + id + ", Título=" + titulo + ", Procedimiento=" + procedimiento);
+                        String categorias = (String) table.getValueAt(selectedRow, 3);
+                        String ingredientes = (String) table.getValueAt(selectedRow, 4);
+                        elemento.setText("Seleccionado: ID=" + id + ", Título=" + titulo + ", Procedimiento="
+                                + procedimiento + ", Categorías=" + categorias + " , Ingredientes=" + ingredientes);
 
                         seleccionado.setIdReceta(id);
                         seleccionado.setTitulo(titulo);
                         seleccionado.setProcedimiento(procedimiento);
+                        seleccionado.setCategorias(categorias);
+                        seleccionado.setIngredientes(ingredientes);
                     }
                 }
             }
@@ -149,7 +171,10 @@ public class TablaFavoritos extends JFrame {
             Object[] fila = {
                 receta.getIdReceta(),
                 receta.getTitulo(),
-                receta.getProcedimiento()
+                receta.getProcedimiento(),
+                receta.getCategorias(),
+                receta.getIngredientes(), 
+                receta.getFecha()
             };
             model.addRow(fila);
         }
