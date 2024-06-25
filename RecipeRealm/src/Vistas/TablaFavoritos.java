@@ -151,7 +151,8 @@ public class TablaFavoritos extends JFrame {
         contentPane.add(panel_1_1_1);
         
         JPanel panel_1_1_2 = new JPanel();
-        panel_1_1_2.setBackground(new Color(255, 255, 153));
+        panel_1_1_2.setForeground(Color.BLACK);
+        panel_1_1_2.setBackground(new Color(255, 255, 204));
         panel_1_1_2.setBounds(63, 152, 853, 46);
         contentPane.add(panel_1_1_2);
         

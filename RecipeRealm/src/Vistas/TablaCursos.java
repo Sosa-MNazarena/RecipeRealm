@@ -137,59 +137,8 @@ public class TablaCursos extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(764, 558, 155, 37);
+		btnEliminar.setBounds(721, 562, 198, 30);
 		contentPane.add(btnEliminar);
-				
-				JToolBar toolBar = new JToolBar();
-				toolBar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-				toolBar.setBackground(new Color(255, 153, 153));
-				toolBar.setBounds(63, 93, 856, 30);
-				contentPane.add(toolBar);
-				
-				JButton btnFiltrar = new JButton("Precio menor a ");
-				toolBar.add(btnFiltrar);
-				btnFiltrar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						int valor =Integer.parseInt(txtPrecio.getText()) ;
-						buscarCursoPrecio(valor);
-					}
-				});
-				btnFiltrar.setForeground(Color.WHITE);
-				btnFiltrar.setFont(new Font("Lucida Console", Font.BOLD, 15));
-				btnFiltrar.setBackground(new Color(255, 153, 153));
-				
-				txtPrecio = new JTextField();
-				txtPrecio.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-				txtPrecio.setToolTipText("");
-				toolBar.add(txtPrecio);
-				txtPrecio.setColumns(10);
-				
-				JToolBar toolBar_1 = new JToolBar();
-				toolBar_1.setBackground(new Color(255, 153, 153));
-				toolBar.add(toolBar_1);
-				
-						JButton btnBuscar = new JButton("Buscar por Título");
-						toolBar_1.add(btnBuscar);
-						btnBuscar.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								String criterio = txtBusqueda.getText();
-								buscarCurso(criterio);
-							}
-						});
-						btnBuscar.setForeground(Color.WHITE);
-						btnBuscar.setFont(new Font("Lucida Console", Font.BOLD, 15));
-						btnBuscar.setBackground(new Color(255, 153, 153));
-						
-								// Campo de búsqueda y botón de búsqueda
-								txtBusqueda = new JTextField();
-								txtBusqueda.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-								toolBar_1.add(txtBusqueda);
-								txtBusqueda.setColumns(10);
-								
-								JPanel panel_1 = new JPanel();
-								panel_1.setBackground(new Color(204, 0, 51));
-								panel_1.setBounds(73, 102, 853, 30);
-								contentPane.add(panel_1);
 								
 								JPanel panel_2 = new JPanel();
 								panel_2.setBackground(new Color(255, 204, 0));
@@ -240,6 +189,70 @@ public class TablaCursos extends JFrame {
         }
 		btnNewButton.setBounds(136, 11, 155, 30);
 		contentPane.add(btnNewButton);
+		
+		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setBounds(789, 93, 130, 30);
+		contentPane.add(btnFiltrar);
+		btnFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int valor =Integer.parseInt(txtPrecio.getText()) ;
+				buscarCursoPrecio(valor);
+			}
+		});
+		btnFiltrar.setForeground(Color.BLACK);
+		btnFiltrar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		btnFiltrar.setBackground(new Color(255, 153, 153));
+		
+				JButton btnBuscarPorTitulo = new JButton("Buscar");
+				btnBuscarPorTitulo.setBounds(360, 93, 130, 30);
+				contentPane.add(btnBuscarPorTitulo);
+				btnBuscarPorTitulo.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String criterio = txtBusqueda.getText();
+						buscarCurso(criterio);
+					}
+				});
+				btnBuscarPorTitulo.setForeground(Color.BLACK);
+				btnBuscarPorTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+				btnBuscarPorTitulo.setBackground(new Color(255, 153, 153));
+				
+				txtPrecio = new JTextField();
+				txtPrecio.setBounds(500, 93, 300, 30);
+				contentPane.add(txtPrecio);
+				txtPrecio.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+				txtPrecio.setToolTipText("");
+				txtPrecio.setColumns(10);
+				
+						// Campo de búsqueda y botón de búsqueda
+						txtBusqueda = new JTextField();
+						txtBusqueda.setBounds(63, 93, 300, 30);
+						contentPane.add(txtBusqueda);
+						txtBusqueda.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+						txtBusqueda.setColumns(10);
+						
+						JPanel panel_1 = new JPanel();
+						panel_1.setBackground(new Color(204, 0, 51));
+						panel_1.setBounds(73, 102, 853, 30);
+						contentPane.add(panel_1);
+						
+						JLabel lblBuscarCursosPor = new JLabel("Buscar cursos por título:");
+						lblBuscarCursosPor.setVerticalAlignment(SwingConstants.BOTTOM);
+						lblBuscarCursosPor.setForeground(new Color(255, 153, 153));
+						lblBuscarCursosPor.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+						lblBuscarCursosPor.setBounds(63, 69, 337, 22);
+						contentPane.add(lblBuscarCursosPor);
+						
+						JLabel lblFiltrarCursosPor = new JLabel("Filtrar cursos por precio \"menor a\":");
+						lblFiltrarCursosPor.setVerticalAlignment(SwingConstants.BOTTOM);
+						lblFiltrarCursosPor.setForeground(new Color(255, 153, 153));
+						lblFiltrarCursosPor.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+						lblFiltrarCursosPor.setBounds(501, 69, 337, 22);
+						contentPane.add(lblFiltrarCursosPor);
+						
+						JPanel panel_1_1 = new JPanel();
+						panel_1_1.setBackground(new Color(204, 0, 51));
+						panel_1_1.setBounds(724, 568, 203, 30);
+						contentPane.add(panel_1_1);
 		
 		
 		
