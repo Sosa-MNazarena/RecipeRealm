@@ -36,7 +36,7 @@ public class PantallaSubirCurso extends JFrame {
 	private JTextField inputLugar;
 	private JTextField inputPrecio;
 	private JTextField inputCupos;
-	private JDateChooser dateChooser; // Nuevo componente para la fecha
+	private JDateChooser dateChooser; 
 	private JTextField inputHorario;
 	private JLabel lblErrorTitulo;
 	private JLabel lblErrorLugar;
