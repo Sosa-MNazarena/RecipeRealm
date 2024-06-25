@@ -23,6 +23,30 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
+import Controladores.PerfilControlador;
+import Modelos.Cursos;
+import Modelos.Perfil;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import com.toedter.calendar.JTextFieldDateEditor;
 
 import Controladores.PerfilControlador;
 import Modelos.Cursos;
@@ -42,7 +66,7 @@ public class PantallaSubirCurso extends JFrame {
 	private JLabel lblErrorLugar;
 	private JLabel lblErrorCupos;
 	private Perfil perfil;
-	private JLabel lblExito;
+	private JLabel lblExito; 
 	private PerfilControlador controlador = new PerfilControlador();
 
 	public static void main(String[] args) {
@@ -121,7 +145,7 @@ public class PantallaSubirCurso extends JFrame {
 		horizontalBox_3.add(inputCupos);
 		inputCupos.setColumns(10);
 		
-		// jcalendar
+		// JCalendar
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(149, 391, 150, 37);
 		contentPane.add(dateChooser);
@@ -172,6 +196,13 @@ public class PantallaSubirCurso extends JFrame {
 		lblErrorGeneral.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		lblErrorGeneral.setBounds(489, 427, 274, 14);
 		contentPane.add(lblErrorGeneral);
+		
+		lblExito = new JLabel("");
+		lblExito.setForeground(Color.GREEN);
+		lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
+		lblExito.setBounds(489, 453, 274, 14);
+		contentPane.add(lblExito);
+		
 		JButton btnPublicar = new JButton("Publicar");
 		btnPublicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

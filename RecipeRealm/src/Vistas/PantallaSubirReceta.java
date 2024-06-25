@@ -1,35 +1,31 @@
 package Vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.PerfilControlador;
 import Modelos.Perfil;
 import Modelos.Receta;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-import Modelos.Perfil;
-import Controladores.PerfilControlador;
-import java.awt.Color;
-import javax.swing.SwingConstants;
 
 public class PantallaSubirReceta extends JFrame {
 
@@ -44,24 +40,10 @@ public class PantallaSubirReceta extends JFrame {
 	private JTextField textFieldTitulo;
 	private JPanel panelCategorias;
 	private JTextArea inputProcedimiento;
-	private JTextField textFieldCategoria;
-	private JTextField inputCategoria;
 	private Perfil perfil;
-    private PerfilControlador controlador = new PerfilControlador();
+	private PerfilControlador controlador = new PerfilControlador();
+	private JLabel lblErrorIngredientes;
 
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaSubirReceta frame = new PantallaSubirReceta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
 	public PantallaSubirReceta(Perfil perfil) {
 		this.perfil = perfil;
 		this.setVisible(true);
@@ -72,35 +54,35 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	    
+
 		panelCategorias = new JPanel();
-	    panelCategorias.setBackground(new Color(255, 51, 51));
-	    panelCategorias.setForeground(Color.WHITE);
-	    panelCategorias.setLayout(new BoxLayout(panelCategorias, BoxLayout.Y_AXIS));
-	    JScrollPane scrollPaneCategorias = new JScrollPane(panelCategorias);
-	    scrollPaneCategorias.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    scrollPaneCategorias.setBounds(43, 381, 284, 58);
-	    contentPane.add(scrollPaneCategorias);
-	    
-	    JButton btnVolver = new JButton("Volver");
-        btnVolver.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	if (perfil.isVerificado()) {
-                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
-                    homeChef.setVisible(true);
-                    dispose();
-                } else {
-                    PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
-                    homeAficionado.setVisible(true);
-                    dispose();
-                }
-            }
-        });
-        btnVolver.setForeground(Color.BLACK);
-        btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 15));
-        btnVolver.setBackground(new Color(255, 255, 204));
-        btnVolver.setBounds(15, 18, 116, 30);
-        contentPane.add(btnVolver);
+		panelCategorias.setBackground(new Color(255, 51, 51));
+		panelCategorias.setForeground(Color.WHITE);
+		panelCategorias.setLayout(new BoxLayout(panelCategorias, BoxLayout.Y_AXIS));
+		JScrollPane scrollPaneCategorias = new JScrollPane(panelCategorias);
+		scrollPaneCategorias.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneCategorias.setBounds(43, 381, 284, 58);
+		contentPane.add(scrollPaneCategorias);
+
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (perfil.isVerificado()) {
+					PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+					homeChef.setVisible(true);
+					dispose();
+				} else {
+					PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
+					homeAficionado.setVisible(true);
+					dispose();
+				}
+			}
+		});
+		btnVolver.setForeground(Color.BLACK);
+		btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(255, 255, 204));
+		btnVolver.setBounds(15, 18, 116, 30);
+		contentPane.add(btnVolver);
 
 		JLabel lblNewLabel = new JLabel("Subí tu Receta acá");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -147,19 +129,25 @@ public class PantallaSubirReceta extends JFrame {
 				LocalDate fecha = LocalDate.now();
 				String categorias = String.join(" - ", listaCategorias);
 				String ingredientes = String.join(" \n ", listaIngredientes);
-				
-				if (perfil == null) {
-		            JOptionPane.showMessageDialog(null, "El perfil no está definido.");
-		            return;
-		        }
-				
-				int idUsuario = perfil.getIdUsuario();
-				
-				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
-						categorias, ingredientes, fecha, perfil.getIdUsuario());dispose();
-		                PantallaHomeChef pantallaHomeChef = new PantallaHomeChef(perfil);
-		                pantallaHomeChef.setVisible(true);
 
+				if (perfil == null) {
+					JOptionPane.showMessageDialog(null, "El perfil no está definido.");
+					return;
+				}
+
+				int idUsuario = perfil.getIdUsuario();
+
+				String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
+						categorias, ingredientes, fecha, perfil.getIdUsuario());
+
+				if (respuesta.equals("OK")) {
+					JOptionPane.showMessageDialog(null, "Receta publicada correctamente");
+					dispose();
+					PantallaHomeChef pantallaHomeChef = new PantallaHomeChef(perfil);
+					pantallaHomeChef.setVisible(true);
+				} else {
+					lblErrorIngredientes.setText(respuesta);
+				}
 			}
 		});
 
@@ -199,118 +187,112 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.add(inputCantidadIngrediente);
 		inputCantidadIngrediente.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		inputCantidadIngrediente.setColumns(10);
-		
-		JPanel panel_1_1_1 = new JPanel();
-		panel_1_1_1.setForeground(new Color(51, 51, 0));
-		panel_1_1_1.setBorder(null);
-		panel_1_1_1.setBackground(new Color(153, 0, 0));
-		panel_1_1_1.setBounds(0, 11, 865, 44);
-		contentPane.add(panel_1_1_1);
-		
-		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setForeground(new Color(51, 51, 0));
-		panel_1_1.setBackground(new Color(255, 255, 102));
-		panel_1_1.setBounds(52, 106, 281, 33);
-		contentPane.add(panel_1_1);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setForeground(new Color(51, 51, 0));
-		panel_1.setBackground(new Color(128, 0, 0));
-		panel_1.setBounds(373, 500, 356, 33);
-		contentPane.add(panel_1);
-		
-			comboBox = new JComboBox<>();
-	        comboBox.setBounds(43, 455, 291, 33);
-	        contentPane.add(comboBox);
-	        comboBox.addItem("Italia");
-	        comboBox.addItem("China");
-	        comboBox.addItem("México");
-	        comboBox.addItem("Argentina");
-	        comboBox.addItem("Brasil");
-	        comboBox.addItem("Colombia");
-	        comboBox.addItem("Dulces");
-	        comboBox.addItem("Japón");
-	        
-	        
-	    
-				
-						JLabel lblCategoria = new JLabel("Categorías");
-						lblCategoria.setBounds(43, 437, 238, 20);
-						contentPane.add(lblCategoria);
-						lblCategoria.setForeground(Color.WHITE);
-						lblCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-						
-								JButton btnAgregarCategoria = new JButton("Agregar");
-								btnAgregarCategoria.setForeground(Color.BLACK);
-								btnAgregarCategoria.setBackground(new Color(255, 255, 153));
-								btnAgregarCategoria.setBounds(43, 493, 92, 29);
-								contentPane.add(btnAgregarCategoria);
-								btnAgregarCategoria.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										agregarCategoria();
 
-									}
-								});
-								btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-								
-										panelIngredientes = new JPanel();
-										panelIngredientes.setBounds(43, 240, 284, 136);
-										contentPane.add(panelIngredientes);
-										panelIngredientes.setBackground(new Color(255, 51, 51));
-										panelIngredientes.setForeground(new Color(255, 255, 255));
-										panelIngredientes.setLayout(null);
-										panelIngredientes.setLayout(new BoxLayout(panelIngredientes, BoxLayout.Y_AXIS));
-										JScrollPane scrollPaneIngredientes = new JScrollPane(panelIngredientes);
-										scrollPaneIngredientes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-										scrollPaneIngredientes.setBounds(43, 240, 284, 136);
-										contentPane.add(scrollPaneIngredientes);
+		panelIngredientes = new JPanel();
+		panelIngredientes.setBounds(43, 240, 284, 136);
+		contentPane.add(panelIngredientes);
+		panelIngredientes.setBackground(new Color(255, 51, 51));
+		panelIngredientes.setForeground(new Color(255, 255, 255));
+		panelIngredientes.setLayout(null);
+		panelIngredientes.setLayout(new BoxLayout(panelIngredientes, BoxLayout.Y_AXIS));
+		JScrollPane scrollPaneIngredientes = new JScrollPane(panelIngredientes);
+		scrollPaneIngredientes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneIngredientes.setBounds(43, 240, 284, 136);
+		contentPane.add(scrollPaneIngredientes);
+
+		lblErrorIngredientes = new JLabel("");
+		lblErrorIngredientes.setForeground(Color.RED);
+		lblErrorIngredientes.setBounds(43, 200, 182, 20);
+		contentPane.add(lblErrorIngredientes);
 
 		listaIngredientes = new ArrayList<>();
 		listaCategorias = new ArrayList<>();
 
+		comboBox = new JComboBox<>();
+		comboBox.setBounds(43, 455, 291, 33);
+		contentPane.add(comboBox);
+		comboBox.addItem("Italia");
+		comboBox.addItem("China");
+		comboBox.addItem("México");
+		comboBox.addItem("Argentina");
+		comboBox.addItem("Brasil");
+		comboBox.addItem("Colombia");
+		comboBox.addItem("Dulces");
+		comboBox.addItem("Japón");
+
+		JLabel lblCategoria = new JLabel("Categorías");
+		lblCategoria.setBounds(43, 437, 238, 20);
+		contentPane.add(lblCategoria);
+		lblCategoria.setForeground(Color.WHITE);
+		lblCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+
+		JButton btnAgregarCategoria = new JButton("Agregar");
+		btnAgregarCategoria.setForeground(Color.BLACK);
+		btnAgregarCategoria.setBackground(new Color(255, 255, 153));
+		btnAgregarCategoria.setBounds(43, 493, 92, 29);
+		contentPane.add(btnAgregarCategoria);
+		btnAgregarCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarCategoria();
+			}
+		});
+		btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 	}
 
 	private void agregarIngrediente() {
-	    String nombreIngrediente = inputNombreIngrediente.getText();
-	    String cantidadIngrediente = inputCantidadIngrediente.getText();
-	    String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngrediente;
+		String nombreIngrediente = inputNombreIngrediente.getText().trim();
+		String cantidadIngredienteStr = inputCantidadIngrediente.getText().trim();
 
-	    listaIngredientes.add(nuevoIngrediente); // Agregar a la lista de ingredientes
+		// validar nombre ingrediente
+		if (nombreIngrediente.isEmpty() || nombreIngrediente.length() < 3) {
+			lblErrorIngredientes.setText("El nombre del ingrediente debe tener al menos 3 caracteres.");
+			return;
+		}
 
-	    JLabel labelIngrediente = new JLabel(nuevoIngrediente);
-	    labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		// validar nombre ingrediente
+		double cantidadIngrediente = 0;
+		try {
+			cantidadIngrediente = Double.parseDouble(cantidadIngredienteStr);
+			if (cantidadIngrediente <= 0) {
+				lblErrorIngredientes.setText("La cantidad debe ser mayor que 0.");
+				return;
+			}
+		} catch (NumberFormatException e) {
+			lblErrorIngredientes.setText("La cantidad debe ser un número válido.");
+			return;
+		}
 
-	    int yPosition = 10 + listaIngredientes.size() * 30;
-	    labelIngrediente.setBounds(10, yPosition, 400, 20);
-	    panelIngredientes.add(labelIngrediente);
+		String nuevoIngrediente = nombreIngrediente + " - " + cantidadIngredienteStr;
+		listaIngredientes.add(nuevoIngrediente);
 
-	    inputNombreIngrediente.setText("");
-	    inputCantidadIngrediente.setText("");
+		JLabel labelIngrediente = new JLabel(nuevoIngrediente);
+		labelIngrediente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-	    panelIngredientes.setPreferredSize(new java.awt.Dimension(301, yPosition + 30));
-	    panelIngredientes.revalidate();
-	    panelIngredientes.repaint();
+		int yPosition = 10 + listaIngredientes.size() * 30;
+		labelIngrediente.setBounds(10, yPosition, 400, 20);
+		panelIngredientes.add(labelIngrediente);
+
+		inputNombreIngrediente.setText("");
+		inputCantidadIngrediente.setText("");
+
+		panelIngredientes.setPreferredSize(new java.awt.Dimension(301, yPosition + 30));
+		panelIngredientes.revalidate();
+		panelIngredientes.repaint();
 	}
 
 	private void agregarCategoria() {
-        String nuevaCategoria = (String)comboBox.getSelectedItem();
-        listaCategorias.add(nuevaCategoria);
+		String nuevaCategoria = (String) comboBox.getSelectedItem();
+		listaCategorias.add(nuevaCategoria);
 
-        JLabel labelCategoria = new JLabel(nuevaCategoria);
-        labelCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel labelCategoria = new JLabel(nuevaCategoria);
+		labelCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-        int yPosition = 10 + listaCategorias.size() * 30;
-        labelCategoria.setBounds(10, yPosition, 400, 20);
-        panelCategorias.add(labelCategoria);
+		int yPosition = 10 + listaCategorias.size() * 30;
+		labelCategoria.setBounds(10, yPosition, 400, 20);
+		panelCategorias.add(labelCategoria);
 
-      
-
-        panelCategorias.setPreferredSize(new java.awt.Dimension(354, yPosition + 30));
-        panelCategorias.revalidate();
-        panelCategorias.repaint();
-        
-    }
-	
-	
-	
+		panelCategorias.setPreferredSize(new java.awt.Dimension(354, yPosition + 30));
+		panelCategorias.revalidate();
+		panelCategorias.repaint();
+	}
 }
