@@ -12,15 +12,16 @@ import Modelos.Categoria;
 import Modelos.Ingrediente;
 import Modelos.Perfil;
 import Modelos.Receta;
+import interfaces.FavoritoRepositorio;
 
-public class FavoritoControlador {
+public class FavoritoControlador implements FavoritoRepositorio {
     private Connection connection;
 
     public FavoritoControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
-    
+    @Override
     public List<Receta> getFavoritosByUsuario(Perfil perfil) {
         List<Receta> favoritos = new ArrayList<>();
         String sql = "SELECT r.* FROM receta r JOIN favorito f ON r.id_receta = f.id_receta WHERE f.id_usuario = ?";
@@ -48,7 +49,7 @@ public class FavoritoControlador {
         return favoritos;
     }
 
-
+    @Override
     public void addFavorito(Perfil perfil, int idReceta) {
         String sql = "INSERT INTO favorito (id_usuario, id_receta) VALUES (?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -61,7 +62,7 @@ public class FavoritoControlador {
         }
     }
 
-   
+    @Override
     public void removeFavorito(Perfil perfil, int idReceta) {
         String sql = "DELETE FROM favorito WHERE id_usuario = ? AND id_receta = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -73,6 +74,8 @@ public class FavoritoControlador {
             System.out.println("Error al eliminar la receta de favoritos: " + e.getMessage());
         }
     }
+
+
 
     
 }
