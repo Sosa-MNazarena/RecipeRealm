@@ -15,10 +15,12 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
@@ -74,9 +76,11 @@ public class PantallaSubirReceta extends JFrame {
 		panelCategorias = new JPanel();
 	    panelCategorias.setBackground(new Color(255, 51, 51));
 	    panelCategorias.setForeground(Color.WHITE);
-	    panelCategorias.setBounds(43, 381, 284, 58);
-	    contentPane.add(panelCategorias);
-	    panelCategorias.setLayout(null);
+	    panelCategorias.setLayout(new BoxLayout(panelCategorias, BoxLayout.Y_AXIS));
+	    JScrollPane scrollPaneCategorias = new JScrollPane(panelCategorias);
+	    scrollPaneCategorias.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    scrollPaneCategorias.setBounds(43, 381, 284, 58);
+	    contentPane.add(scrollPaneCategorias);
 	    
 	    JButton btnVolver = new JButton("Volver");
         btnVolver.addActionListener(new ActionListener() {
@@ -255,6 +259,11 @@ public class PantallaSubirReceta extends JFrame {
 										panelIngredientes.setBackground(new Color(255, 51, 51));
 										panelIngredientes.setForeground(new Color(255, 255, 255));
 										panelIngredientes.setLayout(null);
+										panelIngredientes.setLayout(new BoxLayout(panelIngredientes, BoxLayout.Y_AXIS));
+										JScrollPane scrollPaneIngredientes = new JScrollPane(panelIngredientes);
+										scrollPaneIngredientes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+										scrollPaneIngredientes.setBounds(43, 240, 284, 136);
+										contentPane.add(scrollPaneIngredientes);
 
 		listaIngredientes = new ArrayList<>();
 		listaCategorias = new ArrayList<>();
