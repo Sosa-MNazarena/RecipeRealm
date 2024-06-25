@@ -120,10 +120,10 @@ public class PantallaSubirCurso extends JFrame {
 		inputCupos = new JTextField();
 		horizontalBox_3.add(inputCupos);
 		inputCupos.setColumns(10);
-
-		// JDateChooser para la fecha
+		
+		// jcalendar
 		dateChooser = new JDateChooser();
-		dateChooser.setBounds(149, 391, 150, 37); 
+		dateChooser.setBounds(149, 391, 150, 37);
 		contentPane.add(dateChooser);
 
 		inputHorario = new JTextField();
@@ -172,14 +172,13 @@ public class PantallaSubirCurso extends JFrame {
 		lblErrorGeneral.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		lblErrorGeneral.setBounds(489, 427, 274, 14);
 		contentPane.add(lblErrorGeneral);
-
 		JButton btnPublicar = new JButton("Publicar");
 		btnPublicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int idUsuario = perfil.getIdUsuario();
 				LocalDate fecha = null;
 				if (dateChooser.getDate() != null) {
-				    fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				}
 
 				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),
