@@ -4,20 +4,31 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JDesktopPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
 import Controladores.RecetaControlador;
+import Controladores.ResenaControlador;
 import Modelos.Perfil;
 import Modelos.Receta;
+import Modelos.Resena;
+import javax.swing.JScrollPane;
+import java.awt.Component;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 
 public class PantallaVerRecetaComentarios extends JFrame {
@@ -32,6 +43,12 @@ public class PantallaVerRecetaComentarios extends JFrame {
     private JTextArea txtIngredientes;
     private JTextArea txtCategoria;
     private JTextArea txtDescripcion;
+    
+    private JTable tableComentarios;
+    private DefaultTableModel tableModel;
+    private JTextArea txtNuevoComentario;
+    private JComboBox<Integer> comboEstrella;
+    private JTextField inputComentario;
 
     /**
      * Launch the application.
@@ -166,12 +183,83 @@ public class PantallaVerRecetaComentarios extends JFrame {
         //pestaña comentarios
         JDesktopPane desktopPane_1 = new JDesktopPane();
         tabbedPane.addTab("Comentarios", null, desktopPane_1, null);
+
+        String[] columnNames = { "Nombre", "Comentario", "Estrellas", "Fecha" };
+        tableModel = new DefaultTableModel(columnNames, 0);
+        tableComentarios = new JTable(tableModel);
+        actualizarTabla();
+        
+        JScrollPane scrollPane = new JScrollPane(tableComentarios);
+        scrollPane.setBounds(10, 11, 731, 333);
+        desktopPane_1.add(scrollPane);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(255, 204, 0));
+        panel_2.setBounds(30, 33, 724, 324);
+        desktopPane_1.add(panel_2);
+        
+        JButton btnEnviarResena = new JButton("Enviar");
+        btnEnviarResena.setFont(new Font("Lucida Console", Font.PLAIN, 16));
+        btnEnviarResena.setBackground(new Color(255, 255, 153));
+        btnEnviarResena.setBounds(624, 432, 130, 30);
+        desktopPane_1.add(btnEnviarResena);
+        
+        btnEnviarResena.addActionListener(new ActionListener() {
+        	 public void actionPerformed(ActionEvent e) {
+                 String comentario = inputComentario.getText().trim();
+                 int estrellas = (int) comboEstrella.getSelectedItem();
+
+                 // Validación del comentario
+                 if (comentario.isEmpty()) {
+                     JOptionPane.showMessageDialog(null, "Por favor ingresa un comentario.");
+                     return;
+                 }
+
+                 // Crear una instancia de Resena
+                 Resena nuevaResena = new Resena(perfil.getIdUsuario(), receta.getIdReceta(), comentario, estrellas,
+                         estrellas, LocalDate.now());
+
+                 // Agregar la reseña usando el controlador
+                 ResenaControlador controlador = new ResenaControlador();
+                 controlador.addResena(nuevaResena);
+
+                 // Actualizar la tabla de comentarios
+                 actualizarTabla();
+             }
+         });
+        
+        comboEstrella = new JComboBox<Integer>();
+        comboEstrella.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+        comboEstrella.setBounds(624, 391, 130, 30);
+        desktopPane_1.add(comboEstrella);
+        comboEstrella.addItem("1");
+		comboEstrella.addItem("2");
+		comboEstrella.addItem("3");
+		comboEstrella.addItem("4");
+		comboEstrella.addItem("5");
+        
+        JLabel lblEstrellas = new JLabel("Estrellas");
+        lblEstrellas.setVerticalAlignment(SwingConstants.BOTTOM);
+        lblEstrellas.setForeground(new Color(204, 0, 0));
+        lblEstrellas.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+        lblEstrellas.setBounds(624, 368, 130, 22);
+        desktopPane_1.add(lblEstrellas);
+        
+        
+        inputComentario = new JTextField();
+        inputComentario.setBackground(new Color(255, 255, 204));
+        inputComentario.setColumns(10);
+        inputComentario.setBounds(10, 368, 604, 101);
+        desktopPane_1.add(inputComentario);
         
         JPanel panel_1_1_1 = new JPanel();
         panel_1_1_1.setForeground(new Color(51, 51, 0));
         panel_1_1_1.setBackground(new Color(204, 0, 0));
         panel_1_1_1.setBounds(49, 79, 770, 480);
         contentPane.add(panel_1_1_1);
+        
+        
+        
         
         //fuera de las pestañas
         //boton volver
@@ -189,5 +277,16 @@ public class PantallaVerRecetaComentarios extends JFrame {
         contentPane.add(btnVolver);
         
         
+    }
+    private void actualizarTabla() {
+        // AQUÍ PUEDES IMPLEMENTAR LA LÓGICA PARA ACTUALIZAR LA TABLA
+        // EJEMPLO DE DATOS DE PRUEBA:
+        Object[][] datos = {
+            {"Usuario1", "Comentario1", 5},
+            {"Usuario2", "Comentario2", 4},
+        };
+        for (Object[] fila : datos) {
+            tableModel.addRow(fila);
+        }
     }
 }
