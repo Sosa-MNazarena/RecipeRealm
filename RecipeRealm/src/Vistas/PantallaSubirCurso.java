@@ -1,7 +1,6 @@
 package Vistas;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,22 +9,24 @@ import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
-import Controladores.CursoControlador;
-import Controladores.PerfilControlador;
-import Modelos.Cursos;
-import Modelos.Perfil;
-
 import java.awt.Color;
-import javax.swing.JSpinner;
-import javax.swing.JLabel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
+import Controladores.PerfilControlador;
+import Modelos.Cursos;
+import Modelos.Perfil;
 
 public class PantallaSubirCurso extends JFrame {
 
@@ -35,91 +36,54 @@ public class PantallaSubirCurso extends JFrame {
 	private JTextField inputLugar;
 	private JTextField inputPrecio;
 	private JTextField inputCupos;
-	private JTextField inputFecha;
+	private JDateChooser dateChooser; // Nuevo componente para la fecha
 	private JTextField inputHorario;
+	private JLabel lblErrorTitulo;
+	private JLabel lblErrorLugar;
+	private JLabel lblErrorCupos;
 	private Perfil perfil;
+	private JLabel lblExito;
 	private PerfilControlador controlador = new PerfilControlador();
 
-	 public static void main(String[] args) {
-	        EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                try {
-	                    Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
-					LocalTime.now());
-
-	                    Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
-	                            "Descripción", true);
-	                    PantallaSubirCurso frame = new PantallaSubirCurso(perfil);
-	                    frame.setVisible(true);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        });
-	    }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
+							"Descripción", true);
+					PantallaSubirCurso frame = new PantallaSubirCurso(perfil);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	public PantallaSubirCurso(Perfil perfil) {
-		
-		this.perfil=perfil;
+		this.perfil = perfil;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 920, 696);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnVolver = new JButton("Volver");
-        btnVolver.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
-                homeChef.setVisible(true);
-                dispose();
-            }
-        });
-        										
-        												JLabel lblExito = new JLabel("");
-        												lblExito.setForeground(new Color(0, 128, 0));
-        												lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        												lblExito.setBounds(489, 427, 274, 14);
-        												contentPane.add(lblExito);
-        								
-        										JLabel lblErrorCupos = new JLabel("");
-        										lblErrorCupos.setForeground(Color.RED);
-        										lblErrorCupos.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        										lblErrorCupos.setBounds(489, 350, 163, 14);
-        										contentPane.add(lblErrorCupos);
-        						
-        								JLabel lblErrorPrecio = new JLabel("");
-        								lblErrorPrecio.setForeground(Color.RED);
-        								lblErrorPrecio.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        								lblErrorPrecio.setBounds(489, 260, 163, 14);
-        								contentPane.add(lblErrorPrecio);
-        				
-        						JLabel lblErrorTitulo = new JLabel("");
-        						lblErrorTitulo.setForeground(Color.RED);
-        						lblErrorTitulo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        						lblErrorTitulo.setBounds(109, 260, 163, 14);
-        						contentPane.add(lblErrorTitulo);
-        		
-        				JLabel lblErrorLugar = new JLabel("");
-        				lblErrorLugar.setForeground(Color.RED);
-        				lblErrorLugar.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        				lblErrorLugar.setBounds(109, 350, 163, 14);
-        				contentPane.add(lblErrorLugar);
-        
-        		JLabel lblErrorFecha = new JLabel("");
-        		lblErrorFecha.setForeground(Color.RED);
-        		lblErrorFecha.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-        		lblErrorFecha.setBounds(109, 425, 163, 14);
-        		contentPane.add(lblErrorFecha);
-        btnVolver.setForeground(new Color(255, 255, 255));
-        btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnVolver.setBackground(new Color(192, 192, 192));
-        btnVolver.setBounds(10, 11, 87, 37);
-        contentPane.add(btnVolver);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
+				homeChef.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+		btnVolver.setBackground(new Color(192, 192, 192));
+		btnVolver.setBounds(10, 11, 87, 37);
+		contentPane.add(btnVolver);
 
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -157,58 +121,50 @@ public class PantallaSubirCurso extends JFrame {
 		horizontalBox_3.add(inputCupos);
 		inputCupos.setColumns(10);
 
-		Box horizontalBox_1_1 = Box.createHorizontalBox();
-		horizontalBox_1_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		horizontalBox_1_1.setBounds(138, 379, 87, 35);
-		contentPane.add(horizontalBox_1_1);
-
-		inputFecha = new JTextField();
-		horizontalBox_1_1.add(inputFecha);
-		inputFecha.setColumns(10);
-
-		Box horizontalBox_1_1_1 = Box.createHorizontalBox();
-		horizontalBox_1_1_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		horizontalBox_1_1_1.setBounds(296, 379, 87, 35);
-		contentPane.add(horizontalBox_1_1_1);
+		// JDateChooser para la fecha
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(149, 391, 150, 37); 
+		contentPane.add(dateChooser);
 
 		inputHorario = new JTextField();
-		horizontalBox_1_1_1.add(inputHorario);
 		inputHorario.setColumns(10);
+		inputHorario.setBounds(186, 465, 87, 35);
+		contentPane.add(inputHorario);
 
 		JLabel lblTitulo = new JLabel("Título");
-		lblTitulo.setForeground(new Color(0, 0, 0));
+		lblTitulo.setForeground(Color.BLACK);
 		lblTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblTitulo.setBounds(109, 197, 108, 20);
 		contentPane.add(lblTitulo);
 
 		JLabel lblLugar = new JLabel("Lugar");
-		lblLugar.setForeground(new Color(0, 0, 0));
+		lblLugar.setForeground(Color.BLACK);
 		lblLugar.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblLugar.setBounds(109, 285, 108, 20);
 		contentPane.add(lblLugar);
 
 		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setForeground(new Color(0, 0, 0));
+		lblPrecio.setForeground(Color.BLACK);
 		lblPrecio.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblPrecio.setBounds(489, 197, 108, 20);
 		contentPane.add(lblPrecio);
 
 		JLabel lblCupos = new JLabel("Cupos Disponibles");
-		lblCupos.setForeground(new Color(0, 0, 0));
+		lblCupos.setForeground(Color.BLACK);
 		lblCupos.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		lblCupos.setBounds(488, 285, 179, 20);
 		contentPane.add(lblCupos);
 
-		JLabel lblDa = new JLabel("Día");
-		lblDa.setForeground(new Color(0, 0, 0));
-		lblDa.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-		lblDa.setBounds(109, 379, 30, 20);
-		contentPane.add(lblDa);
+		JLabel lblDia = new JLabel("Día");
+		lblDia.setForeground(Color.BLACK);
+		lblDia.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+		lblDia.setBounds(109, 391, 30, 20);
+		contentPane.add(lblDia);
 
 		JLabel lblHorario = new JLabel("Horario");
-		lblHorario.setForeground(new Color(0, 0, 0));
+		lblHorario.setForeground(Color.BLACK);
 		lblHorario.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-		lblHorario.setBounds(235, 379, 87, 20);
+		lblHorario.setBounds(109, 472, 87, 20);
 		contentPane.add(lblHorario);
 
 		JLabel lblErrorGeneral = new JLabel("");
@@ -221,9 +177,14 @@ public class PantallaSubirCurso extends JFrame {
 		btnPublicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int idUsuario = perfil.getIdUsuario();
-				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),perfil.getIdUsuario(),
-						LocalDate.parse(inputFecha.getText()), Integer.parseInt(inputCupos.getText()),
-						Double.parseDouble(inputPrecio.getText()), LocalTime.parse(inputHorario.getText()));
+				LocalDate fecha = null;
+				if (dateChooser.getDate() != null) {
+				    fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				}
+
+				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),
+						perfil.getIdUsuario(), fecha, Integer.parseInt(inputCupos.getText()),
+						Double.parseDouble(inputPrecio.getText()), LocalTime.now());
 				if (respuesta.equals("El curso se ha subido exitosamente.")) {
 					lblExito.setText(respuesta);
 					lblExito.setVisible(true);
@@ -237,9 +198,6 @@ public class PantallaSubirCurso extends JFrame {
 					} else if (respuesta.equals("Lugar inválido, más de 3 caracteres.")) {
 						lblErrorLugar.setText(respuesta);
 						lblErrorLugar.setVisible(true);
-					} else if (respuesta.equals("Fecha inválida.")) {
-						lblErrorFecha.setText(respuesta);
-						lblErrorFecha.setVisible(true);
 					} else if (respuesta.equals("Cupos inválidos, debe ser una cantidad mayor a 10")) {
 						lblErrorCupos.setText(respuesta);
 						lblErrorCupos.setVisible(true);
@@ -252,82 +210,20 @@ public class PantallaSubirCurso extends JFrame {
 		btnPublicar.setBackground(new Color(255, 153, 153));
 		btnPublicar.setBounds(489, 379, 274, 37);
 		contentPane.add(btnPublicar);
-		
-		JLabel lblSubTuCurso = new JLabel("Subí tu curso acá");
-		lblSubTuCurso.setBackground(new Color(153, 0, 0));
-		lblSubTuCurso.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSubTuCurso.setForeground(Color.WHITE);
-		lblSubTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 24));
-		lblSubTuCurso.setBounds(88, 94, 722, 44);
-		contentPane.add(lblSubTuCurso);
-		lblSubTuCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/libroIconMini.png")));
-		
-		JPanel panel_1_1_1 = new JPanel();
-		panel_1_1_1.setForeground(new Color(51, 51, 0));
-		panel_1_1_1.setBorder(null);
-		panel_1_1_1.setBackground(new Color(153, 0, 0));
-		panel_1_1_1.setBounds(88, 94, 722, 44);
-		contentPane.add(panel_1_1_1);
-		
-		JPanel panel_1_1_2 = new JPanel();
-		panel_1_1_2.setForeground(new Color(51, 51, 0));
-		panel_1_1_2.setBackground(new Color(255, 204, 0));
-		panel_1_1_2.setBounds(489, 219, 270, 30);
-		contentPane.add(panel_1_1_2);
-		
-		JPanel panel_1_1_3 = new JPanel();
-		panel_1_1_3.setForeground(new Color(51, 51, 0));
-		panel_1_1_3.setBackground(new Color(255, 204, 0));
-		panel_1_1_3.setBounds(499, 228, 270, 30);
-		contentPane.add(panel_1_1_3);
-		
-		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setForeground(new Color(51, 51, 0));
-		panel_1_1.setBackground(new Color(255, 204, 0));
-		panel_1_1.setBounds(119, 316, 270, 30);
-		contentPane.add(panel_1_1);
-		
-		JPanel panel_1_1_4 = new JPanel();
-		panel_1_1_4.setForeground(new Color(51, 51, 0));
-		panel_1_1_4.setBackground(new Color(255, 204, 0));
-		panel_1_1_4.setBounds(499, 316, 270, 30);
-		contentPane.add(panel_1_1_4);
-		
-		JPanel panel_1_1_5 = new JPanel();
-		panel_1_1_5.setForeground(new Color(51, 51, 0));
-		panel_1_1_5.setBackground(new Color(255, 204, 0));
-		panel_1_1_5.setBounds(119, 228, 270, 30);
-		contentPane.add(panel_1_1_5);
-		
-		JPanel panel_1_1_6 = new JPanel();
-		panel_1_1_6.setForeground(new Color(51, 51, 0));
-		panel_1_1_6.setBackground(new Color(255, 204, 0));
-		panel_1_1_6.setBounds(306, 392, 85, 30);
-		contentPane.add(panel_1_1_6);
-		
-		JPanel panel_1_1_6_1 = new JPanel();
-		panel_1_1_6_1.setForeground(new Color(51, 51, 0));
-		panel_1_1_6_1.setBackground(new Color(255, 204, 0));
-		panel_1_1_6_1.setBounds(148, 392, 85, 30);
-		contentPane.add(panel_1_1_6_1);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setForeground(new Color(51, 51, 0));
-		panel_1.setBackground(new Color(128, 0, 0));
-		panel_1.setBounds(499, 385, 274, 37);
-		contentPane.add(panel_1);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
-		panel.setBackground(new Color(255, 255, 204));
-		panel.setBounds(88, 25, 722, 546);
-		contentPane.add(panel);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
-		panel_2.setBackground(new Color(255, 204, 102));
-		panel_2.setBounds(124, 36, 707, 554);
-		contentPane.add(panel_2);
 
+		JLabel lblSubeTuCurso = new JLabel("Sube tu curso aquí");
+		lblSubeTuCurso.setBackground(new Color(153, 0, 0));
+		lblSubeTuCurso.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubeTuCurso.setForeground(Color.WHITE);
+		lblSubeTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 24));
+		lblSubeTuCurso.setBounds(88, 94, 722, 44);
+		contentPane.add(lblSubeTuCurso);
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102),
+				new Color(255, 255, 0), null));
+		panel.setBackground(new Color(255, 255, 204));
+		panel.setBounds(75, 48, 722, 546);
+		contentPane.add(panel);
 	}
 }
