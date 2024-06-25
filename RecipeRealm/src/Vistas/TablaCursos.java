@@ -172,7 +172,6 @@ public class TablaCursos extends JFrame {
 		btnNewButton.setBackground(new Color(255, 255, 204));
 		btnNewButton.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		if (perfil.isVerificado()) {
-			
 			btnNewButton.setVisible(true);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -183,12 +182,34 @@ public class TablaCursos extends JFrame {
 			        dispose();
 				}
 			});
-			
         } else {
         	btnNewButton.setVisible(false);
         }
 		btnNewButton.setBounds(136, 11, 155, 30);
 		contentPane.add(btnNewButton);
+		
+		JButton btnTusInscripciones = new JButton("Tus inscripciones");
+		btnTusInscripciones.setForeground(Color.BLACK);
+		btnTusInscripciones.setBackground(new Color(255, 255, 204));
+		btnTusInscripciones.setFont(new Font("Lucida Console", Font.BOLD, 16));
+		if (!perfil.isVerificado()) {
+			btnTusInscripciones.setVisible(true);
+			btnTusInscripciones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
+							LocalTime.now());
+			        TablaCursosInscriptos pantallaTusCursos = new TablaCursosInscriptos(perfil);
+			        pantallaTusCursos.setVisible(true);
+			        dispose();
+				}
+			});
+        } else {
+        	btnNewButton.setVisible(false);
+        }
+		btnTusInscripciones.setBounds(136, 11, 155, 30);
+		contentPane.add(btnTusInscripciones);
+		
+		
 		
 		JButton btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.setBounds(789, 93, 130, 30);
@@ -253,6 +274,13 @@ public class TablaCursos extends JFrame {
 						panel_1_1.setBackground(new Color(204, 0, 51));
 						panel_1_1.setBounds(724, 568, 203, 30);
 						contentPane.add(panel_1_1);
+						
+						
+						
+						JPanel panel_1_1_1 = new JPanel();
+						panel_1_1_1.setBackground(new Color(204, 0, 51));
+						panel_1_1_1.setBounds(66, 568, 203, 30);
+						contentPane.add(panel_1_1_1);
 		
 		
 		
@@ -291,7 +319,30 @@ public class TablaCursos extends JFrame {
 				}
 			}
 		});
+		JButton btnInscribirse = new JButton("Inscribirse");
+		btnInscribirse.setForeground(Color.BLACK);
+		btnInscribirse.setFont(new Font("Lucida Console", Font.BOLD, 15));
+		btnInscribirse.setBackground(new Color(255, 153, 153));
+		if (!perfil.isVerificado()) {
+			btnInscribirse.setVisible(true);
+			btnInscribirse.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (seleccionado.getIdCurso() != 0) {
+						controlador.inscribirCurso(perfil, seleccionado.getIdCurso());
+						JOptionPane.showMessageDialog(null, "Te has inscripto al curso");
+						actualizarTabla();
+					}else {
+	                    JOptionPane.showMessageDialog(null, "Falta seleccionar curso");
+	                }
+				}
+			});
+        } else {
+        	btnInscribirse.setVisible(false);
+        }
+		btnInscribirse.setBounds(63, 562, 198, 30);
+		contentPane.add(btnInscribirse);
 	}
+	
 
 	private void actualizarTabla() {
 		model.setRowCount(0);

@@ -140,7 +140,7 @@ public class CursoControlador implements CursoRepositorio {
     }
 
 	@Override
-	public boolean inscribirCurso(int idUsuario, int id_Curso) {
+	public boolean inscribirCurso(Perfil perfil, int id_Curso) {
 		try {
             PreparedStatement cupoStatement = connection.prepareStatement("SELECT cupo FROM cursos WHERE id_curso = ?");
             cupoStatement.setInt(1, id_Curso);
@@ -151,7 +151,7 @@ public class CursoControlador implements CursoRepositorio {
 
                 if (cupo > 0) {
                     PreparedStatement inscribirStatement = connection.prepareStatement("INSERT INTO inscripciones (id_usuario, id_curso) VALUES (?, ?)");
-                    inscribirStatement.setInt(1, idUsuario);
+                    inscribirStatement.setInt(1, perfil.getIdUsuario());
                     inscribirStatement.setInt(2, id_Curso);
                     inscribirStatement.executeUpdate();
 
@@ -170,7 +170,33 @@ public class CursoControlador implements CursoRepositorio {
         }
 		return false;
 	}
-	
-	
+
+	@Override
+	public List<Cursos> getCursosInscriptos(Perfil perfil) {	
+	    List<Cursos> cursosInscriptos = new ArrayList<>();
+	    try {
+	        String query = "SELECT c.* FROM cursos c JOIN inscripciones i ON c.id_curso = i.id_curso WHERE i.id_usuario = ?";
+	        PreparedStatement statement = connection.prepareStatement(query);
+	        statement.setInt(1, perfil.getIdUsuario());
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	        while (resultSet.next()) {
+	        	int idCurso = resultSet.getInt("id_curso");
+                String titulo = resultSet.getString("titulo");
+                String lugar = resultSet.getString("lugar");
+                LocalDate dia = resultSet.getDate("dia").toLocalDate();
+                int cupo = resultSet.getInt("cupo");
+                double precio = resultSet.getDouble("precio");
+                LocalTime horario = resultSet.getTime("horario").toLocalTime();
+                int idUsuario = resultSet.getInt("id_usuario");
+
+                Cursos cursito = new Cursos(idCurso, titulo, idUsuario, lugar, dia, cupo, precio, horario);
+                cursosInscriptos.add(cursito);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return cursosInscriptos;
+	}
 }
 

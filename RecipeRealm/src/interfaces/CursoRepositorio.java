@@ -17,5 +17,7 @@ public interface CursoRepositorio {
 	    
 	    boolean deleteCurso(int id); 
 
-		boolean inscribirCurso(int idUsuario, int idCurso);
+		boolean inscribirCurso(Perfil perfil, int idCurso);
+		
+		List<Cursos> getCursosInscriptos(Perfil perfil);
 }
