@@ -45,8 +45,9 @@ public class PantallaMisRecetas extends JFrame {
     public PantallaMisRecetas(Perfil perfil) {
         this.perfilActual = perfil;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        setBounds(100, 100, 1002, 665);
         contentPane = new JPanel();
+        contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -60,6 +61,7 @@ public class PantallaMisRecetas extends JFrame {
         model = new DefaultTableModel(columnNames, 0);
 
         JButton btnEditarReceta = new JButton("Editar Receta");
+        btnEditarReceta.setForeground(Color.BLACK);
         btnEditarReceta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdReceta() != 0) {
@@ -71,25 +73,20 @@ public class PantallaMisRecetas extends JFrame {
                 }
             }
         });
-        btnEditarReceta.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
-        btnEditarReceta.setBackground(Color.LIGHT_GRAY);
-        btnEditarReceta.setBounds(15, 513, 205, 37);
+        btnEditarReceta.setFont(new Font("Lucida Console", Font.BOLD, 16));
+        btnEditarReceta.setBackground(new Color(255, 153, 153));
+        btnEditarReceta.setBounds(711, 538, 198, 30);
         contentPane.add(btnEditarReceta);
 
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(15, 131, 756, 350);
+        scrollPane.setBounds(61, 146, 856, 350);
         contentPane.add(scrollPane);
 
-        elemento = new JLabel("Seleccionado:");
-        elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
-        elemento.setBounds(15, 95, 756, 14);
-        contentPane.add(elemento);
-
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnEliminar.setForeground(new Color(255, 255, 255));
-        btnEliminar.setBackground(new Color(0, 0, 0));
+        btnEliminar.setFont(new Font("Lucida Console", Font.BOLD, 16));
+        btnEliminar.setForeground(Color.BLACK);
+        btnEliminar.setBackground(new Color(255, 153, 153));
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdReceta() != 0) {
@@ -101,12 +98,14 @@ public class PantallaMisRecetas extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(588, 513, 183, 37);
+        btnEliminar.setBounds(61, 538, 198, 30);
         contentPane.add(btnEliminar);
 
         JLabel lblMisRecetas = new JLabel("Mis Recetas");
-        lblMisRecetas.setFont(new Font("Leelawadee UI", Font.BOLD, 28));
-        lblMisRecetas.setBounds(303, 29, 176, 44);
+        lblMisRecetas.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblMisRecetas.setForeground(Color.WHITE);
+        lblMisRecetas.setFont(new Font("Lucida Console", Font.BOLD, 20));
+        lblMisRecetas.setBounds(818, 11, 155, 36);
         contentPane.add(lblMisRecetas);
 
         JButton btnVolver = new JButton("Volver");
@@ -117,11 +116,41 @@ public class PantallaMisRecetas extends JFrame {
                 dispose();
             }
         });
-        btnVolver.setForeground(new Color(255, 255, 255));
-        btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnVolver.setBackground(new Color(192, 192, 192));
-        btnVolver.setBounds(15, 29, 87, 37);
+        btnVolver.setForeground(Color.BLACK);
+        btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
+        btnVolver.setBackground(new Color(255, 255, 204));
+        btnVolver.setBounds(15, 11, 116, 30);
         contentPane.add(btnVolver);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(255, 204, 0));
+        panel_2.setBounds(81, 167, 856, 344);
+        contentPane.add(panel_2);
+        
+        JPanel panel_2_1 = new JPanel();
+        panel_2_1.setBackground(new Color(255, 153, 153));
+        panel_2_1.setBounds(61, 80, 853, 46);
+        contentPane.add(panel_2_1);
+        
+                elemento = new JLabel("Seleccionado:");
+                elemento.setForeground(Color.BLACK);
+                panel_2_1.add(elemento);
+                elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+                
+                JPanel panel_1_1_1_2 = new JPanel();
+                panel_1_1_1_2.setBackground(new Color(204, 0, 51));
+                panel_1_1_1_2.setBounds(71, 90, 855, 46);
+                contentPane.add(panel_1_1_1_2);
+                
+                JPanel panel_1_1_1 = new JPanel();
+                panel_1_1_1.setBackground(new Color(204, 0, 51));
+                panel_1_1_1.setBounds(71, 548, 198, 30);
+                contentPane.add(panel_1_1_1);
+                
+                JPanel panel_1_1_1_1 = new JPanel();
+                panel_1_1_1_1.setBackground(new Color(204, 0, 51));
+                panel_1_1_1_1.setBounds(721, 548, 198, 30);
+                contentPane.add(panel_1_1_1_1);
 
         // Configuración del modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
