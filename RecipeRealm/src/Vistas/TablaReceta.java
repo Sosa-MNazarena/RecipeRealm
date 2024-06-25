@@ -26,6 +26,7 @@ import Modelos.Perfil;
 import Controladores.FavoritoControlador;
 import Controladores.RecetaControlador;
 import Modelos.Receta;
+import javax.swing.SwingConstants;
 
 public class TablaReceta extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -61,8 +62,9 @@ public class TablaReceta extends JFrame {
         this.setVisible(true);
         this.perfilActual = perfil;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 927, 619);
+        setBounds(100, 100, 1002, 665);
         contentPane = new JPanel();
+        contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -79,35 +81,14 @@ public class TablaReceta extends JFrame {
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(15, 131, 856, 190);
+        scrollPane.setBounds(63, 214, 856, 309);
         contentPane.add(scrollPane);
 
-        elemento = new JLabel("Seleccionado:");
-        elemento.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
-        elemento.setBounds(15, 95, 911, 14);
-        contentPane.add(elemento);
-
-        JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnEliminar.setForeground(new Color(255, 255, 255));
-        btnEliminar.setBackground(new Color(0, 0, 0));
-        btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (seleccionado.getIdReceta() != 0) {
-                    controlador.deleteReceta(seleccionado.getIdReceta());
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    actualizarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione una receta");
-                }
-            }
-        });
-        btnEliminar.setBounds(647, 464, 224, 37);
-        contentPane.add(btnEliminar);
-
         JLabel lblRecetas = new JLabel("Recetas");
-        lblRecetas.setFont(new Font("Leelawadee UI", Font.BOLD, 28));
-        lblRecetas.setBounds(380, 29, 101, 44);
+        lblRecetas.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblRecetas.setForeground(Color.WHITE);
+        lblRecetas.setFont(new Font("Lucida Console", Font.BOLD, 20));
+        lblRecetas.setBounds(818, 11, 155, 36);
         contentPane.add(lblRecetas);
 
         JButton btnAddFavorito = new JButton("Agregar a favorito");
@@ -122,13 +103,14 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnAddFavorito.setForeground(Color.WHITE);
-        btnAddFavorito.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnAddFavorito.setBackground(Color.BLACK);
-        btnAddFavorito.setBounds(638, 416, 233, 37);
+        btnAddFavorito.setForeground(new Color(0, 0, 0));
+        btnAddFavorito.setFont(new Font("Lucida Console", Font.BOLD, 14));
+        btnAddFavorito.setBackground(new Color(255, 153, 153));
+        btnAddFavorito.setBounds(63, 562, 198, 30);
         contentPane.add(btnAddFavorito);
         
         JButton btnMisRecetas = new JButton("Mis recetas");
+        btnMisRecetas.setForeground(Color.BLACK);
 		btnMisRecetas.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        Receta receta = new Receta(1, "Nombre de la receta", "Descripción de la receta", "Categoría", "Ingredientes", LocalDate.now(), 1);
@@ -138,9 +120,9 @@ public class TablaReceta extends JFrame {
 		        dispose();
 		    }
 		});
-		btnMisRecetas.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
-		btnMisRecetas.setBackground(Color.LIGHT_GRAY);
-		btnMisRecetas.setBounds(861, 583, 205, 34);
+		btnMisRecetas.setFont(new Font("Lucida Console", Font.BOLD, 16));
+		btnMisRecetas.setBackground(new Color(255, 255, 204));
+		btnMisRecetas.setBounds(136, 11, 155, 30);
 		contentPane.add(btnMisRecetas);
 
         JButton btnVolver = new JButton("Volver");
@@ -157,33 +139,34 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnVolver.setForeground(new Color(255, 255, 255));
-        btnVolver.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnVolver.setBackground(new Color(192, 192, 192));
-        btnVolver.setBounds(15, 11, 87, 37);
+        btnVolver.setForeground(new Color(0, 0, 0));
+        btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
+        btnVolver.setBackground(new Color(255, 255, 204));
+        btnVolver.setBounds(15, 11, 116, 30);
         contentPane.add(btnVolver);
 
         // campo de búsqueda y botón de búsqueda
         txtBusqueda = new JTextField();
-        txtBusqueda.setBounds(15, 382, 287, 37);
+        txtBusqueda.setBounds(63, 93, 300, 30);
         contentPane.add(txtBusqueda);
         txtBusqueda.setColumns(10);
 
-        JButton btnBuscar = new JButton("Buscar por Título");
-        btnBuscar.setBackground(new Color(255, 255, 255));
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setBackground(new Color(255, 153, 153));
         btnBuscar.setForeground(new Color(0, 0, 0));
-        btnBuscar.setFont(new Font("Leelawadee UI", Font.PLAIN, 14));
+        btnBuscar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String criterio = txtBusqueda.getText();
                 buscarReceta(criterio);
             }
         });
-        btnBuscar.setBounds(312, 383, 169, 37);
+        btnBuscar.setBounds(360, 93, 130, 30);
         contentPane.add(btnBuscar);
         
         JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(15, 439, 357, 34);
+        comboBox.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+        comboBox.setBounds(500, 93, 294, 30);
         contentPane.add(comboBox);
         comboBox.addItem("Italia");
         comboBox.addItem("China");
@@ -196,22 +179,70 @@ public class TablaReceta extends JFrame {
         
         
        
-        JButton btnFiltrar = new JButton("Filtrar por categoría");
+        JButton btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setBackground(new Color(255, 153, 153));
+        btnFiltrar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
         btnFiltrar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
         		actualizarPorFiltro((String)comboBox.getSelectedItem());
         	}
         });
-        btnFiltrar.setBounds(381, 438, 169, 37);
+        btnFiltrar.setBounds(789, 93, 130, 30);
         contentPane.add(btnFiltrar);
         
         JButton btnVer = new JButton("Ver Receta");
-        btnVer.setForeground(Color.WHITE);
-        btnVer.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
-        btnVer.setBackground(Color.LIGHT_GRAY);
-        btnVer.setBounds(704, 332, 155, 37);
+        btnVer.setForeground(new Color(0, 0, 0));
+        btnVer.setFont(new Font("Lucida Console", Font.BOLD, 14));
+        btnVer.setBackground(new Color(255, 153, 153));
+        btnVer.setBounds(701, 562, 198, 30);
         contentPane.add(btnVer);
+        
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(255, 204, 0));
+        panel_2.setBounds(83, 236, 856, 309);
+        contentPane.add(panel_2);
+        
+        JPanel panel_2_1 = new JPanel();
+        panel_2_1.setBackground(new Color(255, 255, 204));
+        panel_2_1.setBounds(63, 152, 853, 46);
+        contentPane.add(panel_2_1);
+        
+                elemento = new JLabel("Seleccionado:");
+                panel_2_1.add(elemento);
+                elemento.setVerticalAlignment(SwingConstants.TOP);
+                elemento.setBackground(new Color(255, 255, 204));
+                elemento.setHorizontalAlignment(SwingConstants.CENTER);
+                elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+                
+                JPanel panel_1 = new JPanel();
+                panel_1.setBackground(new Color(204, 0, 51));
+                panel_1.setBounds(73, 102, 853, 30);
+                contentPane.add(panel_1);
+                
+                JLabel lblBuscarTituloTex = new JLabel("Buscar recetas por título:");
+                lblBuscarTituloTex.setVerticalAlignment(SwingConstants.BOTTOM);
+                lblBuscarTituloTex.setForeground(new Color(255, 153, 153));
+                lblBuscarTituloTex.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+                lblBuscarTituloTex.setBounds(63, 69, 337, 22);
+                contentPane.add(lblBuscarTituloTex);
+                
+                JLabel lblFiltrarPorCategora = new JLabel("Filtrar recetas por categoría:");
+                lblFiltrarPorCategora.setVerticalAlignment(SwingConstants.BOTTOM);
+                lblFiltrarPorCategora.setForeground(new Color(255, 153, 153));
+                lblFiltrarPorCategora.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+                lblFiltrarPorCategora.setBounds(501, 69, 337, 22);
+                contentPane.add(lblFiltrarPorCategora);
+                
+                JPanel panel_1_1 = new JPanel();
+                panel_1_1.setBackground(new Color(204, 0, 51));
+                panel_1_1.setBounds(66, 568, 203, 30);
+                contentPane.add(panel_1_1);
+                
+                JPanel panel_1_1_1 = new JPanel();
+                panel_1_1_1.setBackground(new Color(204, 0, 51));
+                panel_1_1_1.setBounds(704, 568, 203, 30);
+                contentPane.add(panel_1_1_1);
         
         btnVer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
