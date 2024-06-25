@@ -195,7 +195,7 @@ public class TablaReceta extends JFrame {
         btnVer.setForeground(new Color(0, 0, 0));
         btnVer.setFont(new Font("Lucida Console", Font.BOLD, 14));
         btnVer.setBackground(new Color(255, 153, 153));
-        btnVer.setBounds(701, 562, 198, 30);
+        btnVer.setBounds(721, 562, 198, 30);
         contentPane.add(btnVer);
         
         JPanel panel_2 = new JPanel();
@@ -241,7 +241,7 @@ public class TablaReceta extends JFrame {
                 
                 JPanel panel_1_1_1 = new JPanel();
                 panel_1_1_1.setBackground(new Color(204, 0, 51));
-                panel_1_1_1.setBounds(704, 568, 203, 30);
+                panel_1_1_1.setBounds(724, 568, 203, 30);
                 contentPane.add(panel_1_1_1);
         
         btnVer.addActionListener(new ActionListener() {
