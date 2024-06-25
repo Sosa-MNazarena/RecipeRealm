@@ -114,7 +114,7 @@ public class TablaCursos extends JFrame {
                 }
 			}
 		});
-		btnVolver.setForeground(new Color(0, 0, 0));
+		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		btnVolver.setBackground(new Color(255, 255, 204));
 		btnVolver.setBounds(15, 11, 116, 30);
@@ -124,7 +124,7 @@ public class TablaCursos extends JFrame {
 		// Crear el botón de eliminar
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setFont(new Font("Lucida Console", Font.BOLD, 15));
-		btnEliminar.setForeground(new Color(0, 0, 0));
+		btnEliminar.setForeground(Color.BLACK);
 		btnEliminar.setBackground(new Color(255, 153, 153));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,6 +219,7 @@ public class TablaCursos extends JFrame {
 		
 		//para implementar después la parte de "mis cursos" para el chef, y "incribite" para el aficionado
 		JButton btnNewButton = new JButton("Mis cursos");
+		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setBackground(new Color(255, 255, 204));
 		btnNewButton.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		if (perfil.isVerificado()) {

@@ -186,6 +186,7 @@ public class TablaFavoritos extends JFrame {
                 contentPane.add(btnBuscar);
                 
                 JButton btnFiltrar = new JButton("Filtrar");
+                btnFiltrar.setForeground(Color.BLACK);
                 btnFiltrar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
                 btnFiltrar.setBackground(new Color(255, 153, 153));
                 btnFiltrar.setBounds(789, 94, 130, 30);

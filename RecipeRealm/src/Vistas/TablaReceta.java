@@ -103,7 +103,7 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnAddFavorito.setForeground(new Color(0, 0, 0));
+        btnAddFavorito.setForeground(Color.BLACK);
         btnAddFavorito.setFont(new Font("Lucida Console", Font.BOLD, 14));
         btnAddFavorito.setBackground(new Color(255, 153, 153));
         btnAddFavorito.setBounds(63, 562, 198, 30);
@@ -139,7 +139,7 @@ public class TablaReceta extends JFrame {
                 }
             }
         });
-        btnVolver.setForeground(new Color(0, 0, 0));
+        btnVolver.setForeground(Color.BLACK);
         btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
         btnVolver.setBackground(new Color(255, 255, 204));
         btnVolver.setBounds(15, 11, 116, 30);
@@ -192,7 +192,7 @@ public class TablaReceta extends JFrame {
         contentPane.add(btnFiltrar);
         
         JButton btnVer = new JButton("Ver Receta");
-        btnVer.setForeground(new Color(0, 0, 0));
+        btnVer.setForeground(Color.BLACK);
         btnVer.setFont(new Font("Lucida Console", Font.BOLD, 14));
         btnVer.setBackground(new Color(255, 153, 153));
         btnVer.setBounds(721, 562, 198, 30);

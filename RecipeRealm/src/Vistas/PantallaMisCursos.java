@@ -85,6 +85,7 @@ public class PantallaMisCursos extends JFrame {
         model = new DefaultTableModel(columnNames, 0);
         
         JButton btnEditarReceta = new JButton("Editar Receta");
+        btnEditarReceta.setForeground(Color.BLACK);
         btnEditarReceta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdCurso() != 0) {
