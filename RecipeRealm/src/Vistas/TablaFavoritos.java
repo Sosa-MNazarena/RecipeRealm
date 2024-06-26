@@ -26,6 +26,7 @@ import Modelos.Perfil;
 import Modelos.Receta;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 public class TablaFavoritos extends JFrame {
 
@@ -57,6 +58,8 @@ public class TablaFavoritos extends JFrame {
         String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha"  };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
+        table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        table.setBackground(new Color(255, 255, 204));
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -130,10 +133,6 @@ public class TablaFavoritos extends JFrame {
         });
         btnEliminar.setBounds(63, 562, 198, 30);
         contentPane.add(btnEliminar);
-
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBounds(15, 220, 101, 22);
-        contentPane.add(menuBar);
         
         JPanel panel_2 = new JPanel();
         panel_2.setBackground(new Color(255, 204, 0));

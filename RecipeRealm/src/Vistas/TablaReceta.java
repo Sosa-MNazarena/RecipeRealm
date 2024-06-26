@@ -27,6 +27,7 @@ import Controladores.FavoritoControlador;
 import Controladores.RecetaControlador;
 import Modelos.Receta;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 public class TablaReceta extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -78,6 +79,8 @@ public class TablaReceta extends JFrame {
         String[] columnNames = { "ID", "Título", "Procedimiento", "Categorías", "Ingredientes", "Fecha" };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
+        table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        table.setBackground(new Color(255, 255, 204));
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
