@@ -27,6 +27,7 @@ import Modelos.Cursos;
 import Modelos.Perfil;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 public class TablaCursosInscriptos extends JFrame {
 
@@ -39,6 +40,8 @@ public class TablaCursosInscriptos extends JFrame {
     private JLabel elemento;
     private Cursos seleccionado;
     private JTextField textField;
+    private JTextField txtBusqueda;
+	private JTextField txtPrecio;
 
     
     public TablaCursosInscriptos(Perfil perfil) {
@@ -59,6 +62,8 @@ public class TablaCursosInscriptos extends JFrame {
         String[] columnNames = { "ID", "Título", "Lugar", "Fecha", "Cupo", "Precio", "Horario" };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
+        table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        table.setBackground(new Color(255, 255, 204));
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -75,15 +80,9 @@ public class TablaCursosInscriptos extends JFrame {
         JButton btnVolver = new JButton("Volver");
         btnVolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	if (perfil.isVerificado()) {
-                    PantallaHomeChef homeChef = new PantallaHomeChef(perfil);
-                    homeChef.setVisible(true);
-                    dispose();
-                } else {
-                    PantallaHomeAficionado homeAficionado = new PantallaHomeAficionado(perfil);
-                    homeAficionado.setVisible(true);
-                    dispose();
-                }
+                TablaCursos cursitosTabla = new TablaCursos(perfil);
+                cursitosTabla.setVisible(true);
+                dispose();
             }
         });
         btnVolver.setForeground(Color.BLACK);
@@ -101,13 +100,16 @@ public class TablaCursosInscriptos extends JFrame {
         
         btnVer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	if (seleccionado.getIdCurso() != 0) {
+                    PantallaVerCurso verCurso= new PantallaVerCurso(seleccionado, perfil);
+                    verCurso.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una curso");
+                }
                
             }
         });
-
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBounds(15, 220, 101, 22);
-        contentPane.add(menuBar);
         
         JPanel panel_2 = new JPanel();
         panel_2.setBackground(new Color(255, 204, 0));
@@ -119,11 +121,6 @@ public class TablaCursosInscriptos extends JFrame {
         panel_1_1.setBounds(724, 568, 203, 30);
         contentPane.add(panel_1_1);
         
-        JPanel panel_1_1_1 = new JPanel();
-        panel_1_1_1.setBackground(new Color(204, 0, 51));
-        panel_1_1_1.setBounds(66, 568, 203, 30);
-        contentPane.add(panel_1_1_1);
-        
         JPanel panel_1_1_2 = new JPanel();
         panel_1_1_2.setForeground(Color.BLACK);
         panel_1_1_2.setBackground(new Color(255, 255, 204));
@@ -134,26 +131,32 @@ public class TablaCursosInscriptos extends JFrame {
                 panel_1_1_2.add(elemento);
                 elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
                 
-                JLabel lblBuscarTituloTex = new JLabel("Buscar recetas por título:");
+                JLabel lblBuscarTituloTex = new JLabel("Buscar curso por título:");
                 lblBuscarTituloTex.setVerticalAlignment(SwingConstants.BOTTOM);
                 lblBuscarTituloTex.setForeground(new Color(255, 153, 153));
                 lblBuscarTituloTex.setFont(new Font("Lucida Console", Font.PLAIN, 14));
                 lblBuscarTituloTex.setBounds(63, 70, 337, 22);
                 contentPane.add(lblBuscarTituloTex);
                 
-                JLabel lblFiltrarPorCategora = new JLabel("Filtrar recetas por categoría:");
-                lblFiltrarPorCategora.setVerticalAlignment(SwingConstants.BOTTOM);
-                lblFiltrarPorCategora.setForeground(new Color(255, 153, 153));
-                lblFiltrarPorCategora.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-                lblFiltrarPorCategora.setBounds(501, 70, 337, 22);
-                contentPane.add(lblFiltrarPorCategora);
+                JLabel lblFiltrarCursosPor = new JLabel("Filtrar cursos por precio \"menor a\":");
+                lblFiltrarCursosPor.setVerticalAlignment(SwingConstants.BOTTOM);
+                lblFiltrarCursosPor.setForeground(new Color(255, 153, 153));
+                lblFiltrarCursosPor.setFont(new Font("Lucida Console", Font.PLAIN, 14));
+                lblFiltrarCursosPor.setBounds(501, 70, 337, 22);
+                contentPane.add(lblFiltrarCursosPor);
                 
-                JComboBox comboBox = new JComboBox();
-                comboBox.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-                comboBox.setBounds(500, 94, 294, 30);
-                contentPane.add(comboBox);
+                txtPrecio = new JTextField();
+                txtPrecio.setColumns(10);
+                txtPrecio.setBounds(501, 94, 287, 30);
+                contentPane.add(txtPrecio);
                 
                 JButton btnBuscar = new JButton("Buscar");
+                btnBuscar.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		String criterio = txtBusqueda.getText();
+						buscarCurso(criterio);
+                	}
+                });
                 btnBuscar.setForeground(Color.BLACK);
                 btnBuscar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
                 btnBuscar.setBackground(new Color(255, 153, 153));
@@ -161,16 +164,27 @@ public class TablaCursosInscriptos extends JFrame {
                 contentPane.add(btnBuscar);
                 
                 JButton btnFiltrar = new JButton("Filtrar");
+                btnFiltrar.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		if (txtPrecio.getText().isEmpty()) {
+                			actualizarTabla();
+						} else {
+							int valor =Integer.parseInt(txtPrecio.getText()) ;
+	        				buscarCursoPrecio(valor);
+						}
+                		
+                	}
+                });
                 btnFiltrar.setForeground(Color.BLACK);
                 btnFiltrar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
                 btnFiltrar.setBackground(new Color(255, 153, 153));
                 btnFiltrar.setBounds(789, 94, 130, 30);
                 contentPane.add(btnFiltrar);
                 
-                textField = new JTextField();
-                textField.setColumns(10);
-                textField.setBounds(63, 94, 300, 30);
-                contentPane.add(textField);
+                txtBusqueda = new JTextField();
+                txtBusqueda.setColumns(10);
+                txtBusqueda.setBounds(63, 94, 300, 30);
+                contentPane.add(txtBusqueda);
                 
                 JPanel panel_1 = new JPanel();
                 panel_1.setBackground(new Color(204, 0, 51));
@@ -221,6 +235,36 @@ public class TablaCursosInscriptos extends JFrame {
 			Object[] fila = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(),
 					curso.getDia().toString(), curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
 			model.addRow(fila);
+		}
+	}
+    
+    private void buscarCurso(String criterio) {
+		model.setRowCount(0);
+
+		List<Cursos> cursos = controlador.getCursosInscriptos(perfil);
+
+		for (Cursos curso : cursos) {
+			if (curso.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
+				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
+						curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
+				model.addRow(fila);
+
+			}
+		}
+	}
+	
+	private void buscarCursoPrecio(int valor) {
+		model.setRowCount(0);
+
+		List<Cursos> cursos = controlador.getCursosInscriptos(perfil);
+
+		for (Cursos curso : cursos) {
+			if (curso.getPrecio()<valor) {
+				Object fila[] = { curso.getIdCurso(), curso.getTitulo(), curso.getLugar(), curso.getDia().toString(),
+						curso.getCupo(), curso.getPrecio(), curso.getHorario().toString() };
+				model.addRow(fila);
+
+			}
 		}
 	}
 }

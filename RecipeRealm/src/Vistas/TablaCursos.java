@@ -185,7 +185,7 @@ public class TablaCursos extends JFrame {
         } else {
         	btnNewButton.setVisible(false);
         }
-		btnNewButton.setBounds(136, 11, 155, 30);
+		btnNewButton.setBounds(149, 11, 155, 30);
 		contentPane.add(btnNewButton);
 		
 		JButton btnTusInscripciones = new JButton("Tus inscripciones");
@@ -206,7 +206,7 @@ public class TablaCursos extends JFrame {
         } else {
         	btnNewButton.setVisible(false);
         }
-		btnTusInscripciones.setBounds(136, 11, 155, 30);
+		btnTusInscripciones.setBounds(152, 11, 248, 30);
 		contentPane.add(btnTusInscripciones);
 		
 		
@@ -274,13 +274,6 @@ public class TablaCursos extends JFrame {
 						panel_1_1.setBackground(new Color(204, 0, 51));
 						panel_1_1.setBounds(724, 568, 203, 30);
 						contentPane.add(panel_1_1);
-						
-						
-						
-						JPanel panel_1_1_1 = new JPanel();
-						panel_1_1_1.setBackground(new Color(204, 0, 51));
-						panel_1_1_1.setBounds(66, 568, 203, 30);
-						contentPane.add(panel_1_1_1);
 		
 		
 		
@@ -341,6 +334,35 @@ public class TablaCursos extends JFrame {
         }
 		btnInscribirse.setBounds(63, 562, 198, 30);
 		contentPane.add(btnInscribirse);
+		
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setBackground(new Color(204, 0, 51));
+		panel_1_1_1.setBounds(66, 568, 203, 30);
+		contentPane.add(panel_1_1_1);
+		
+		JButton btnVer = new JButton("Ver Curso");
+		btnVer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (seleccionado.getIdCurso() != 0) {
+                    PantallaVerCurso verCurso= new PantallaVerCurso(seleccionado, perfil);
+                    verCurso.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un curso");
+                }
+			}
+		});
+		btnVer.setForeground(Color.BLACK);
+		btnVer.setFont(new Font("Lucida Console", Font.BOLD, 14));
+		btnVer.setBackground(new Color(255, 153, 153));
+		btnVer.setBounds(392, 562, 198, 30);
+		contentPane.add(btnVer);
+		
+		JPanel panel_1_1_2 = new JPanel();
+		panel_1_1_2.setBackground(new Color(204, 0, 51));
+		panel_1_1_2.setBounds(392, 568, 203, 30);
+		contentPane.add(panel_1_1_2);
 	}
 	
 
