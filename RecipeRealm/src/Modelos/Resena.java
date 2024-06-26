@@ -13,9 +13,9 @@ public class Resena {
 	private String pseudonimoUsuario;
 
 	// Constructor
-	public Resena(int idResena, int idUsuario, String comentario, int estrella, int idReceta, LocalDate fecha) {
+	public Resena(int idResena, int idUsuario, String pseudonimo, String comentario, int estrella, LocalDate fecha, int idReceta) {
 		this.idResena = idResena;
-		this.pseudonimoUsuario = pseudonimoUsuario;
+		this.pseudonimoUsuario = pseudonimo;
 		this.comentario = comentario;
 		this.estrella = estrella;
 		this.idUsuario = idUsuario;
@@ -24,9 +24,13 @@ public class Resena {
 
 	}
 
-	public Resena(String Nombre, String Comentario, int id_receta, LocalDate now) {
+	public Resena(int idResena2, int idReceta, int calificacion, String comentario, String pseudonimo,
+			java.sql.Date fecha) {
 		// TODO Auto-generated constructor stub
 	}
+
+
+
 	public String getPseudonimoUsuario() {
         return pseudonimoUsuario;
     }

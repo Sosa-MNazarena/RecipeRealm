@@ -15,23 +15,28 @@ public class ResenaControlador implements ResenaRepository {
     public ResenaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
         this.resenas = new ArrayList<>();
-        cargarResenasDesdeBaseDeDatos();
+        cargarResenasDesdeBaseDeDatos(0);
     }
     
 
-    private void cargarResenasDesdeBaseDeDatos() {
-        String sql = "SELECT id_resena, id_usuario, comentario, estrella, id_receta, fecha FROM resena";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                int idResena = rs.getInt("id_resena");
-                int idUsuario = rs.getInt("id_usuario");
-                String comentario = rs.getString("comentario");
-                int estrella = rs.getInt("estrella");
-                int idReceta = rs.getInt("id_receta");
-                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+    private void cargarResenasDesdeBaseDeDatos(int idReceta) {
+        String sql = "SELECT r.id_resena, r.id_receta, r.id_usuario, r.estrella, r.comentario, u.pseudonimo "
+                + "FROM resena r INNER JOIN usuario u ON r.id_usuario = u.id_usuario "
+                + "WHERE r.id_receta = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, idReceta);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int idResena = rs.getInt("id_resena");
+                    int idUsuario = rs.getInt("id_usuario");
+                    String comentario = rs.getString("comentario");
+                    int estrella = rs.getInt("estrella");
+                    String pseudonimo = rs.getString("pseudonimo");
 
-                Resena resena = new Resena(idResena, idUsuario, comentario, estrella, idReceta, fecha);
-                resenas.add(resena);
+                    
+                    Resena resena = new Resena(idResena, idUsuario, pseudonimo, comentario, estrella, null, estrella);
+                    resenas.add(resena);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,20 +65,36 @@ public class ResenaControlador implements ResenaRepository {
     @Override
     public List<Resena> getResenasByRecetaId(int idReceta) {
         List<Resena> resenasPorReceta = new ArrayList<>();
-        for (Resena resena : resenas) {
-            if (resena.getIdReceta() == idReceta) {
-                resenasPorReceta.add(resena);
+        String sql = "SELECT r.id_resena, r.id_receta, r.id_usuario, r.estrella, r.comentario, r.fecha, u.pseudonimo "
+                   + "FROM resena r INNER JOIN usuario u ON r.id_usuario = u.id_usuario "
+                   + "WHERE r.id_receta = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, idReceta);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int idResena = rs.getInt("id_resena");
+                    int idUsuario = rs.getInt("id_usuario");
+                    String pseudonimo = rs.getString("pseudonimo");
+                    String comentario = rs.getString("comentario");
+                    int estrella = rs.getInt("estrella");
+                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
+
+                    Resena resena = new Resena(idResena, idUsuario, pseudonimo, comentario, estrella, fecha, idReceta);
+                    resenasPorReceta.add(resena);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
         }
         return resenasPorReceta;
     }
 
     @Override
     public void addResena(Resena resena, int idReceta) throws SQLException {
-    	 String query = "INSERT INTO resena (id_usuario, comentario, estrella, fecha, id_receta) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO resena (id_usuario, comentario, estrella, fecha, id_receta) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-        	statement.setInt(1, resena.getidUsuario());
-        	statement.setString(1, resena.getPseudonimoUsuario());
+            statement.setInt(1, resena.getidUsuario());
             statement.setString(2, resena.getComentario());
             statement.setInt(3, resena.getEstrella());
             statement.setDate(4, Date.valueOf(resena.getFecha()));

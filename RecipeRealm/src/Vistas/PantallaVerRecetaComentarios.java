@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JDesktopPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import java.time.LocalDate;
 
 import Controladores.RecetaControlador;
 import Controladores.ResenaControlador;
@@ -56,20 +57,21 @@ public class PantallaVerRecetaComentarios extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña",
-                            "Descripción", true);
-                    TablaReceta frame = new TablaReceta(perfil);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	public static void main(String[] args) {
+	    EventQueue.invokeLater(new Runnable() {
+	        public void run() {
+	            try {
+	                Perfil perfil = new Perfil(1, "Nombre", "Pseudónimo", "correo@example.com", "contraseña", "Descripción", true);
+	                LocalDate fechaReceta = LocalDate.of(2024, 6, 27);
+	                Receta receta = new Receta(1, "Título", "Procedimiento", "Categorías", "Ingredientes", fechaReceta, 1);
+	                PantallaVerRecetaComentarios frame = new PantallaVerRecetaComentarios(receta, perfil);
+	                frame.setVisible(true);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    });
+	}
 
     /**
      * Create the frame.
@@ -191,7 +193,7 @@ public class PantallaVerRecetaComentarios extends JFrame {
         String[] columnNames = { "Nombre", "Comentario", "Estrellas", "Fecha" };
         tableModel = new DefaultTableModel(columnNames, 0);
         tableComentarios = new JTable(tableModel);
-        actualizarTabla();
+        
         
         JScrollPane scrollPane = new JScrollPane(tableComentarios);
         scrollPane.setBounds(10, 11, 731, 333);
@@ -216,19 +218,19 @@ public class PantallaVerRecetaComentarios extends JFrame {
         	    LocalDate fecha = LocalDate.now();
         	    int idReceta = receta.getIdReceta();
 
-        	    Resena resena = new Resena(idUsuario, idReceta, comentario, estrella, idReceta, fecha);
+        	    Resena resena = new Resena(0, idUsuario, "", comentario, estrella, fecha, idReceta);
+
 
                 try {
                     resenaControlador.addResena(resena, idReceta);
+                    JOptionPane.showMessageDialog(null, "Reseña agregada correctamente.");
+                    actualizarTabla();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al agregar la reseña: " + e1.getMessage());
                 }
-                inputComentario.setText("");
-
-                actualizarTabla();
-
-             }
-         });
+            }
+        });
         actualizarTabla();
         
         comboEstrella = new JComboBox<Integer>();
@@ -282,15 +284,13 @@ public class PantallaVerRecetaComentarios extends JFrame {
         
     }
     private void actualizarTabla() {
-        tableModel.setRowCount(0);
-
         List<Resena> resenas = resenaControlador.getResenasByRecetaId(receta.getIdReceta());
-
+        tableModel.setRowCount(0);
         for (Resena resena : resenas) {
             Object[] fila = {
-                resena.getidUsuario(), 
-                resena.getComentario(), 
-                resena.getEstrella(), 
+                resena.getPseudonimoUsuario(),
+                resena.getComentario(),
+                resena.getEstrella(),
                 resena.getFecha().toString()
             };
             tableModel.addRow(fila);
