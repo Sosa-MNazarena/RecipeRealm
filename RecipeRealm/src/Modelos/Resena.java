@@ -30,6 +30,10 @@ public class Resena {
 		}
 	}
 
+	public Resena(String Nombre, String Comentario, int id_receta, LocalDate now) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdResena() {
 		return idResena;
 	}

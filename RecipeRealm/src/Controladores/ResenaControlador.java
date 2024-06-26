@@ -17,6 +17,7 @@ public class ResenaControlador implements ResenaRepository {
         this.resenas = new ArrayList<>();
         cargarResenasDesdeBaseDeDatos();
     }
+    
 
     private void cargarResenasDesdeBaseDeDatos() {
         String sql = "SELECT id_resena, id_usuario, comentario, estrella, id_receta, fecha FROM resena";
@@ -37,6 +38,29 @@ public class ResenaControlador implements ResenaRepository {
             System.out.println("Error al cargar las reseñas desde la base de datos: " + e.getMessage());
         }
     }
+    
+    public int getRecetaIdByTitulo(String titulo) {
+        String query = "SELECT id_receta FROM receta WHERE titulo = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, titulo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_receta");
+                } else {
+                    System.out.println("No se encontró la receta con el título: " + titulo);
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al buscar id_receta: " + e.getMessage());
+            return -1;
+        }
+    }
+    public void agregarResena(int idReceta, Resena resena) {
+        resena.setIdReceta(idReceta);
+        addResena(resena);
+    }
 
     @Override
     public List<Resena> getResenasByRecetaId(int idReceta) {
@@ -53,11 +77,11 @@ public class ResenaControlador implements ResenaRepository {
     public void addResena(Resena resena) {
         String query = "INSERT INTO resena (id_usuario, id_receta, comentario, estrella, fecha) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-        	statement.setInt(1, resena.getidUsuario());
-        	statement.setInt(2, resena.getIdReceta());
-        	statement.setString(3, resena.getComentario());
-        	statement.setInt(4, resena.getEstrella());
-        	statement.setDate(5, Date.valueOf(resena.getFecha()));
+            statement.setInt(1, resena.getidUsuario());
+            statement.setInt(2, resena.getIdReceta());
+            statement.setString(3, resena.getComentario());
+            statement.setInt(4, resena.getEstrella());
+            statement.setDate(5, Date.valueOf(resena.getFecha()));
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -67,13 +91,12 @@ public class ResenaControlador implements ResenaRepository {
                     }
                 }
                 resenas.add(resena);
-                return;
+                System.out.println("Reseña agregada exitosamente.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error al agregar la reseña: " + e.getMessage());
         }
-        return;
     }
 
     @Override
@@ -100,7 +123,7 @@ public class ResenaControlador implements ResenaRepository {
             stmt.setInt(1, idResena);
             int rowsDeleted = stmt.executeUpdate();
             if (rowsDeleted > 0) {
-                // Actualizamos la lista local de resenas eliminando la reseña correspondiente
+               
                 resenas.removeIf(resena -> resena.getIdResena() == idResena);
                 return true;
             }
@@ -110,4 +133,5 @@ public class ResenaControlador implements ResenaRepository {
         }
         return false;
     }
+
 }

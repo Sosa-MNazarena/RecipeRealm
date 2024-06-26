@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -227,16 +228,17 @@ public class PantallaVerRecetaComentarios extends JFrame {
                  actualizarTabla();
              }
          });
+        actualizarTabla();
         
         comboEstrella = new JComboBox<Integer>();
         comboEstrella.setFont(new Font("Lucida Console", Font.PLAIN, 11));
         comboEstrella.setBounds(624, 391, 130, 30);
         desktopPane_1.add(comboEstrella);
-        comboEstrella.addItem("1");
-		comboEstrella.addItem("2");
-		comboEstrella.addItem("3");
-		comboEstrella.addItem("4");
-		comboEstrella.addItem("5");
+        comboEstrella.addItem(1);
+		comboEstrella.addItem(2);
+		comboEstrella.addItem(3);
+		comboEstrella.addItem(4);
+		comboEstrella.addItem(5);
         
         JLabel lblEstrellas = new JLabel("Estrellas");
         lblEstrellas.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -279,14 +281,20 @@ public class PantallaVerRecetaComentarios extends JFrame {
         
     }
     private void actualizarTabla() {
-        // AQUÍ PUEDES IMPLEMENTAR LA LÓGICA PARA ACTUALIZAR LA TABLA
-        // EJEMPLO DE DATOS DE PRUEBA:
-        Object[][] datos = {
-            {"Usuario1", "Comentario1", 5},
-            {"Usuario2", "Comentario2", 4},
-        };
-        for (Object[] fila : datos) {
+        tableModel.setRowCount(0);
+
+        ResenaControlador resenaControlador = new ResenaControlador();
+        List<Resena> resenas = resenaControlador.getResenasByRecetaId(receta.getIdReceta());
+
+        for (Resena resena : resenas) {
+            Object[] fila = {
+                resena.getidUsuario(), 
+                resena.getComentario(), 
+                resena.getEstrella(), 
+                resena.getFecha().toString()
+            };
             tableModel.addRow(fila);
         }
     }
+    
 }
