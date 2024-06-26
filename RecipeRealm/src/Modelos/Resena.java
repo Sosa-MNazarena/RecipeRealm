@@ -10,29 +10,30 @@ public class Resena {
 	private int idUsuario;
 	private LocalDate fecha;
 	private int idReceta;
+	private String pseudonimoUsuario;
 
 	// Constructor
 	public Resena(int idResena, int idUsuario, String comentario, int estrella, int idReceta, LocalDate fecha) {
 		this.idResena = idResena;
+		this.pseudonimoUsuario = pseudonimoUsuario;
 		this.comentario = comentario;
 		this.estrella = estrella;
 		this.idUsuario = idUsuario;
 		this.idReceta = idReceta;
 		this.fecha = fecha;
 
-		//estrellas entre 1 y 5
-		if (estrella < 1) {
-			this.estrella = 1;
-		} else if (estrella > 5) {
-			this.estrella = 5;
-		} else {
-			this.estrella = estrella;
-		}
 	}
 
 	public Resena(String Nombre, String Comentario, int id_receta, LocalDate now) {
 		// TODO Auto-generated constructor stub
 	}
+	public String getPseudonimoUsuario() {
+        return pseudonimoUsuario;
+    }
+
+    public void setPseudonimoUsuario(String pseudonimoUsuario) {
+        this.pseudonimoUsuario = pseudonimoUsuario;
+    }
 
 	public int getIdResena() {
 		return idResena;
@@ -51,18 +52,13 @@ public class Resena {
 	}
 
 	public int getEstrella() {
-		return estrella;
-	}
+        return estrella;
+    }
 
-	public void setEstrella(int estrellas) {
-		if (estrellas < 1) {
-			this.estrella = 1;
-		} else if (estrellas > 5) {
-			this.estrella = 5;
-		} else {
-			this.estrella = estrellas;
-		}
-	}
+    public void setEstrella(int estrella) {
+        this.estrella = estrella;
+    }
+
 
 	public int getidUsuario() {
 		return idUsuario;

@@ -57,11 +57,6 @@ public class ResenaControlador implements ResenaRepository {
             return -1;
         }
     }
-    public void agregarResena(int idReceta, Resena resena) {
-        resena.setIdReceta(idReceta);
-        addResena(resena);
-    }
-
     @Override
     public List<Resena> getResenasByRecetaId(int idReceta) {
         List<Resena> resenasPorReceta = new ArrayList<>();
@@ -74,28 +69,23 @@ public class ResenaControlador implements ResenaRepository {
     }
 
     @Override
-    public void addResena(Resena resena) {
-        String query = "INSERT INTO resena (id_usuario, id_receta, comentario, estrella, fecha) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, resena.getidUsuario());
-            statement.setInt(2, resena.getIdReceta());
-            statement.setString(3, resena.getComentario());
-            statement.setInt(4, resena.getEstrella());
-            statement.setDate(5, Date.valueOf(resena.getFecha()));
-
+    public void addResena(Resena resena, int idReceta) throws SQLException {
+    	 String query = "INSERT INTO resena (id_usuario, comentario, estrella, fecha, id_receta) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        	statement.setInt(1, resena.getidUsuario());
+        	statement.setString(1, resena.getPseudonimoUsuario());
+            statement.setString(2, resena.getComentario());
+            statement.setInt(3, resena.getEstrella());
+            statement.setDate(4, Date.valueOf(resena.getFecha()));
+            statement.setInt(5, idReceta);
+            
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        resena.setIdResena(generatedKeys.getInt(1));
-                    }
-                }
-                resenas.add(resena);
-                System.out.println("Reseña agregada exitosamente.");
+                System.out.println("Reseña agregada correctamente.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error al agregar la reseña: " + e.getMessage());
+            throw new SQLException("Error al insertar la reseña en la base de datos: " + e.getMessage());
         }
     }
 

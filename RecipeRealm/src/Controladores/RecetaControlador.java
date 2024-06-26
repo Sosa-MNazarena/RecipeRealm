@@ -115,6 +115,7 @@ public class RecetaControlador implements RecetaRepository {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	@Override
 	public void deleteReceta(int id) {
@@ -140,5 +141,7 @@ public class RecetaControlador implements RecetaRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

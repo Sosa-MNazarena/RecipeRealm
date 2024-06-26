@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.awt.Color;
@@ -50,6 +51,7 @@ public class PantallaVerRecetaComentarios extends JFrame {
     private JTextArea txtNuevoComentario;
     private JComboBox<Integer> comboEstrella;
     private JTextField inputComentario;
+	private ResenaControlador resenaControlador;
 
     /**
      * Launch the application.
@@ -75,6 +77,7 @@ public class PantallaVerRecetaComentarios extends JFrame {
     public PantallaVerRecetaComentarios(Receta receta, Perfil perfil) {
     	this.receta = receta;
         this.perfil = perfil;
+        this.resenaControlador = new ResenaControlador();
     	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 856, 610);
@@ -206,26 +209,24 @@ public class PantallaVerRecetaComentarios extends JFrame {
         desktopPane_1.add(btnEnviarResena);
         
         btnEnviarResena.addActionListener(new ActionListener() {
-        	 public void actionPerformed(ActionEvent e) {
-                 String comentario = inputComentario.getText().trim();
-                 int estrellas = (int) comboEstrella.getSelectedItem();
+        	public void actionPerformed(ActionEvent e) {
+        	    int idUsuario = perfil.getIdUsuario();
+        	    String comentario = inputComentario.getText();
+        	    int estrella = Integer.parseInt(comboEstrella.getSelectedItem().toString());
+        	    LocalDate fecha = LocalDate.now();
+        	    int idReceta = receta.getIdReceta();
 
-                 // Validación del comentario
-                 if (comentario.isEmpty()) {
-                     JOptionPane.showMessageDialog(null, "Por favor ingresa un comentario.");
-                     return;
-                 }
+        	    Resena resena = new Resena(idUsuario, idReceta, comentario, estrella, idReceta, fecha);
 
-                 // Crear una instancia de Resena
-                 Resena nuevaResena = new Resena(perfil.getIdUsuario(), receta.getIdReceta(), comentario, estrellas,
-                         estrellas, LocalDate.now());
+                try {
+                    resenaControlador.addResena(resena, idReceta);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                inputComentario.setText("");
 
-                 // Agregar la reseña usando el controlador
-                 ResenaControlador controlador = new ResenaControlador();
-                 controlador.addResena(nuevaResena);
+                actualizarTabla();
 
-                 // Actualizar la tabla de comentarios
-                 actualizarTabla();
              }
          });
         actualizarTabla();
@@ -283,7 +284,6 @@ public class PantallaVerRecetaComentarios extends JFrame {
     private void actualizarTabla() {
         tableModel.setRowCount(0);
 
-        ResenaControlador resenaControlador = new ResenaControlador();
         List<Resena> resenas = resenaControlador.getResenasByRecetaId(receta.getIdReceta());
 
         for (Resena resena : resenas) {
