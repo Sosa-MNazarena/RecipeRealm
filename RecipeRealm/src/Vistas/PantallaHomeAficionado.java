@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
 
@@ -109,6 +110,14 @@ public class PantallaHomeAficionado extends JFrame {
 		contentPane.add(btnMenuCursos);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarSesion();
+				PantallaInicioSesion iniciarSesion = new PantallaInicioSesion(perfil);
+				iniciarSesion.setVisible(true);
+				dispose();
+			}
+		});
 		btnCerrarSesion.setBackground(new Color(255, 153, 153));
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
 		btnCerrarSesion.setFont(new Font("Lucida Console", Font.BOLD, 17));
@@ -162,8 +171,14 @@ public class PantallaHomeAficionado extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(new Color(51, 51, 0));
-		panel_1.setBackground(new Color(128, 0, 0));
+		panel_1.setBackground(new Color(102, 0, 0));
 		panel_1.setBounds(678, 726, 210, 54);
 		contentPane.add(panel_1);
 	}
+	
+	 private void cerrarSesion() {
+	        perfil = null;
+	        System.out.println("Sesión cerrada");
+	        JOptionPane.showMessageDialog(null, "Sesión cerrada exitosamente");
+	    }
 }

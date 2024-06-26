@@ -9,6 +9,8 @@ import Modelos.Receta;
 import Modelos.Perfil;
 import Modelos.Cursos;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -30,6 +32,7 @@ public class PantallaHomeChef extends JFrame {
 
 	public PantallaHomeChef(Perfil perfil) {
 		this.setVisible(true);
+		this.perfil=perfil;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1058, 845);
 		contentPane = new JPanel();
@@ -56,7 +59,7 @@ public class PantallaHomeChef extends JFrame {
 		btnSubirReceta.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIcon.png")));
 		btnSubirReceta.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnSubirReceta.setBackground(new Color(255, 255, 255));
-		btnSubirReceta.setBounds(141, 116, 694, 93);
+		btnSubirReceta.setBounds(141, 86, 694, 93);
 		contentPane.add(btnSubirReceta);
 
 		JButton btnMisFavoritos = new JButton("Mis Favoritos");
@@ -70,7 +73,7 @@ public class PantallaHomeChef extends JFrame {
 		btnMisFavoritos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/corazonIcon.png")));
 		btnMisFavoritos.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMisFavoritos.setBackground(new Color(255, 255, 255));
-		btnMisFavoritos.setBounds(141, 242, 694, 93);
+		btnMisFavoritos.setBounds(141, 210, 694, 93);
 		contentPane.add(btnMisFavoritos);
 
 		JButton btnMenuRecetas = new JButton("Recetas");
@@ -83,7 +86,7 @@ public class PantallaHomeChef extends JFrame {
 		btnMenuRecetas.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/menuIcon.png")));
 		btnMenuRecetas.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuRecetas.setBackground(new Color(255, 255, 255));
-		btnMenuRecetas.setBounds(138, 482, 694, 93);
+		btnMenuRecetas.setBounds(141, 454, 694, 93);
 		contentPane.add(btnMenuRecetas);
 
 		JButton btnMenuCursos = new JButton("Cursos");
@@ -96,7 +99,7 @@ public class PantallaHomeChef extends JFrame {
 		btnMenuCursos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/cerditoIcon.png")));
 		btnMenuCursos.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnMenuCursos.setBackground(new Color(255, 255, 255));
-		btnMenuCursos.setBounds(139, 600, 694, 93);
+		btnMenuCursos.setBounds(141, 572, 694, 93);
 		contentPane.add(btnMenuCursos);
 
 		JButton btnEditarPerfil = new JButton("Editar Perfil");
@@ -112,14 +115,22 @@ public class PantallaHomeChef extends JFrame {
 		btnEditarPerfil.setForeground(Color.WHITE);
 		btnEditarPerfil.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
 		btnEditarPerfil.setBackground(Color.GRAY);
-		btnEditarPerfil.setBounds(141, 718, 338, 54);
+		btnEditarPerfil.setBounds(141, 690, 205, 54);
 		contentPane.add(btnEditarPerfil);
 
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarSesion();
+				PantallaInicioSesion iniciarSesion = new PantallaInicioSesion(perfil);
+				iniciarSesion.setVisible(true);
+				dispose();
+			}
+		});
 		btnCerrarSesion.setForeground(Color.WHITE);
-		btnCerrarSesion.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 17));
-		btnCerrarSesion.setBackground(Color.BLACK);
-		btnCerrarSesion.setBounds(497, 718, 338, 54);
+		btnCerrarSesion.setFont(new Font("Lucida Console", Font.BOLD, 17));
+		btnCerrarSesion.setBackground(new Color(255, 153, 153));
+		btnCerrarSesion.setBounds(632, 692, 205, 54);
 		contentPane.add(btnCerrarSesion);
 
 		JButton btnSubirCurso = new JButton("Subir Curso");
@@ -132,7 +143,7 @@ public class PantallaHomeChef extends JFrame {
 		btnSubirCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/libroIcon.png")));
 		btnSubirCurso.setFont(new Font("Lucida Console", Font.BOLD, 18));
 		btnSubirCurso.setBackground(new Color(255, 255, 255));
-		btnSubirCurso.setBounds(140, 362, 694, 93);
+		btnSubirCurso.setBounds(141, 332, 694, 93);
 		contentPane.add(btnSubirCurso);
 		
 		
@@ -154,31 +165,31 @@ public class PantallaHomeChef extends JFrame {
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1.setBackground(new Color(255, 255, 102));
-		panel_1_1.setBounds(148, 126, 699, 97);
+		panel_1_1.setBounds(148, 96, 699, 97);
 		contentPane.add(panel_1_1);
 		
 		JPanel panel_1_1_1 = new JPanel();
 		panel_1_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1_1.setBackground(new Color(255, 204, 0));
-		panel_1_1_1.setBounds(149, 250, 699, 97);
+		panel_1_1_1.setBounds(149, 218, 699, 97);
 		contentPane.add(panel_1_1_1);
 		
 		JPanel panel_1_1_1_1 = new JPanel();
 		panel_1_1_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1_1_1.setBackground(new Color(255, 153, 51));
-		panel_1_1_1_1.setBounds(147, 372, 699, 97);
+		panel_1_1_1_1.setBounds(148, 342, 699, 97);
 		contentPane.add(panel_1_1_1_1);
 		
 		JPanel panel_1_1_1_1_1 = new JPanel();
 		panel_1_1_1_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1_1_1_1.setBackground(new Color(255, 102, 0));
-		panel_1_1_1_1_1.setBounds(145, 490, 699, 97);
+		panel_1_1_1_1_1.setBounds(148, 462, 699, 97);
 		contentPane.add(panel_1_1_1_1_1);
 		
 		JPanel panel_1_1_1_1_1_1 = new JPanel();
 		panel_1_1_1_1_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1_1_1_1_1.setBackground(new Color(153, 0, 0));
-		panel_1_1_1_1_1_1.setBounds(147, 610, 699, 97);
+		panel_1_1_1_1_1_1.setBounds(149, 582, 699, 97);
 		contentPane.add(panel_1_1_1_1_1_1);
 		
 		JLabel lblParaChefs = new JLabel("para chefs");
@@ -189,5 +200,25 @@ public class PantallaHomeChef extends JFrame {
 		lblParaChefs.setBounds(873, 29, 155, 25);
 		contentPane.add(lblParaChefs);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setForeground(new Color(51, 51, 0));
+		panel_1.setBackground(new Color(102, 0, 0));
+		panel_1.setBounds(642, 703, 205, 54);
+		contentPane.add(panel_1);
+		
+		JPanel panel_1_2 = new JPanel();
+		panel_1_2.setForeground(new Color(51, 51, 0));
+		panel_1_2.setBackground(new Color(102, 0, 0));
+		panel_1_2.setBounds(151, 703, 205, 54);
+		contentPane.add(panel_1_2);
 	}
+		
+		 private void cerrarSesion() {
+		        perfil = null;
+		        System.out.println("Sesión cerrada");
+		        JOptionPane.showMessageDialog(null, "Sesión cerrada exitosamente");
+		    }
+	
+	
+	
 }
