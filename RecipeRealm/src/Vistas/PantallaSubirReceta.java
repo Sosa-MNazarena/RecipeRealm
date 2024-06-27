@@ -154,7 +154,6 @@ public class PantallaSubirReceta extends JFrame {
 							categorias, ingredientes, fecha, perfil.getIdUsuario());
 
 					if (respuesta.equals("OK")) {
-						JOptionPane.showMessageDialog(null, "Receta publicada correctamente");
 						dispose();
 						PantallaHomeChef pantallaHomeChef = new PantallaHomeChef(perfil);
 						pantallaHomeChef.setVisible(true);

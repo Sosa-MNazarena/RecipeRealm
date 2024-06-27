@@ -114,7 +114,7 @@ public class Receta {
 				return "La receta no se ha subido exitosamente.";
 			}
 
-			JOptionPane.showMessageDialog(null, "La receta se ha subido exitosamente.");
+			
 			return "La receta se ha subido exitosamente.";
 
 		} catch (Exception e) {

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -39,6 +40,7 @@ public class TablaFavoritos extends JFrame {
     private JLabel elemento;
     private Receta seleccionado;
     private JTextField textField;
+    private JTextField txtBusqueda;
 
     
     public TablaFavoritos(Perfil perfil) {
@@ -184,8 +186,27 @@ public class TablaFavoritos extends JFrame {
                 comboBox.setFont(new Font("Lucida Console", Font.PLAIN, 11));
                 comboBox.setBounds(500, 94, 294, 30);
                 contentPane.add(comboBox);
+                comboBox.addItem("Italia");
+                comboBox.addItem("China");
+                comboBox.addItem("México");
+                comboBox.addItem("Argentina");
+                comboBox.addItem("Brasil");
+                comboBox.addItem("Colombia");
+                comboBox.addItem("Dulces");
+                comboBox.addItem("Japón");
+                
+                txtBusqueda = new JTextField();
+                txtBusqueda.setBounds(63, 93, 300, 30);
+                contentPane.add(txtBusqueda);
+                txtBusqueda.setColumns(10);
                 
                 JButton btnBuscar = new JButton("Buscar");
+                btnBuscar.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		String criterio = txtBusqueda.getText();
+                        buscarReceta(criterio);
+                	}
+                });
                 btnBuscar.setForeground(Color.BLACK);
                 btnBuscar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
                 btnBuscar.setBackground(new Color(255, 153, 153));
@@ -193,6 +214,11 @@ public class TablaFavoritos extends JFrame {
                 contentPane.add(btnBuscar);
                 
                 JButton btnFiltrar = new JButton("Filtrar");
+                btnFiltrar.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		actualizarPorFiltro((String)comboBox.getSelectedItem());
+                	}
+                });
                 btnFiltrar.setForeground(Color.BLACK);
                 btnFiltrar.setFont(new Font("Lucida Console", Font.PLAIN, 12));
                 btnFiltrar.setBackground(new Color(255, 153, 153));
@@ -251,6 +277,32 @@ public class TablaFavoritos extends JFrame {
                 receta.getFecha()
             };
             model.addRow(fila);
+        }
+    }
+    
+    private void buscarReceta(String criterio) {
+        model.setRowCount(0);
+        List<Receta> favoritos = controlador.getFavoritosByUsuario(perfil);
+
+        for (Receta receta : favoritos) {
+            if (receta.getTitulo().toLowerCase().contains(criterio.toLowerCase())) {
+                Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(),
+                        receta.getCategorias(), receta.getIngredientes(), receta.getFecha() };
+                model.addRow(fila);
+            }
+        }
+    }
+    
+    private void actualizarPorFiltro(String categoria) {
+        model.setRowCount(0);
+        List<Receta> favoritos = controlador.getFavoritosByUsuario(perfil);
+
+        for (Receta receta : favoritos) {
+            if (receta.getCategorias().toLowerCase().contains(categoria.toLowerCase())) {
+                Object[] fila = { receta.getIdReceta(), receta.getTitulo(), receta.getProcedimiento(),
+                        receta.getCategorias(), receta.getIngredientes(), receta.getFecha() };
+                model.addRow(fila);
+            }
         }
     }
 }
