@@ -175,10 +175,6 @@ public class PantallaHomeAficionado extends JFrame {
 		panel_1.setBackground(new Color(102, 0, 0));
 		panel_1.setBounds(678, 726, 210, 54);
 		contentPane.add(panel_1);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(0, 0, 17, 819);
-		contentPane.add(scrollBar);
 	}
 	
 	 private void cerrarSesion() {

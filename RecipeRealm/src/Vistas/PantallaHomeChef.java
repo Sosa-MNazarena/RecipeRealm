@@ -196,10 +196,6 @@ public class PantallaHomeChef extends JFrame {
 		panel_1_2.setBackground(new Color(102, 0, 0));
 		panel_1_2.setBounds(151, 703, 205, 54);
 		contentPane.add(panel_1_2);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(0, 0, 17, 806);
-		contentPane.add(scrollBar);
 	}
 		
 		 private void cerrarSesion() {
