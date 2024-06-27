@@ -46,6 +46,10 @@ public class PantallaSubirReceta extends JFrame {
 	private JLabel lblErrorTitulo;
 	private JLabel lblErrorProcedimiento;
 	private JLabel lblErrorCategorias;
+	private JPanel panel_1_1;
+	private JPanel panel_1_1_2;
+	private JPanel panel_1_1_2_1;
+	private JPanel panel;
 
 	public PantallaSubirReceta(Perfil perfil) {
 		this.perfil = perfil;
@@ -96,7 +100,7 @@ public class PantallaSubirReceta extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Lucida Console", Font.BOLD, 24));
-		lblNewLabel.setBounds(0, 11, 776, 44);
+		lblNewLabel.setBounds(0, 11, 763, 44);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIconMini.png")));
 
@@ -258,6 +262,31 @@ public class PantallaSubirReceta extends JFrame {
 			}
 		});
 		btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		
+		panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBorder(null);
+		panel_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1.setBounds(-52, 11, 906, 44);
+		contentPane.add(panel_1_1);
+		
+		panel_1_1_2 = new JPanel();
+		panel_1_1_2.setForeground(new Color(51, 51, 0));
+		panel_1_1_2.setBackground(new Color(255, 204, 0));
+		panel_1_1_2.setBounds(53, 98, 284, 30);
+		contentPane.add(panel_1_1_2);
+		
+		panel_1_1_2_1 = new JPanel();
+		panel_1_1_2_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_2_1.setBackground(new Color(255, 204, 0));
+		panel_1_1_2_1.setBounds(373, 99, 354, 362);
+		contentPane.add(panel_1_1_2_1);
+		
+		panel = new JPanel();
+		panel.setForeground(new Color(51, 51, 0));
+		panel.setBackground(new Color(128, 0, 0));
+		panel.setBounds(373, 505, 352, 30);
+		contentPane.add(panel);
 	}
 
 	private boolean validarCampos() {
