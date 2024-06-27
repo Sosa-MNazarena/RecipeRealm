@@ -152,6 +152,18 @@ public class PantallaSubirReceta extends JFrame {
 
 					String respuesta = Receta.subirReceta(textFieldTitulo.getText(), inputProcedimiento.getText(),
 							categorias, ingredientes, fecha, perfil.getIdUsuario());
+					if (respuesta.equals("La receta se ha subido exitosamente.")) {
+		                // Limpiar campos después de subir la receta
+		                textFieldTitulo.setText("");
+		                inputProcedimiento.setText("");
+		                listaIngredientes.clear();
+		                listaCategorias.clear();
+		                panelIngredientes.removeAll();
+		                panelCategorias.removeAll();
+		                panelIngredientes.revalidate();
+		                panelCategorias.revalidate();
+		                panelIngredientes.repaint();
+		                panelCategorias.repaint();
 
 					if (respuesta.equals("OK")) {
 						dispose();
@@ -159,6 +171,9 @@ public class PantallaSubirReceta extends JFrame {
 						pantallaHomeChef.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, respuesta);
+					}
+					} else {
+		                JOptionPane.showMessageDialog(null, respuesta);
 					}
 				}
 			}
