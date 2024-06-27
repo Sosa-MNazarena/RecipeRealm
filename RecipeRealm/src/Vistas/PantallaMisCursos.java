@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import Controladores.CursoControlador;
 import Modelos.Cursos;
 import Modelos.Perfil;
+import javax.swing.border.BevelBorder;
 
 public class PantallaMisCursos extends JFrame {
 
@@ -92,6 +93,9 @@ public class PantallaMisCursos extends JFrame {
         contentPane.add(btnEditarCurso);
 
         table = new JTable(model);
+        table.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+        table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        table.setBackground(new Color(255, 255, 204));
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(61, 147, 856, 350);
         contentPane.add(scrollPane);

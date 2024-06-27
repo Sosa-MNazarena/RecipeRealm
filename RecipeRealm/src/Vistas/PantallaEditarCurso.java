@@ -139,6 +139,20 @@ public class PantallaEditarCurso extends JFrame {
 		lblErrorGeneral.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		lblErrorGeneral.setBounds(84, 491, 385, 20);
 		contentPane.add(lblErrorGeneral);
+		
+		JPanel panelHora = new JPanel();
+		panelHora.setForeground(new Color(51, 51, 0));
+		panelHora.setBackground(new Color(255, 204, 0));
+		panelHora.setBounds(224, 411, 100, 30);
+		contentPane.add(panelHora);
+
+		inputHora = new JSpinner();
+		panelHora.add(inputHora);
+		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
+
+		inputMinuto = new JSpinner();
+		panelHora.add(inputMinuto);
+		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBackground(new Color(255, 153, 153));
@@ -152,6 +166,7 @@ public class PantallaEditarCurso extends JFrame {
 				LocalDate nuevaFecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				int nuevaHora = (int) inputHora.getValue();
 				int nuevoMinuto = (int) inputMinuto.getValue();
+				LocalTime horaCurso = LocalTime.of(nuevaHora, nuevoMinuto);
 
 				// Validaciones
 				boolean isValid = true;
@@ -211,7 +226,7 @@ public class PantallaEditarCurso extends JFrame {
 				if (nuevoTitulo.equals(curso.getTitulo()) && nuevoLugar.equals(curso.getLugar())
 						&& nuevoPrecioStr.equals(String.valueOf(curso.getPrecio()))
 						&& nuevoCuposStr.equals(String.valueOf(curso.getCupo())) && nuevaFecha.equals(curso.getDia())
-						&& nuevaHora == curso.getHorario().getHour() && nuevoMinuto == curso.getHorario().getMinute()) {
+						&& horaCurso == curso.getHorario()) {
 					lblErrorGeneral.setText("No se han realizado cambios.");
 					return;
 				}
@@ -220,7 +235,7 @@ public class PantallaEditarCurso extends JFrame {
 				curso.setPrecio(nuevoPrecio);
 				curso.setCupo(nuevoCupos);
 				curso.setDia(nuevaFecha);
-				curso.setHorario(LocalTime.of(nuevaHora, nuevoMinuto));
+				curso.setHorario(horaCurso);
 
 				controlador.updateCurso(curso);
 				PantallaMisCursos misCursos = new PantallaMisCursos(perfil);
@@ -288,19 +303,7 @@ public class PantallaEditarCurso extends JFrame {
 		panel_1_1_2_1_3.setBounds(274, 286, 410, 35);
 		contentPane.add(panel_1_1_2_1_3);
 
-		JPanel panel_1_1_2_1_4 = new JPanel();
-		panel_1_1_2_1_4.setForeground(new Color(51, 51, 0));
-		panel_1_1_2_1_4.setBackground(new Color(255, 204, 0));
-		panel_1_1_2_1_4.setBounds(224, 411, 100, 30);
-		contentPane.add(panel_1_1_2_1_4);
-
-		inputHora = new JSpinner();
-		panel_1_1_2_1_4.add(inputHora);
-		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
-
-		inputMinuto = new JSpinner();
-		panel_1_1_2_1_4.add(inputMinuto);
-		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(new Color(51, 51, 0));
