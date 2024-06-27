@@ -107,7 +107,7 @@ public class PantallaSubirCurso extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setForeground(new Color(255, 255, 255));
+		btnVolver.setForeground(Color.BLACK);
 		btnVolver.setFont(new Font("Lucida Console", Font.BOLD, 16));
 		btnVolver.setBackground(new Color(255, 255, 153));
 		btnVolver.setBounds(10, 68, 116, 30);
@@ -245,6 +245,7 @@ public class PantallaSubirCurso extends JFrame {
 		lblSubeTuCurso.setForeground(Color.WHITE);
 		lblSubeTuCurso.setFont(new Font("Lucida Console", Font.BOLD, 24));
 		lblSubeTuCurso.setBounds(0, 62, 768, 44);
+		lblSubeTuCurso.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/libroIconMini.png")));
 		contentPane.add(lblSubeTuCurso);
 		
 		JPanel panel_1_1_1 = new JPanel();
