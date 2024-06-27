@@ -179,6 +179,8 @@ public class TablaReceta extends JFrame {
         comboBox.addItem("Colombia");
         comboBox.addItem("Dulces");
         comboBox.addItem("Japón");
+        comboBox.addItem("España");
+        comboBox.addItem("Bebidas");
         
         
        

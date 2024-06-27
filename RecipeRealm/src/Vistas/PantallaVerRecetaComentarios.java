@@ -257,8 +257,13 @@ public class PantallaVerRecetaComentarios extends JFrame {
         inputComentario = new JTextField();
         inputComentario.setBackground(new Color(255, 255, 204));
         inputComentario.setColumns(10);
-        inputComentario.setBounds(10, 368, 604, 101);
+        inputComentario.setBounds(22, 378, 581, 84);
         desktopPane_1.add(inputComentario);
+        
+        JPanel panel_2_1 = new JPanel();
+        panel_2_1.setBackground(new Color(255, 255, 204));
+        panel_2_1.setBounds(10, 368, 604, 101);
+        desktopPane_1.add(panel_2_1);
         
         JPanel panel_1_1_1 = new JPanel();
         panel_1_1_1.setForeground(new Color(51, 51, 0));
@@ -299,5 +304,4 @@ public class PantallaVerRecetaComentarios extends JFrame {
             tableModel.addRow(fila);
         }
     }
-    
 }

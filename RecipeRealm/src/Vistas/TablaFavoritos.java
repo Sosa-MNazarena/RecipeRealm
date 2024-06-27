@@ -194,6 +194,8 @@ public class TablaFavoritos extends JFrame {
                 comboBox.addItem("Colombia");
                 comboBox.addItem("Dulces");
                 comboBox.addItem("Japón");
+                comboBox.addItem("España");
+                comboBox.addItem("Bebidas");
                 
                 txtBusqueda = new JTextField();
                 txtBusqueda.setBounds(63, 93, 300, 30);
