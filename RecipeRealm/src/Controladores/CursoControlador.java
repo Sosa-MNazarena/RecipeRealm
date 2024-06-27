@@ -119,6 +119,11 @@ public class CursoControlador implements CursoRepositorio {
     @Override
     public boolean deleteCurso(int id_curso) {
         try {
+        	 String deleteInscripcionesSQL = "DELETE FROM inscripciones WHERE id_curso = ?";
+             PreparedStatement pstmt1 = connection.prepareStatement(deleteInscripcionesSQL);
+             pstmt1.setInt(1, id_curso);
+             pstmt1.executeUpdate();
+        	
             PreparedStatement statement = connection.prepareStatement("DELETE FROM cursos WHERE id_curso = ?");
             statement.setInt(1, id_curso);
 

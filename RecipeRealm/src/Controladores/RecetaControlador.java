@@ -119,6 +119,15 @@ public class RecetaControlador implements RecetaRepository {
 
 	@Override
 	public void deleteReceta(int id) {
+		try {
+	        String deleteFavoritoSQL = "DELETE FROM favorito WHERE id_receta = ?";
+	        PreparedStatement pstmt1 = connection.prepareStatement(deleteFavoritoSQL);
+	        pstmt1.setInt(1, id);
+	        pstmt1.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	    String query = "DELETE FROM receta WHERE id_receta = ?";
 	    try (PreparedStatement statement = connection.prepareStatement(query)) {
 	        statement.setInt(1, id);
