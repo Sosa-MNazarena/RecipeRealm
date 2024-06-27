@@ -57,11 +57,11 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-				lblErrorProcedimiento = new JLabel("");
-				lblErrorProcedimiento.setForeground(Color.RED);
-				lblErrorProcedimiento.setBounds(363, 466, 354, 20);
-				contentPane.add(lblErrorProcedimiento);
+
+		lblErrorProcedimiento = new JLabel("");
+		lblErrorProcedimiento.setForeground(Color.RED);
+		lblErrorProcedimiento.setBounds(363, 466, 354, 20);
+		contentPane.add(lblErrorProcedimiento);
 
 		panelCategorias = new JPanel();
 		panelCategorias.setBackground(new Color(255, 51, 51));
@@ -211,8 +211,9 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.add(scrollPaneIngredientes);
 
 		lblErrorIngredientes = new JLabel("");
+		lblErrorIngredientes.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblErrorIngredientes.setForeground(Color.RED);
-		lblErrorIngredientes.setBounds(43, 200, 205, 44);
+		lblErrorIngredientes.setBounds(43, 200, 205, 30);
 		contentPane.add(lblErrorIngredientes);
 
 		lblErrorTitulo = new JLabel("");
@@ -265,14 +266,14 @@ public class PantallaSubirReceta extends JFrame {
 
 		boolean esValido = true;
 
-		if (titulo.isEmpty() || titulo.length() < 3) {
+		if (titulo.isEmpty() || titulo.length() < 3 || titulo.length() > 50) {
 			lblErrorTitulo.setText("El título debe tener al menos 3 caracteres.");
 			esValido = false;
 		} else {
 			lblErrorTitulo.setText("");
 		}
 
-		if (procedimiento.isEmpty() || procedimiento.length() < 20) {
+		if (procedimiento.isEmpty() || procedimiento.length() < 20 || procedimiento.length() > 200) {
 			lblErrorProcedimiento.setText("El procedimiento debe tener al menos 20 caracteres.");
 			esValido = false;
 		} else {
@@ -302,7 +303,7 @@ public class PantallaSubirReceta extends JFrame {
 
 		// validar nombre ingrediente
 		if (nombreIngrediente.isEmpty() || nombreIngrediente.length() < 3) {
-			lblErrorIngredientes.setText("El nombre del ingrediente debe tener al menos 3 caracteres.");
+			lblErrorIngredientes.setText("El nombre debe tener al menos 3 caracteres.");
 			return;
 		}
 
