@@ -66,7 +66,6 @@ public class PantallaSubirCurso extends JFrame {
 	private JTextField inputPrecio;
 	private JTextField inputCupos;
 	private JDateChooser dateChooser; 
-	private JTextField inputHorario;
 	private JLabel lblErrorTitulo;
 	private JLabel lblErrorLugar;
 	private JLabel lblErrorCupos;
@@ -155,11 +154,6 @@ public class PantallaSubirCurso extends JFrame {
 		dateChooser.setBounds(149, 391, 150, 37);
 		contentPane.add(dateChooser);
 
-		inputHorario = new JTextField();
-		inputHorario.setColumns(10);
-		inputHorario.setBounds(186, 465, 87, 35);
-		contentPane.add(inputHorario);
-
 		JLabel lblTitulo = new JLabel("Título");
 		lblTitulo.setForeground(Color.BLACK);
 		lblTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
@@ -207,16 +201,6 @@ public class PantallaSubirCurso extends JFrame {
 		lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
 		lblExito.setBounds(489, 453, 274, 14);
 		contentPane.add(lblExito);
-		
-		JSpinner inputHora = new JSpinner();
-		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
-		inputHora.setBounds(196, 518, 47, 37);
-		contentPane.add(inputHora);
-		
-		JSpinner inputMinuto = new JSpinner();
-		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-		inputMinuto.setBounds(240, 518, 47, 37);
-		contentPane.add(inputMinuto);
 		
 		
 		JButton btnPublicar = new JButton("Publicar");
@@ -273,6 +257,18 @@ public class PantallaSubirCurso extends JFrame {
 		panel.setBackground(new Color(255, 255, 204));
 		panel.setBounds(551, 73, 722, 546);
 		contentPane.add(panel);
+		
+		Box horizontalBox_4 = Box.createHorizontalBox();
+		horizontalBox_4.setBounds(172, 460, 102, 47);
+		contentPane.add(horizontalBox_4);
+		
+		JSpinner inputHora = new JSpinner();
+		horizontalBox_4.add(inputHora);
+		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
+		
+		JSpinner inputMinuto = new JSpinner();
+		horizontalBox_4.add(inputMinuto);
+		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		
 		
 		
