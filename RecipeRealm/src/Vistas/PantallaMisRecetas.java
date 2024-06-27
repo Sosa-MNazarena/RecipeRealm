@@ -13,6 +13,7 @@ import java.util.List;
 import Controladores.RecetaControlador;
 import Modelos.Perfil;
 import Modelos.Receta;
+import javax.swing.border.BevelBorder;
 
 public class PantallaMisRecetas extends JFrame {
 
@@ -79,6 +80,8 @@ public class PantallaMisRecetas extends JFrame {
         contentPane.add(btnEditarReceta);
 
         table = new JTable(model);
+        table.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        table.setBackground(new Color(255, 255, 204));
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(61, 146, 856, 350);
         contentPane.add(scrollPane);
