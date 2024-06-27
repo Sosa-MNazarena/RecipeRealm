@@ -32,6 +32,7 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 
 public class PantallaVerRecetaComentarios extends JFrame {
@@ -193,6 +194,8 @@ public class PantallaVerRecetaComentarios extends JFrame {
         String[] columnNames = { "Nombre", "Comentario", "Estrellas", "Fecha" };
         tableModel = new DefaultTableModel(columnNames, 0);
         tableComentarios = new JTable(tableModel);
+        tableComentarios.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+        tableComentarios.setBackground(new Color(255, 255, 204));
         
         
         JScrollPane scrollPane = new JScrollPane(tableComentarios);

@@ -119,31 +119,7 @@ public class TablaCursos extends JFrame {
 		btnVolver.setBackground(new Color(255, 255, 204));
 		btnVolver.setBounds(15, 11, 116, 30);
 		contentPane.add(btnVolver);
-	
-    
-		// Crear el botón de eliminar
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setFont(new Font("Lucida Console", Font.BOLD, 15));
-		btnEliminar.setForeground(Color.BLACK);
-		btnEliminar.setBackground(new Color(255, 153, 153));
-		if (perfil.isVerificado()) {
-			btnEliminar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if (seleccionado.getIdCurso() != 0) {
-						controlador.deleteCurso(seleccionado.getIdCurso());
-						JOptionPane.showMessageDialog(null, "Eliminado");
-						actualizarTabla();
-					} else {
-						JOptionPane.showMessageDialog(null, "Seleccione un curso");
-					}
-				}
-			});
-		} else {
-			btnEliminar.setVisible(false);
-        }
-		btnEliminar.setBounds(721, 562, 198, 30);
-		contentPane.add(btnEliminar);
-								
+		
 								JPanel panel_2 = new JPanel();
 								panel_2.setBackground(new Color(255, 204, 0));
 								panel_2.setBounds(83, 236, 856, 309);
@@ -273,11 +249,6 @@ public class TablaCursos extends JFrame {
 						lblFiltrarCursosPor.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 						lblFiltrarCursosPor.setBounds(501, 69, 337, 22);
 						contentPane.add(lblFiltrarCursosPor);
-						
-						JPanel panel_1_1 = new JPanel();
-						panel_1_1.setBackground(new Color(204, 0, 51));
-						panel_1_1.setBounds(724, 568, 203, 30);
-						contentPane.add(panel_1_1);
 		
 		
 		
@@ -362,12 +333,12 @@ public class TablaCursos extends JFrame {
 		btnVer.setForeground(Color.BLACK);
 		btnVer.setFont(new Font("Lucida Console", Font.BOLD, 14));
 		btnVer.setBackground(new Color(255, 153, 153));
-		btnVer.setBounds(392, 562, 198, 30);
+		btnVer.setBounds(716, 562, 198, 30);
 		contentPane.add(btnVer);
 		
 		JPanel panel_1_1_2 = new JPanel();
 		panel_1_1_2.setBackground(new Color(204, 0, 51));
-		panel_1_1_2.setBounds(392, 568, 203, 30);
+		panel_1_1_2.setBounds(716, 568, 203, 30);
 		contentPane.add(panel_1_1_2);
 	}
 	
