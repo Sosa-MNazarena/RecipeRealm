@@ -243,6 +243,8 @@ public class PantallaSubirReceta extends JFrame {
 		comboBox.addItem("Colombia");
 		comboBox.addItem("Dulces");
 		comboBox.addItem("Japón");
+		comboBox.addItem("España");
+        comboBox.addItem("Bebidas");
 
 		JLabel lblCategoria = new JLabel("Categorías");
 		lblCategoria.setBounds(43, 437, 238, 20);

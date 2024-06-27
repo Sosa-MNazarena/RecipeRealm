@@ -228,6 +228,10 @@ public class PantallaVerRecetaComentarios extends JFrame {
                     resenaControlador.addResena(resena, idReceta);
                     JOptionPane.showMessageDialog(null, "Reseña agregada correctamente.");
                     actualizarTabla();
+                    
+                    inputComentario.setText("");
+                    comboEstrella.setSelectedIndex(0);
+                    
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Error al agregar la reseña: " + e1.getMessage());

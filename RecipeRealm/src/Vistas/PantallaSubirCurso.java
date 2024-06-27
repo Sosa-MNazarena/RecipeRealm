@@ -284,7 +284,7 @@ public class PantallaSubirCurso extends JFrame {
 		btnPublicar.setBounds(412, 349, 274, 37);
 		contentPane.add(btnPublicar);
 
-		JLabel lblSubeTuCurso = new JLabel("Sube tu curso aquí");
+		JLabel lblSubeTuCurso = new JLabel("Subí tu curso acá");
 		lblSubeTuCurso.setBackground(new Color(153, 0, 0));
 		lblSubeTuCurso.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSubeTuCurso.setForeground(Color.WHITE);
