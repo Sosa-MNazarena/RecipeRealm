@@ -202,6 +202,17 @@ public class PantallaSubirCurso extends JFrame {
 		lblExito.setBounds(489, 453, 274, 14);
 		contentPane.add(lblExito);
 		
+		Box horizontalBox1 = Box.createHorizontalBox();
+		horizontalBox1.setBounds(172, 463, 87, 44);
+		contentPane.add(horizontalBox1);
+		 
+		JSpinner inputHora = new JSpinner();
+		horizontalBox1.add(inputHora);
+		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
+		
+		JSpinner inputMinuto = new JSpinner();
+		horizontalBox1.add(inputMinuto);
+		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		
 		JButton btnPublicar = new JButton("Publicar");
 		btnPublicar.addActionListener(new ActionListener() {
@@ -258,17 +269,8 @@ public class PantallaSubirCurso extends JFrame {
 		panel.setBounds(551, 73, 722, 546);
 		contentPane.add(panel);
 		
-		Box horizontalBox_4 = Box.createHorizontalBox();
-		horizontalBox_4.setBounds(172, 460, 102, 47);
-		contentPane.add(horizontalBox_4);
 		
-		JSpinner inputHora = new JSpinner();
-		horizontalBox_4.add(inputHora);
-		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
 		
-		JSpinner inputMinuto = new JSpinner();
-		horizontalBox_4.add(inputMinuto);
-		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		
 		
 		
