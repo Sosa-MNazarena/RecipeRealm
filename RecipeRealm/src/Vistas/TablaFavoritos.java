@@ -121,16 +121,23 @@ public class TablaFavoritos extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     int idReceta = (int) table.getValueAt(selectedRow, 0);
-                    Receta recetaSeleccionada = new Receta(idReceta, "Titulo", "Procedimiento", "Categorias", "Ingredientes", LocalDate.now(), 0);
-                    recetaSeleccionada.setIdReceta(idReceta);
-                    controlador.removeFavorito(perfil, idReceta);
-                    JOptionPane.showMessageDialog(null, "Receta eliminada de favoritos.");
-                    actualizarTabla();
+                    String tituloReceta = (String) table.getValueAt(selectedRow, 1);
+
+                    int confirmacion = JOptionPane.showConfirmDialog(null,
+                            "¿Estás seguro que deseas eliminar la receta '" + tituloReceta + "' de favoritos?",
+                            "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+
+                    if (confirmacion == JOptionPane.YES_OPTION) {
+                        controlador.removeFavorito(perfil, idReceta);
+                        JOptionPane.showMessageDialog(null, "Receta eliminada de favoritos.");
+                        actualizarTabla();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una receta.");
                 }
             }
         });
+
         btnEliminar.setBounds(63, 562, 198, 30);
         contentPane.add(btnEliminar);
         

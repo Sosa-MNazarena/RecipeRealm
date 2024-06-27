@@ -46,6 +46,10 @@ public class PantallaSubirReceta extends JFrame {
 	private JLabel lblErrorTitulo;
 	private JLabel lblErrorProcedimiento;
 	private JLabel lblErrorCategorias;
+	private JPanel panel_1_1;
+	private JPanel panel_1_1_2;
+	private JPanel panel_1_1_2_1;
+	private JPanel panel;
 
 	public PantallaSubirReceta(Perfil perfil) {
 		this.perfil = perfil;
@@ -57,11 +61,11 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-				lblErrorProcedimiento = new JLabel("");
-				lblErrorProcedimiento.setForeground(Color.RED);
-				lblErrorProcedimiento.setBounds(363, 466, 354, 20);
-				contentPane.add(lblErrorProcedimiento);
+
+		lblErrorProcedimiento = new JLabel("");
+		lblErrorProcedimiento.setForeground(Color.RED);
+		lblErrorProcedimiento.setBounds(363, 466, 354, 20);
+		contentPane.add(lblErrorProcedimiento);
 
 		panelCategorias = new JPanel();
 		panelCategorias.setBackground(new Color(255, 51, 51));
@@ -96,7 +100,7 @@ public class PantallaSubirReceta extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Lucida Console", Font.BOLD, 24));
-		lblNewLabel.setBounds(0, 11, 776, 44);
+		lblNewLabel.setBounds(0, 11, 763, 44);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(getClass().getClassLoader().getResource("imagenes/pergaminoIconMini.png")));
 
@@ -211,8 +215,9 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.add(scrollPaneIngredientes);
 
 		lblErrorIngredientes = new JLabel("");
+		lblErrorIngredientes.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblErrorIngredientes.setForeground(Color.RED);
-		lblErrorIngredientes.setBounds(43, 200, 205, 44);
+		lblErrorIngredientes.setBounds(43, 200, 205, 30);
 		contentPane.add(lblErrorIngredientes);
 
 		lblErrorTitulo = new JLabel("");
@@ -257,6 +262,31 @@ public class PantallaSubirReceta extends JFrame {
 			}
 		});
 		btnAgregarCategoria.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		
+		panel_1_1 = new JPanel();
+		panel_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1.setBorder(null);
+		panel_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1.setBounds(-52, 11, 906, 44);
+		contentPane.add(panel_1_1);
+		
+		panel_1_1_2 = new JPanel();
+		panel_1_1_2.setForeground(new Color(51, 51, 0));
+		panel_1_1_2.setBackground(new Color(255, 204, 0));
+		panel_1_1_2.setBounds(53, 98, 284, 30);
+		contentPane.add(panel_1_1_2);
+		
+		panel_1_1_2_1 = new JPanel();
+		panel_1_1_2_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_2_1.setBackground(new Color(255, 204, 0));
+		panel_1_1_2_1.setBounds(373, 99, 354, 362);
+		contentPane.add(panel_1_1_2_1);
+		
+		panel = new JPanel();
+		panel.setForeground(new Color(51, 51, 0));
+		panel.setBackground(new Color(128, 0, 0));
+		panel.setBounds(373, 505, 352, 30);
+		contentPane.add(panel);
 	}
 
 	private boolean validarCampos() {
@@ -265,14 +295,14 @@ public class PantallaSubirReceta extends JFrame {
 
 		boolean esValido = true;
 
-		if (titulo.isEmpty() || titulo.length() < 3) {
+		if (titulo.isEmpty() || titulo.length() < 3 || titulo.length() > 50) {
 			lblErrorTitulo.setText("El título debe tener al menos 3 caracteres.");
 			esValido = false;
 		} else {
 			lblErrorTitulo.setText("");
 		}
 
-		if (procedimiento.isEmpty() || procedimiento.length() < 20) {
+		if (procedimiento.isEmpty() || procedimiento.length() < 20 || procedimiento.length() > 200) {
 			lblErrorProcedimiento.setText("El procedimiento debe tener al menos 20 caracteres.");
 			esValido = false;
 		} else {
@@ -302,7 +332,7 @@ public class PantallaSubirReceta extends JFrame {
 
 		// validar nombre ingrediente
 		if (nombreIngrediente.isEmpty() || nombreIngrediente.length() < 3) {
-			lblErrorIngredientes.setText("El nombre del ingrediente debe tener al menos 3 caracteres.");
+			lblErrorIngredientes.setText("El nombre debe tener al menos 3 caracteres.");
 			return;
 		}
 
