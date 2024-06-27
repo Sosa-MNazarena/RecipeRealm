@@ -274,6 +274,11 @@ public class PantallaSubirCurso extends JFrame {
 		            lblErrorGeneral.setText(respuesta);
 		            lblErrorGeneral.setVisible(true);
 		        }
+		        inputTitulo.setText("");
+		        inputLugar.setText("");
+		        inputCupos.setText("");
+		        inputPrecio.setText("");
+		        dateChooser.setDate(null);
 		    }
 		});
 
