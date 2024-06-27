@@ -93,9 +93,13 @@ public class PantallaMisRecetas extends JFrame {
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdReceta() != 0) {
-                    controlador.deleteReceta(seleccionado.getIdReceta());
-                    JOptionPane.showMessageDialog(null, "Receta eliminada");
-                    actualizarTabla();
+                    int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar la receta?",
+                            "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        controlador.deleteReceta(seleccionado.getIdReceta());
+                        JOptionPane.showMessageDialog(null, "Receta eliminada");
+                        actualizarTabla();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una receta");
                 }
@@ -135,25 +139,25 @@ public class PantallaMisRecetas extends JFrame {
         panel_2_1.setBounds(61, 80, 853, 46);
         contentPane.add(panel_2_1);
         
-                elemento = new JLabel("Seleccionado:");
-                elemento.setForeground(Color.BLACK);
-                panel_2_1.add(elemento);
-                elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
-                
-                JPanel panel_1_1_1_2 = new JPanel();
-                panel_1_1_1_2.setBackground(new Color(204, 0, 51));
-                panel_1_1_1_2.setBounds(71, 90, 855, 46);
-                contentPane.add(panel_1_1_1_2);
-                
-                JPanel panel_1_1_1 = new JPanel();
-                panel_1_1_1.setBackground(new Color(204, 0, 51));
-                panel_1_1_1.setBounds(71, 548, 198, 30);
-                contentPane.add(panel_1_1_1);
-                
-                JPanel panel_1_1_1_1 = new JPanel();
-                panel_1_1_1_1.setBackground(new Color(204, 0, 51));
-                panel_1_1_1_1.setBounds(721, 548, 198, 30);
-                contentPane.add(panel_1_1_1_1);
+        elemento = new JLabel("Seleccionado:");
+        elemento.setForeground(Color.BLACK);
+        panel_2_1.add(elemento);
+        elemento.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+        
+        JPanel panel_1_1_1_2 = new JPanel();
+        panel_1_1_1_2.setBackground(new Color(204, 0, 51));
+        panel_1_1_1_2.setBounds(71, 90, 855, 46);
+        contentPane.add(panel_1_1_1_2);
+        
+        JPanel panel_1_1_1 = new JPanel();
+        panel_1_1_1.setBackground(new Color(204, 0, 51));
+        panel_1_1_1.setBounds(71, 548, 198, 30);
+        contentPane.add(panel_1_1_1);
+        
+        JPanel panel_1_1_1_1 = new JPanel();
+        panel_1_1_1_1.setBackground(new Color(204, 0, 51));
+        panel_1_1_1_1.setBounds(721, 548, 198, 30);
+        contentPane.add(panel_1_1_1_1);
 
         // Configuración del modelo de selección
         ListSelectionModel selectionModel = table.getSelectionModel();
