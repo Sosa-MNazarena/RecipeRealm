@@ -23,6 +23,7 @@ import Vistas.PantallaEditarPerfilChef;
 import Vistas.PantallaMisRecetas;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollBar;
 
 public class PantallaHomeChef extends JFrame {
 
@@ -195,6 +196,10 @@ public class PantallaHomeChef extends JFrame {
 		panel_1_2.setBackground(new Color(102, 0, 0));
 		panel_1_2.setBounds(151, 703, 205, 54);
 		contentPane.add(panel_1_2);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(0, 0, 17, 806);
+		contentPane.add(scrollBar);
 	}
 		
 		 private void cerrarSesion() {
@@ -202,7 +207,4 @@ public class PantallaHomeChef extends JFrame {
 		        System.out.println("Sesión cerrada");
 		        JOptionPane.showMessageDialog(null, "Sesión cerrada exitosamente");
 		    }
-	
-	
-	
 }
