@@ -126,17 +126,21 @@ public class TablaCursos extends JFrame {
 		btnEliminar.setFont(new Font("Lucida Console", Font.BOLD, 15));
 		btnEliminar.setForeground(Color.BLACK);
 		btnEliminar.setBackground(new Color(255, 153, 153));
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (seleccionado.getIdCurso() != 0) {
-					controlador.deleteCurso(seleccionado.getIdCurso());
-					JOptionPane.showMessageDialog(null, "Eliminado");
-					actualizarTabla();
-				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione un curso");
+		if (perfil.isVerificado()) {
+			btnEliminar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (seleccionado.getIdCurso() != 0) {
+						controlador.deleteCurso(seleccionado.getIdCurso());
+						JOptionPane.showMessageDialog(null, "Eliminado");
+						actualizarTabla();
+					} else {
+						JOptionPane.showMessageDialog(null, "Seleccione un curso");
+					}
 				}
-			}
-		});
+			});
+		} else {
+			btnEliminar.setVisible(false);
+        }
 		btnEliminar.setBounds(721, 562, 198, 30);
 		contentPane.add(btnEliminar);
 								
@@ -204,7 +208,7 @@ public class TablaCursos extends JFrame {
 				}
 			});
         } else {
-        	btnNewButton.setVisible(false);
+        	btnTusInscripciones.setVisible(false);
         }
 		btnTusInscripciones.setBounds(152, 11, 248, 30);
 		contentPane.add(btnTusInscripciones);
@@ -316,8 +320,11 @@ public class TablaCursos extends JFrame {
 		btnInscribirse.setForeground(Color.BLACK);
 		btnInscribirse.setFont(new Font("Lucida Console", Font.BOLD, 15));
 		btnInscribirse.setBackground(new Color(255, 153, 153));
+		JPanel panelInscribirse = new JPanel();
+		panelInscribirse.setBackground(new Color(204, 0, 51));
 		if (!perfil.isVerificado()) {
 			btnInscribirse.setVisible(true);
+			panelInscribirse.setVisible(true);
 			btnInscribirse.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (seleccionado.getIdCurso() != 0) {
@@ -331,15 +338,14 @@ public class TablaCursos extends JFrame {
 			});
         } else {
         	btnInscribirse.setVisible(false);
+        	panelInscribirse.setVisible(false);
         }
 		btnInscribirse.setBounds(63, 562, 198, 30);
 		contentPane.add(btnInscribirse);
+		panelInscribirse.setBounds(66, 568, 203, 30);
+		contentPane.add(panelInscribirse);
 		
 		
-		JPanel panel_1_1_1 = new JPanel();
-		panel_1_1_1.setBackground(new Color(204, 0, 51));
-		panel_1_1_1.setBounds(66, 568, 203, 30);
-		contentPane.add(panel_1_1_1);
 		
 		JButton btnVer = new JButton("Ver Curso");
 		btnVer.addActionListener(new ActionListener() {

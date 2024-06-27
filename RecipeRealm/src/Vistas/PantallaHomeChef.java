@@ -146,22 +146,6 @@ public class PantallaHomeChef extends JFrame {
 		btnSubirCurso.setBounds(141, 332, 694, 93);
 		contentPane.add(btnSubirCurso);
 		
-		
-		JButton btnMisRecetas_1 = new JButton("Prueba de mis cursos");
-		btnMisRecetas_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Cursos curso = new Cursos(1, "", 1, "", LocalDate.now(), 20, 100.0,
-						LocalTime.now());
-		        PantallaMisCursos pantallaMisCursos = new PantallaMisCursos(perfil);
-		        pantallaMisCursos.setVisible(true);
-		        dispose();
-			}
-		});
-		btnMisRecetas_1.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
-		btnMisRecetas_1.setBackground(Color.LIGHT_GRAY);
-		btnMisRecetas_1.setBounds(861, 628, 205, 34);
-		contentPane.add(btnMisRecetas_1);
-		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setForeground(new Color(51, 51, 0));
 		panel_1_1.setBackground(new Color(255, 255, 102));

@@ -244,8 +244,8 @@ public class PantallaVerCurso extends JFrame {
         contentPane.add(panel);
         
         JButton btnTusInscripciones = new JButton("Tus Inscripciones");
-        btnTusInscripciones.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+        btnTusInscripciones.setFont(new Font("Lucida Console", Font.PLAIN, 16));
+        btnTusInscripciones.setBackground(new Color(255, 255, 204));
         		if (!perfil.isVerificado()) {
         			btnTusInscripciones.setVisible(true);
         			btnTusInscripciones.addActionListener(new ActionListener() {
@@ -260,10 +260,6 @@ public class PantallaVerCurso extends JFrame {
                 } else {
                 	btnTusInscripciones.setVisible(false);
                 }
-        	}
-        });
-        btnTusInscripciones.setFont(new Font("Lucida Console", Font.PLAIN, 16));
-        btnTusInscripciones.setBackground(new Color(255, 255, 204));
         btnTusInscripciones.setBounds(159, 12, 213, 23);
         contentPane.add(btnTusInscripciones);
         
