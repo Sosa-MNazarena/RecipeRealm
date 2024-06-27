@@ -57,6 +57,11 @@ public class PantallaSubirReceta extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+				lblErrorProcedimiento = new JLabel("");
+				lblErrorProcedimiento.setForeground(Color.RED);
+				lblErrorProcedimiento.setBounds(363, 466, 354, 20);
+				contentPane.add(lblErrorProcedimiento);
 
 		panelCategorias = new JPanel();
 		panelCategorias.setBackground(new Color(255, 51, 51));
@@ -98,12 +103,12 @@ public class PantallaSubirReceta extends JFrame {
 		JLabel lblTitulo = new JLabel("Título");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-		lblTitulo.setBounds(43, 80, 108, 20);
+		lblTitulo.setBounds(43, 67, 108, 20);
 		contentPane.add(lblTitulo);
 
 		textFieldTitulo = new JTextField();
 		textFieldTitulo.setColumns(10);
-		textFieldTitulo.setBounds(43, 99, 284, 33);
+		textFieldTitulo.setBounds(43, 86, 284, 33);
 		contentPane.add(textFieldTitulo);
 
 		inputProcedimiento = new JTextArea();
@@ -111,13 +116,13 @@ public class PantallaSubirReceta extends JFrame {
 		inputProcedimiento.setWrapStyleWord(true);
 		inputProcedimiento.setLineWrap(true);
 		inputProcedimiento.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 14));
-		inputProcedimiento.setBounds(363, 101, 354, 383);
+		inputProcedimiento.setBounds(363, 86, 354, 369);
 		contentPane.add(inputProcedimiento);
 
 		JLabel lblProcedimiento = new JLabel("Procedimiento");
 		lblProcedimiento.setForeground(Color.WHITE);
 		lblProcedimiento.setFont(new Font("Lucida Console", Font.PLAIN, 14));
-		lblProcedimiento.setBounds(363, 79, 337, 22);
+		lblProcedimiento.setBounds(363, 66, 337, 22);
 		contentPane.add(lblProcedimiento);
 
 		JButton btnPublicarReceta = new JButton("Publicar Receta");
@@ -207,18 +212,13 @@ public class PantallaSubirReceta extends JFrame {
 
 		lblErrorIngredientes = new JLabel("");
 		lblErrorIngredientes.setForeground(Color.RED);
-		lblErrorIngredientes.setBounds(43, 200, 182, 20);
+		lblErrorIngredientes.setBounds(43, 200, 205, 44);
 		contentPane.add(lblErrorIngredientes);
 
 		lblErrorTitulo = new JLabel("");
 		lblErrorTitulo.setForeground(Color.RED);
-		lblErrorTitulo.setBounds(43, 130, 284, 20);
+		lblErrorTitulo.setBounds(43, 120, 284, 30);
 		contentPane.add(lblErrorTitulo);
-
-		lblErrorProcedimiento = new JLabel("");
-		lblErrorProcedimiento.setForeground(Color.RED);
-		lblErrorProcedimiento.setBounds(512, 80, 205, 20);
-		contentPane.add(lblErrorProcedimiento);
 
 		lblErrorCategorias = new JLabel("");
 		lblErrorCategorias.setForeground(Color.RED);
