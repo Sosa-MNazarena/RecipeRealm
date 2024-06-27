@@ -17,6 +17,8 @@ public class PantallaEditarPerfilChef extends JFrame {
 	private JPasswordField inputContrasena;
 	private JTextArea inputDescripcion;
 	private Perfil perfil;
+	private JLabel lblErrorGeneral;
+
 	private PerfilControlador controlador = new PerfilControlador();
 
 	/**
@@ -32,7 +34,11 @@ public class PantallaEditarPerfilChef extends JFrame {
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		JLabel lblErrorGeneral = new JLabel("");
+		lblErrorGeneral.setForeground(Color.RED);
+		lblErrorGeneral.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblErrorGeneral.setBounds(30, 479, 170, 37);
+		contentPane.add(lblErrorGeneral);
 		// Nombre
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setForeground(Color.WHITE);
@@ -68,7 +74,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JLabel lblErrorPseudonimo = new JLabel("");
 		lblErrorPseudonimo.setForeground(Color.RED);
 		lblErrorPseudonimo.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblErrorPseudonimo.setBounds(30, 159, 356, 14);
+		lblErrorPseudonimo.setBounds(30, 159, 394, 14);
 		contentPane.add(lblErrorPseudonimo);
 
 		// Correo
@@ -87,7 +93,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JLabel lblErrorCorreo = new JLabel("");
 		lblErrorCorreo.setForeground(Color.RED);
 		lblErrorCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblErrorCorreo.setBounds(30, 220, 356, 14);
+		lblErrorCorreo.setBounds(30, 220, 394, 14);
 		contentPane.add(lblErrorCorreo);
 
 		// Contraseña
@@ -106,7 +112,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JLabel lblErrorContrasena = new JLabel("");
 		lblErrorContrasena.setForeground(Color.RED);
 		lblErrorContrasena.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblErrorContrasena.setBounds(30, 282, 356, 14);
+		lblErrorContrasena.setBounds(30, 282, 394, 14);
 		contentPane.add(lblErrorContrasena);
 
 		// Descripción
@@ -128,7 +134,7 @@ public class PantallaEditarPerfilChef extends JFrame {
 		JLabel lblErrorDescripcion = new JLabel("");
 		lblErrorDescripcion.setForeground(Color.RED);
 		lblErrorDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 11));
-		lblErrorDescripcion.setBounds(30, 395, 356, 14);
+		lblErrorDescripcion.setBounds(30, 395, 394, 31);
 		contentPane.add(lblErrorDescripcion);
 
 		// Botones
@@ -145,51 +151,70 @@ public class PantallaEditarPerfilChef extends JFrame {
 				boolean valid = true;
 
 				String nombre = inputNombre.getText().trim();
-				if (nombre.isEmpty()) {
-					lblErrorNombre.setText("Debe ingresar un nombre");
-					valid = false;
-				} else {
-					lblErrorNombre.setText("");
-				}
-
 				String pseudonimo = inputPseudonimo.getText().trim();
-				if (pseudonimo.isEmpty()) {
-					lblErrorPseudonimo.setText("Debe ingresar un pseudónimo");
-					valid = false;
-				} else {
-					lblErrorPseudonimo.setText("");
-				}
-
 				String correo = inputCorreo.getText().trim();
-				if (correo.isEmpty()) {
-					lblErrorCorreo.setText("Debe ingresar un correo electrónico");
-					valid = false;
-				} else {
-					lblErrorCorreo.setText("");
-				}
-
 				String contrasena = new String(inputContrasena.getPassword());
-				if (contrasena.isEmpty()) {
-					lblErrorContrasena.setText("Debe ingresar una contraseña");
-					valid = false;
-				} else {
-					lblErrorContrasena.setText("");
-				}
-
 				String descripcion = inputDescripcion.getText().trim();
-				if (descripcion.isEmpty()) {
-					lblErrorDescripcion.setText("Debe ingresar una descripción");
+
+				String errorNombre = "";
+				if (nombre.isEmpty() || nombre.length() < 3) {
+					errorNombre = "Debe ingresar un nombre y debe ser mayor a 3 caracteres";
 					valid = false;
-				} else {
-					lblErrorDescripcion.setText("");
 				}
 
-				// Mostrar mensaje de error general si hay campos vacíos
+				String errorPseudonimo = "";
+				if (pseudonimo.isEmpty()) {
+					errorPseudonimo = "Debe ingresar un pseudónimo";
+					valid = false;
+				} else if (!Perfil.esPseudonimoCorrecto(pseudonimo)) {
+					errorPseudonimo = "Pseudónimo ya existente";
+					valid = false;
+				}
+				lblErrorPseudonimo.setText(errorPseudonimo);
+
+				String errorCorreo = "";
+				if (correo.isEmpty()) {
+					errorCorreo = "Debe ingresar un correo electrónico";
+					valid = false;
+				} else if (!Perfil.esCorreoCorrecto(correo)) {
+					errorCorreo = "Correo inválido o ya registrado";
+					valid = false;
+				}
+				lblErrorCorreo.setText(errorCorreo);
+
+				String errorContrasena = "";
+				if (contrasena.isEmpty()) {
+					errorContrasena = "Debe ingresar una contraseña";
+					valid = false;
+				} else if (!Perfil.esContrasenaValida(contrasena)) {
+					errorContrasena = "Debe contener al menos una mayúscula, una minúscula, un dígito y un carácter especial";
+					valid = false;
+				}
+				lblErrorContrasena.setText(errorContrasena);
+
+				String errorDescripcion = "";
+				if (descripcion.isEmpty()) {
+					errorDescripcion = "Debe ingresar una descripción";
+					valid = false;
+				} else if (Perfil.caracteresMaxDescripcion(descripcion)) {
+					errorDescripcion = "La descripción debe tener entre 10 y 100 caracteres";
+					valid = false;
+				}
+				lblErrorDescripcion.setText(errorDescripcion);
+
+				lblErrorNombre.setText(errorNombre);
+				lblErrorPseudonimo.setText(errorPseudonimo);
+				lblErrorCorreo.setText(errorCorreo);
+				lblErrorContrasena.setText(errorContrasena);
+				lblErrorDescripcion.setText(errorDescripcion);
+
+				// Mostrar mensaje de error general si hay campos vacíos o inválidos
 				if (!valid) {
-					JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.");
+					lblErrorGeneral.setText("Todos los campos deben estar completos y válidos.");
 					return;
+				} else {
+					lblErrorGeneral.setText("");
 				}
-
 				// Verificar cambios
 				boolean cambios = !nombre.equals(perfil.getNombre()) || !pseudonimo.equals(perfil.getPseudonimo())
 						|| !correo.equals(perfil.getCorreo()) || !contrasena.equals(perfil.getContrasena())
