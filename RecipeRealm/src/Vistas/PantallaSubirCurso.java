@@ -51,6 +51,11 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import Controladores.PerfilControlador;
 import Modelos.Cursos;
 import Modelos.Perfil;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import javax.swing.SpinnerNumberModel;
 
 public class PantallaSubirCurso extends JFrame {
 
@@ -203,6 +208,17 @@ public class PantallaSubirCurso extends JFrame {
 		lblExito.setBounds(489, 453, 274, 14);
 		contentPane.add(lblExito);
 		
+		JSpinner inputHora = new JSpinner();
+		inputHora.setModel(new SpinnerNumberModel(0, 0, 24, 1));
+		inputHora.setBounds(196, 518, 47, 37);
+		contentPane.add(inputHora);
+		
+		JSpinner inputMinuto = new JSpinner();
+		inputMinuto.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+		inputMinuto.setBounds(240, 518, 47, 37);
+		contentPane.add(inputMinuto);
+		
+		
 		JButton btnPublicar = new JButton("Publicar");
 		btnPublicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,10 +227,12 @@ public class PantallaSubirCurso extends JFrame {
 				if (dateChooser.getDate() != null) {
 					fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				}
-
+				int hora = (int) inputHora.getValue();
+		        int minuto = (int) inputMinuto.getValue();
+		        LocalTime horaCurso = LocalTime.of(hora, minuto);
 				String respuesta = Cursos.publicarCurso(inputTitulo.getText(), inputLugar.getText(),
 						perfil.getIdUsuario(), fecha, Integer.parseInt(inputCupos.getText()),
-						Double.parseDouble(inputPrecio.getText()), LocalTime.now());
+						Double.parseDouble(inputPrecio.getText()), horaCurso);
 				if (respuesta.equals("El curso se ha subido exitosamente.")) {
 					lblExito.setText(respuesta);
 					lblExito.setVisible(true);
@@ -253,7 +271,10 @@ public class PantallaSubirCurso extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102),
 				new Color(255, 255, 0), null));
 		panel.setBackground(new Color(255, 255, 204));
-		panel.setBounds(75, 48, 722, 546);
+		panel.setBounds(551, 73, 722, 546);
 		contentPane.add(panel);
+		
+		
+		
 	}
 }
