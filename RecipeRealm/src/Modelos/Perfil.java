@@ -119,13 +119,20 @@ public class Perfil {
 		}
 
 		if (!esContrasenaValida(contrasena)) {
-			return "La contraseña no cumple con los requisitos: Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.";
+			return "Contraseña incorrecta";
 		}
 		
 		if (caracteresMaxDescripcion(descripcion)) {
-			return "Se excede el límite de 100 caracteres.";
+			return "La descripción debe ser entre 10-100 caracteres";
 		}
 		
+		if (!esCorreoCorrecto(correo)) {
+			return "Correo inválido o ya registrado";
+		}
+		
+		if (!esPseudonimoCorrecto(pseudonimo)) {
+			return "Pseudónimo ya existente";
+		}
 		 Perfil perfil = new Perfil(0, nombre,pseudonimo,correo,contrasena,descripcion,verificado);
 	        perfil.setNombre(nombre);
 	        perfil.setPseudonimo(pseudonimo);
@@ -145,11 +152,36 @@ public class Perfil {
 	}
 
 	public static boolean caracteresMaxDescripcion(String descripcion) {
-		if (descripcion.length() > 100) {
+		if (descripcion.length() > 100 || descripcion.length() < 10) {
 			return true;
 		}
 		return false;
 		
+	}
+	
+	public static boolean esCorreoCorrecto(String correo) {
+		PerfilControlador perfilControlar = new PerfilControlador();
+		List<Perfil> perfiles = perfilControlar.getAllPerfils();
+		for (Perfil perfil : perfiles) {
+			if (perfil.getCorreo().contentEquals(correo)) {
+				return false;
+			} 
+		}
+		if ((correo.contains(".com") || correo.contains(".edu")) && correo.contains("@")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean esPseudonimoCorrecto(String pseudonimo) {
+		PerfilControlador perfilControlar = new PerfilControlador();
+		List<Perfil> perfiles = perfilControlar.getAllPerfils();
+		for (Perfil perfil : perfiles) {
+			if (perfil.getPseudonimo().contentEquals(pseudonimo)) {
+				return false;
+			} 
+		}
+		return true;
 	}
 
 	public static boolean esContrasenaValida(String contrasena) {

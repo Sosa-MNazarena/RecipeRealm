@@ -67,11 +67,41 @@ public class PantallaRegistro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-				JLabel lblExito = new JLabel("");
-				lblExito.setForeground(new Color(0, 128, 0));
-				lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-				lblExito.setBounds(468, 561, 356, 22);
-				contentPane.add(lblExito);
+		JLabel lblErrorDescripcion = new JLabel("");
+		lblErrorDescripcion.setForeground(Color.RED);
+		lblErrorDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblErrorDescripcion.setBounds(468, 481, 356, 14);
+		contentPane.add(lblErrorDescripcion);
+		
+		JLabel lblErrorNombreUsuario = new JLabel("");
+		lblErrorNombreUsuario.setForeground(Color.RED);
+		lblErrorNombreUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblErrorNombreUsuario.setBounds(71, 295, 356, 14);
+		contentPane.add(lblErrorNombreUsuario);
+
+		JLabel lblExito = new JLabel("");
+		lblExito.setForeground(new Color(0, 128, 0));
+		lblExito.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
+		lblExito.setBounds(468, 561, 356, 22);
+		contentPane.add(lblExito);
+
+		JLabel lblErrorContrasena = new JLabel("");
+		lblErrorContrasena.setForeground(Color.RED);
+		lblErrorContrasena.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+		lblErrorContrasena.setBounds(71, 470, 356, 37);
+		contentPane.add(lblErrorContrasena);
+
+		JLabel lblErrorCorreo = new JLabel("");
+		lblErrorCorreo.setForeground(Color.RED);
+		lblErrorCorreo.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblErrorCorreo.setBounds(71, 383, 356, 14);
+		contentPane.add(lblErrorCorreo);
+
+		JLabel lblErrorNombre = new JLabel("");
+		lblErrorNombre.setForeground(Color.RED);
+		lblErrorNombre.setFont(new Font("Lucida Console", Font.PLAIN, 11));
+		lblErrorNombre.setBounds(71, 208, 356, 14);
+		contentPane.add(lblErrorNombre);
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Lucida Console", Font.PLAIN, 15));
@@ -150,30 +180,6 @@ public class PantallaRegistro extends JFrame {
 		btnRegistrarse.setBounds(468, 506, 356, 44);
 		contentPane.add(btnRegistrarse);
 
-		JLabel lblErrorNombre = new JLabel("");
-		lblErrorNombre.setForeground(Color.RED);
-		lblErrorNombre.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorNombre.setBounds(71, 208, 356, 14);
-		contentPane.add(lblErrorNombre);
-
-		JLabel lblErrorNombreUsuario = new JLabel("");
-		lblErrorNombreUsuario.setForeground(Color.RED);
-		lblErrorNombreUsuario.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorNombreUsuario.setBounds(71, 295, 356, 14);
-		contentPane.add(lblErrorNombreUsuario);
-
-		JLabel lblErrorCorreo = new JLabel("");
-		lblErrorCorreo.setForeground(Color.RED);
-		lblErrorCorreo.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorCorreo.setBounds(71, 383, 356, 14);
-		contentPane.add(lblErrorCorreo);
-
-		JLabel lblErrorContrasena = new JLabel("");
-		lblErrorContrasena.setForeground(Color.RED);
-		lblErrorContrasena.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 11));
-		lblErrorContrasena.setBounds(71, 470, 356, 37);
-		contentPane.add(lblErrorContrasena);
-
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		horizontalBox.setBounds(468, 184, 356, 288);
@@ -185,36 +191,37 @@ public class PantallaRegistro extends JFrame {
 		inputDescripcion.setRows(5);
 		inputDescripcion.setFont(new Font("Lucida Console", Font.PLAIN, 14));
 		horizontalBox.add(inputDescripcion);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(new Color(51, 51, 0));
 		panel_1.setBackground(new Color(128, 0, 0));
 		panel_1.setBounds(478, 519, 356, 44);
 		contentPane.add(panel_1);
-				
-				JPanel panel_1_1_1 = new JPanel();
-				panel_1_1_1.setForeground(new Color(51, 51, 0));
-				panel_1_1_1.setBorder(null);
-				panel_1_1_1.setBackground(new Color(153, 0, 0));
-				panel_1_1_1.setBounds(56, 66, 813, 44);
-				contentPane.add(panel_1_1_1);
-				
-						JLabel lblTitulo = new JLabel("Recipe Realm");
-						lblTitulo.setForeground(new Color(255, 255, 255));
-						panel_1_1_1.add(lblTitulo);
-						lblTitulo.setFont(new Font("Lucida Console", Font.BOLD, 28));
-						
-						JPanel panel = new JPanel();
-						panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102), new Color(255, 255, 0), null));
-						panel.setBackground(new Color(255, 255, 204));
-						panel.setBounds(56, 33, 813, 563);
-						contentPane.add(panel);
-						
-						JPanel panel_2 = new JPanel();
-						panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
-						panel_2.setBackground(new Color(255, 204, 102));
-						panel_2.setBounds(88, 66, 813, 564);
-						contentPane.add(panel_2);
+
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setForeground(new Color(51, 51, 0));
+		panel_1_1_1.setBorder(null);
+		panel_1_1_1.setBackground(new Color(153, 0, 0));
+		panel_1_1_1.setBounds(56, 66, 813, 44);
+		contentPane.add(panel_1_1_1);
+
+		JLabel lblTitulo = new JLabel("Recipe Realm");
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		panel_1_1_1.add(lblTitulo);
+		lblTitulo.setFont(new Font("Lucida Console", Font.BOLD, 28));
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(255, 153, 0), new Color(255, 255, 102),
+				new Color(255, 255, 0), null));
+		panel.setBackground(new Color(255, 255, 204));
+		panel.setBounds(56, 33, 813, 563);
+		contentPane.add(panel);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(new Color(204, 102, 51)));
+		panel_2.setBackground(new Color(255, 204, 102));
+		panel_2.setBounds(88, 66, 813, 564);
+		contentPane.add(panel_2);
 
 		btnRegistrarse.addActionListener(new ActionListener() {
 
@@ -226,6 +233,16 @@ public class PantallaRegistro extends JFrame {
 				if (rdbtnAficionado.isSelected()) {
 					verificado = false;
 				}
+				lblErrorNombre.setText("");
+				lblErrorNombre.setVisible(false);
+				lblErrorNombreUsuario.setText("");
+				lblErrorNombreUsuario.setVisible(false);
+				lblErrorCorreo.setText("");
+				lblErrorCorreo.setVisible(false);
+				lblErrorContrasena.setText("");
+				lblErrorContrasena.setVisible(false);
+				lblErrorDescripcion.setText("");
+				lblErrorDescripcion.setVisible(false);
 				String respuesta = Perfil.RegistrarPerfil(inputNombre.getText(), inputNombreUsuario.getText(),
 						inputCorreo.getText(), inputContrasena.getText(), inputDescripcion.getText(), verificado);
 				if (respuesta.equals("Perfil creado exitosamente")) {
@@ -235,49 +252,35 @@ public class PantallaRegistro extends JFrame {
 					iniciarSesion.setVisible(true);
 					dispose();
 				} else {
-					if (respuesta.equals("¡Error! Todos los campos son obligatorios")) {
-						lblErrorNombre.setText("El nombre no puede estar vacío");
-						lblErrorNombre.setVisible(true);
+					lblExito.setVisible(false);
+					switch (respuesta) {
+						case "¡Error! Todos los campos son obligatorios":
+							lblErrorNombre.setText(respuesta);
+							lblErrorNombre.setVisible(true);
+							break;
+						case "Contraseña incorrecta":
+							lblErrorContrasena.setText("Debe contener una mayús, una minús, un número y _-.!*");
+							lblErrorContrasena.setVisible(true);
+							break;
+						case "La descripción debe ser entre 10-100 caracteres":
+							lblErrorDescripcion.setText(respuesta);
+							lblErrorDescripcion.setVisible(true);
+							break;
+						case "Correo inválido o ya registrado":
+							lblErrorCorreo.setText(respuesta);
+							lblErrorCorreo.setVisible(true);
+							break;
+						case "Pseudónimo ya existente":
+							lblErrorNombreUsuario.setText(respuesta);
+							lblErrorNombreUsuario.setVisible(true);
+							break;
+						default:
+							JOptionPane.showMessageDialog(contentPane, respuesta, "Error", JOptionPane.ERROR_MESSAGE);
+							break;
+					
 					}
-					if (respuesta.equals(
-							"La contraseña no cumple con los requisitos: Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial.")) {
-						lblErrorContrasena.setText(respuesta);
-						lblErrorContrasena.setVisible(true);
-					}
-					if (respuesta.equals("Se excede el límite de 100 caracteres.")) {
-						lblErrorContrasena.setText(respuesta);
-						lblErrorContrasena.setVisible(true);
-					}
-
-				}
-
-				/*
-				 * if (inputNombreUsuario.isEmpty()) {
-				 * lblErrorNombre.setText("El nombre no puede estar vacío"); } else {
-				 * lblErrorNombre.setText(""); }
-				 * 
-				 * if (pseudonimo.isEmpty()) {
-				 * lblErrorNombreUsuario.setText("El nombre de usuario no puede estar vacío"); }
-				 * else { lblErrorNombreUsuario.setText(""); }
-				 * 
-				 * if (correo.isEmpty() || !correo.contains("@")) {
-				 * lblErrorCorreo.setText("Correo electrónico inválido"); } else {
-				 * lblErrorCorreo.setText(""); }
-				 * 
-				 * if (contrasena.isEmpty()) {
-				 * lblErrorContrasena.setText("La contraseña no puede estar vacía"); } else {
-				 * lblErrorContrasena.setText(""); }
-				 * 
-				 * if (!lblErrorNombre.getText().isEmpty() ||
-				 * !lblErrorNombreUsuario.getText().isEmpty() ||
-				 * !lblErrorCorreo.getText().isEmpty() ||
-				 * !lblErrorContrasena.getText().isEmpty()) {
-				 * JOptionPane.showMessageDialog(null,
-				 * "Por favor, revise los campos marcados en rojo", "Error",
-				 * JOptionPane.ERROR_MESSAGE); } else { //guardar bdd }
-				 */
 			}
-		});
-
-	}
+		}
+	});
+}	
 }
